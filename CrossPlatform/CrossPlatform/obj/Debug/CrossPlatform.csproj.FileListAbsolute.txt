@@ -17,3 +17,5 @@ C:\PersonalProjects\Capstone\Project\CapstoneCrossPlatform\CrossPlatform\CrossPl
 C:\PersonalProjects\Capstone\Project\CapstoneCrossPlatform\CrossPlatform\CrossPlatform\obj\Debug\CrossPlatform.csproj.CopyComplete
 C:\PersonalProjects\Capstone\Project\CapstoneCrossPlatform\CrossPlatform\CrossPlatform\obj\Debug\CrossPlatform.exe
 C:\PersonalProjects\Capstone\Project\CapstoneCrossPlatform\CrossPlatform\CrossPlatform\obj\Debug\CrossPlatform.pdb
+C:\PersonalProjects\Capstone\Project\CapstoneCrossPlatform\CrossPlatform\CrossPlatform\bin\DesktopGL\AnyCPU\Debug\Content\ball.xnb
+C:\PersonalProjects\Capstone\Project\CapstoneCrossPlatform\CrossPlatform\CrossPlatform\bin\DesktopGL\AnyCPU\Debug\Content\disgusted miku.xnb
