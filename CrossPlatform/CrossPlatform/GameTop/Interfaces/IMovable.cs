@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace CrossPlatform.GameTop.Interfaces
 {
-    interface IScreen
+    interface IMovable
     {
-        void init();
-       void update();
-       void render();
+        int dx { get; set; }
+        int dy { get; set; }
+
+        void move();
     }
 }

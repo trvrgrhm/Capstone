@@ -81,6 +81,9 @@ namespace CrossPlatform
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            gameController.renderAll();
+
+            //I'm not sure if renderer's draw needs a game time
             renderer.draw(gameTime);
 
 

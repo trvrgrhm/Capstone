@@ -20,6 +20,7 @@ namespace CrossPlatform.GameTop
             screens = new Dictionary<ScreenState, IScreen>();
 
             screens.Add(ScreenState.MainScreenState, new MainScreen(this.renderer));
+            screens[ScreenState.MainScreenState].init();
 
             currentScreen = screens[ScreenState.MainScreenState];
 
@@ -35,6 +36,10 @@ namespace CrossPlatform.GameTop
         public void update()
         {
             currentScreen.update();
+        }
+        public void renderAll()
+        {
+            currentScreen.render();
         }
 
 

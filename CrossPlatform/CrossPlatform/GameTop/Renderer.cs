@@ -11,7 +11,7 @@ namespace CrossPlatform.GameTop
 {
     class Renderer
     {
-        Dictionary<TextureType, Texture2D> textureMap;
+        Dictionary<TextureName, Texture2D> textureMap;
         SpriteBatch spriteBatch;
         ContentManager content;
         List<RenderObject> renderObjects;
@@ -20,18 +20,22 @@ namespace CrossPlatform.GameTop
         public void init(SpriteBatch spriteBatch, ContentManager content) {
             this.spriteBatch = spriteBatch;
             this.content = content;
-            textureMap = new Dictionary<TextureType, Texture2D>();
+            textureMap = new Dictionary<TextureName, Texture2D>();
             renderObjects = new List<RenderObject>();
         }
         public void loadContent()
         {
-            textureMap.Add(TextureType.Ball, content.Load<Texture2D>("ball"));
-            textureMap.Add(TextureType.MainScreenBackground, content.Load<Texture2D>("disgusted miku"));
+            textureMap.Add(TextureName.Ball, content.Load<Texture2D>("ball"));
+            textureMap.Add(TextureName.MainScreenBackground, content.Load<Texture2D>("disgusted miku"));
         }
 
-        public void render(float X, float Y, TextureType texture)
+        public void render(float X, float Y, TextureName texture)
         {
             renderObjects.Add(new RenderObject(X, Y, texture));
+        }
+        public void render(Rectangle rect, TextureName texture)
+        {
+            renderObjects.Add(new RenderObject(rect,texture));
         }
 
         public void draw(GameTime gameTime)
@@ -39,7 +43,13 @@ namespace CrossPlatform.GameTop
             spriteBatch.Begin();
             foreach (RenderObject item in renderObjects)
             {
-                spriteBatch.Draw(textureMap[item.texture], new Vector2(item.X, item.Y), Color.White);
+                if (item.containsRectangle)
+                {
+                    spriteBatch.Draw(textureMap[item.texture], item.rect, Color.White);
+                }
+                else {
+                    spriteBatch.Draw(textureMap[item.texture], new Vector2(item.X, item.Y), Color.White);
+                }
             }
             renderObjects.Clear();
 
@@ -53,13 +63,22 @@ namespace CrossPlatform.GameTop
         {
             public float X { get; set; }
             public float Y { get; set; }
-            public TextureType texture { get; set; }
+            public TextureName texture { get; set; }
+            public Rectangle rect { get; set; }
+            public bool containsRectangle { get; set; }
 
-            public RenderObject(float x, float y, TextureType texture)
+            public RenderObject(float x, float y, TextureName texture)
             {
                 X = x;
                 Y = y;
                 this.texture = texture;
+                containsRectangle = false;
+            }
+            public RenderObject (Rectangle rect, TextureName texture)
+            {
+                this.rect = rect;
+                this.texture = texture;
+                containsRectangle = true;
             }
         }
 
@@ -68,7 +87,7 @@ namespace CrossPlatform.GameTop
 
 
 
-    public enum TextureType
+    public enum TextureName
     {
         MainScreenBackground,
         Ball

@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="GameTop\Interfaces\IMovable.cs" />
     <Compile Include="GameTop\Renderer.cs" />
     <Compile Include="GameTop\Interfaces\IRenderable.cs" />
     <Compile Include="GameTop\Interfaces\IScreen.cs" />
