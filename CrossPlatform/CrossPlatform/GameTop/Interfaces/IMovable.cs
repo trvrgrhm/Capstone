@@ -8,8 +8,8 @@ namespace CrossPlatform.GameTop.Interfaces
 {
     interface IMovable
     {
-        int dx { get; set; }
-        int dy { get; set; }
+        int DX { get; set; }
+        int DY { get; set; }
 
         void move();
     }

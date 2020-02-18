@@ -34,6 +34,7 @@ namespace CrossPlatform
         {
             // TODO: Add your initialization logic here
             gameController.init(renderer);
+            this.IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -71,6 +72,7 @@ namespace CrossPlatform
 
             // TODO: Add your update logic here
             gameController.update();
+
             base.Update(gameTime);
         }
 

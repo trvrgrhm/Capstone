@@ -10,7 +10,11 @@ namespace CrossPlatform.GameTop.Interfaces
 {
     interface IRenderable
     {
-        Rectangle rect { get; set; }
+        Renderer Renderer { get; set; }
+
+        TextureName Texture { get; set; }
+
+        Rectangle Rect { get; set; }
 
         void render();
     }

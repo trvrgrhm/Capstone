@@ -4,10 +4,24 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/arial_12.spritefont</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/arial_16.spritefont</File>
     <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/ball.png</File>
     <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/disgusted miku.png</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/ds-background.jpg</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/rounded_box.png</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/rounded_box_brown.png</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/rounded_box_red.png</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/rounded_box_red_faded.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
