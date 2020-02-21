@@ -10,17 +10,16 @@ namespace CrossPlatform
     /// </summary>
     public class Game1 : Game
     {
-        Texture2D ballTexture;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        GameController gameController;
+        ScreenController gameController;
         Renderer renderer;
         
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            gameController = new GameController();
+            gameController = new ScreenController();
             renderer = new Renderer();
         }
 
@@ -33,7 +32,7 @@ namespace CrossPlatform
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            gameController.init(renderer);
+            gameController.init(renderer, new Rectangle(0,0,GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height));
             this.IsMouseVisible = true;
             base.Initialize();
         }

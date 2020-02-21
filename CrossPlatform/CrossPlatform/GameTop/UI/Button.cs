@@ -9,49 +9,54 @@ using System.Threading.Tasks;
 
 namespace CrossPlatform.GameTop.UI
 {
-    class Button : IRenderable, IClickable, IHoverable
+    class Button : IClickable
     {
+        Screen screen;
+        HoverableTile hoverableTile;
+        UIText text;
+
         //mouse info
         Func<bool> clickFunction;
         bool previousLeftClick;
 
-        //hover info
-        bool hovering;
-        TextureName hoverTexture;
-
         //text info
-        bool hasText;
-        string buttonText;
         public Vector2 textPosition;
 
+        public Rectangle rect;
+        public Rectangle Rect { get => rect; set { hoverableTile.Rect = value; rect = value; text.Rect = value; } }
 
 
-        public Button(Renderer renderer, Rectangle buttonRectangle)
+        public Button(Screen screen, Renderer renderer)
         {
-            this.renderer = renderer;
-            this.rect = buttonRectangle;
+            this.screen = screen;
+            this.rect = new Rectangle(0, 0, 250, 100);
+            this.hoverableTile = new HoverableTile(this.screen, renderer, this.rect);
+            this.text = new UIText(this.screen, renderer, this.rect, "");
 
-            this.texture = TextureName.BasicButtonBackground;
-            this.hoverTexture = TextureName.BasicButtonHover;
+            this.screen.clickableChildren.Add(this);
+
             this.textPosition = rect.Location.ToVector2();
             previousLeftClick = false;
-            hovering = false;
-            hasText = false;
         }
-        public Button(Renderer renderer, Rectangle buttonRectangle, string text) : this(renderer,buttonRectangle)
+        public Button(Screen screen, Renderer renderer, Rectangle buttonRectangle) : this(screen, renderer)
+        {
+
+            this.Rect = buttonRectangle;
+
+        }
+        public Button(Screen screen, Renderer renderer, Rectangle buttonRectangle, string text) : this(screen, renderer,buttonRectangle)
         {
             setText(text);
-            hasText = true;
-        }
-
-        public void onHover()
-        {
-            hovering = true;
         }
 
         public void setClick(Func<bool> function)
         {
             this.clickFunction = function;
+        }
+
+        public void changeLocation(int x, int y)
+        {
+            this.Rect = new Rectangle(x, y, Rect.Width, Rect.Height);
         }
 
         public void onClick()
@@ -62,18 +67,8 @@ namespace CrossPlatform.GameTop.UI
 
         public void setText(string text)
         {
-            buttonText = text;
-            hasText = true;
+            this.text.setText(text);
         }
-
-
-        //IRenderable
-        public Renderer renderer;
-        public Renderer Renderer { get; set; }
-        private TextureName texture;
-        public TextureName Texture { get; set; } //{ get { return texture; } set { texture = value; }}
-        public Rectangle rect;
-        public Rectangle Rect { get; set; }
 
         public void updateClick(Point mousePosition, bool leftClick)
         {
@@ -83,34 +78,14 @@ namespace CrossPlatform.GameTop.UI
                 {
                     onClick();
                 }
+
                 previousLeftClick = leftClick;
-            }
-        }
-        public void updateHover(Point mousePosition)
-        {
-            if (rect.Contains(mousePosition))
-            {
-                onHover();
             }
             else
             {
-                hovering = false;
+                previousLeftClick = false;
             }
-        }
 
-        public void render()
-        {
-            //render self
-            renderer.render(rect, texture);
-            if (hovering)
-            {
-                renderer.render(rect, hoverTexture);
-            }
-            if (hasText)
-            {
-                renderer.render(textPosition, buttonText);
-            }
-            //renderer.render(rect, texture);
         }
 
     }

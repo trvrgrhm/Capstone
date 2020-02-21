@@ -4,18 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CrossPlatform.GameTop.Interfaces;
+using CrossPlatform.GameTop.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace CrossPlatform.GameTop
 {
-    class Screen : IRenderable
+    class Screen
     {
-        protected GameController gameController;
-        protected List<IRenderable> renderableChildren;
-        protected List<IMovable> moveableChildren;
-        protected List<IClickable> clickableChildren;
-        protected List<IHoverable> hoverableChildren;
+        protected ScreenController gameController;
+        public List<IRenderable> renderableChildren;
+        public List<IMovable> moveableChildren;
+        public List<IClickable> clickableChildren;
+        public List<IHoverable> hoverableChildren;
+
+        public RenderableTile renderableTile;
+        public Rectangle screenSize;
 
         //mouse info
         
@@ -23,23 +27,22 @@ namespace CrossPlatform.GameTop
         bool leftClick;
 
 
-        public Screen(GameController controller, Renderer renderer)
+        public Screen(ScreenController controller, Renderer renderer)
         {
             this.gameController = controller;
-            this.renderer = renderer;
-        }
-        virtual public void init()
-        {
-            //self
-            this.texture = TextureName.BasicScreenBackground;
-            rect = new Rectangle(0, 0, 800, 600);
+            this.Renderer = renderer;
+
             //children
             renderableChildren = new List<IRenderable>();
             moveableChildren = new List<IMovable>();
             clickableChildren = new List<IClickable>();
             hoverableChildren = new List<IHoverable>();
-
-
+        }
+        virtual public void init(Rectangle screenSize)
+        {
+            ScreenSize = screenSize;
+            //self
+            renderableTile = new RenderableTile(this, this.Renderer, this.ScreenSize, TextureName.BasicScreenBackground);
         }
 
         //call update on self and all children
@@ -61,27 +64,23 @@ namespace CrossPlatform.GameTop
             }
             foreach (IHoverable child in hoverableChildren)
             {
+                //update hoverable children
                 child.updateHover(mousePosition);
             }
 
         }
 
         //IRenderable
+        protected Renderer renderer;
+        public Renderer Renderer { get => renderer; set => renderer = value; }
+        public Rectangle ScreenSize { get => screenSize; set => screenSize = value; }
 
-        public Renderer renderer;
-        public Renderer Renderer { get; set; }
-
-        public TextureName texture; 
-        public TextureName Texture { get; set; }
-
-        public Rectangle rect;
-        public Rectangle Rect {get; set;}
 
         //call render method of self and all children
         public void render()
         {
             //render self
-            renderer.render(rect, texture);
+            //renderer.render(Rect, Texture);
             //render children
             foreach(IRenderable child in renderableChildren)
             {

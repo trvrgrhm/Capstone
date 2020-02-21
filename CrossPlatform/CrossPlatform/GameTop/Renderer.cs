@@ -30,11 +30,12 @@ namespace CrossPlatform.GameTop
             //for testing
             textureMap.Add(TextureName.Ball, content.Load<Texture2D>("ball"));
 
-
+            textureMap.Add(TextureName.BasicTile,content.Load<Texture2D>("box_brown"));
             textureMap.Add(TextureName.BasicButtonBackground, content.Load<Texture2D>("rounded_box_brown"));
             textureMap.Add(TextureName.BasicButtonHover, content.Load<Texture2D>("rounded_box_red_faded"));
             textureMap.Add(TextureName.MainScreenBackground, content.Load<Texture2D>("disgusted miku"));
-            textureMap.Add(TextureName.BasicScreenBackground, content.Load<Texture2D>("ds-background"));
+            textureMap.Add(TextureName.BasicScreenBackground, content.Load<Texture2D>("box_tan"));
+            textureMap.Add(TextureName.BackButton, content.Load<Texture2D>("ball"));
 
             fontMap.Add(FontName.Arial12, content.Load<SpriteFont>("arial_12"));
             fontMap.Add(FontName.Arial16, content.Load<SpriteFont>("arial_16"));
@@ -62,16 +63,16 @@ namespace CrossPlatform.GameTop
             spriteBatch.Begin();
             foreach (RenderObject item in renderObjects)
             {
-                if (item.containsRectangle)
+                if (item.ContainsRectangle)
                 {
-                    spriteBatch.Draw(textureMap[item.texture], item.rect, item.color);
+                    spriteBatch.Draw(textureMap[item.Texture], item.Rect, item.Color);
                 }
-                else if (item.isText)
+                else if (item.IsText)
                 {
-                    spriteBatch.DrawString(fontMap[item.font], item.text, item.position, item.color);
+                    spriteBatch.DrawString(fontMap[item.Font], item.Text, item.Position, item.Color);
                 }
                 else {
-                    spriteBatch.Draw(textureMap[item.texture], new Vector2(item.X, item.Y), Color.White);
+                    spriteBatch.Draw(textureMap[item.Texture], new Vector2(item.X, item.Y), Color.White);
                 }
             }
             renderObjects.Clear();
@@ -84,57 +85,67 @@ namespace CrossPlatform.GameTop
 
         private class RenderObject
         {
-            public float X { get; set; }
-            public float Y { get; set; }
-            public TextureName texture { get; set; }
-            public Rectangle rect { get; set; }
-            public bool containsRectangle { get; set; }
+            private float x;
+            private float y;
+            private TextureName texture;
+            private Rectangle rect;
+            private bool containsRectangle;
 
-            public Vector2 position { get; set; }
-            public bool isText { get; set; }
-            public string text { get; set; }
-            public FontName font { get; set; }
-            public bool containsFont { get; set; }
+            private Vector2 position;
+            private bool isText;
+            private string text;
+            private FontName font;
+            private bool containsFont;
 
-            public Color color { get; set; }
+            public Color Color;
+            public float X { get => x; set => x = value; }
+            public float Y { get => y; set => y = value; }
+            public TextureName Texture { get => texture; set => texture = value; }
+            public Rectangle Rect { get => rect; set => rect = value; }
+            public bool ContainsRectangle { get => containsRectangle; set => containsRectangle = value; }
+            public Vector2 Position { get => position; set => position = value; }
+            public bool IsText { get => isText; set => isText = value; }
+            public string Text { get => text; set => text = value; }
+            public FontName Font { get => font; set => font = value; }
+            public bool ContainsFont { get => containsFont; set => containsFont = value; }
 
             public RenderObject(float x, float y, TextureName texture)
             {
                 X = x;
                 Y = y;
-                this.color = Color.White;
-                this.texture = texture;
-                containsRectangle = false;
+                this.Color = Color.White;
+                this.Texture = texture;
+                ContainsRectangle = false;
 
-                isText = false;
+                IsText = false;
             }
             public RenderObject (Rectangle rect, TextureName texture)
             {
-                this.rect = rect;
-                this.texture = texture;
-                this.color = Color.White;
-                containsRectangle = true;
+                this.Rect = rect;
+                this.Texture = texture;
+                this.Color = Color.White;
+                ContainsRectangle = true;
 
-                isText = false;
+                IsText = false;
             }
             public RenderObject(FontName font, Vector2 position, string text, Color color)
             {
-                this.position = position;
-                this.text = text;
-                this.color = color;
-                containsFont = true;
-                isText = true;
-                containsRectangle = false;
+                this.Position = position;
+                this.Text = text;
+                this.Color = color;
+                ContainsFont = true;
+                IsText = true;
+                ContainsRectangle = false;
             }
             public RenderObject(Vector2 position, string text) 
             {
-                this.position = position;
-                this.text = text;
-                this.color = Color.White;
-                font = FontName.Arial16;
-                containsFont = false;
-                isText = true;
-                containsRectangle = false;
+                this.Position = position;
+                this.Text = text;
+                this.Color = Color.White;
+                Font = FontName.Arial16;
+                ContainsFont = false;
+                IsText = true;
+                ContainsRectangle = false;
             }
         }
 
@@ -148,10 +159,13 @@ namespace CrossPlatform.GameTop
         //for testing
         Ball,
 
+        BasicTile,
+        BasicBackground,
         BasicScreenBackground,
         MainScreenBackground,
         BasicButtonBackground,
         BasicButtonHover,
+        BackButton,
     }
     public enum FontName
     {
