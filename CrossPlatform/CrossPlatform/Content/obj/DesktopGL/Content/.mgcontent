@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/arial_12.spritefont</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/arial_16.spritefont</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/ball.png</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/box_brown.png</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/box_tan.png</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/disgusted miku.png</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/ds-background.jpg</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/rounded_box.png</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/rounded_box_brown.png</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/rounded_box_red.png</File>
+    <File>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/rounded_box_red_faded.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>

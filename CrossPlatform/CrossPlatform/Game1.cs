@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using CrossPlatform.GameTop;
 
 namespace CrossPlatform
 {
@@ -11,11 +12,15 @@ namespace CrossPlatform
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        ScreenController gameController;
+        Renderer renderer;
         
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            gameController = new ScreenController();
+            renderer = new Renderer();
         }
 
         /// <summary>
@@ -27,7 +32,8 @@ namespace CrossPlatform
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            gameController.init(renderer, new Rectangle(0,0,GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height));
+            this.IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -40,7 +46,8 @@ namespace CrossPlatform
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            renderer.init(spriteBatch, Content);
+            renderer.loadContent();
         }
 
         /// <summary>
@@ -63,6 +70,7 @@ namespace CrossPlatform
                 Exit();
 
             // TODO: Add your update logic here
+            gameController.update();
 
             base.Update(gameTime);
         }
@@ -74,8 +82,12 @@ namespace CrossPlatform
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            gameController.renderAll();
 
-            // TODO: Add your drawing code here
+            //I'm not sure if renderer's draw needs a game time
+            renderer.draw(gameTime);
+
+
 
             base.Draw(gameTime);
         }
