@@ -18,7 +18,7 @@ namespace CrossPlatform.GameTop
         public List<IClickable> clickableChildren;
         public List<IHoverable> hoverableChildren;
 
-        public RenderableTile renderableTile;
+        public RenderableElement renderableTile;
         public Rectangle screenSize;
 
         //mouse info
@@ -42,7 +42,7 @@ namespace CrossPlatform.GameTop
         {
             ScreenSize = screenSize;
             //self
-            renderableTile = new RenderableTile(this, this.Renderer, this.ScreenSize, TextureName.BasicScreenBackground);
+            renderableTile = new RenderableElement(this, this.Renderer, this.ScreenSize, TextureName.BasicScreenBackground);
         }
 
         //call update on self and all children

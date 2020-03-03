@@ -9,34 +9,33 @@ using System.Threading.Tasks;
 
 namespace CrossPlatform.GameTop.UI
 {
-    class Button : IClickable
+    class Button
     {
         Screen screen;
-        HoverableTile hoverableTile;
-        UIText text;
+        HoverableElement hoverableTile;
+        TextElement text;
+        ClickableElement clickableElement;
 
         //mouse info
-        Func<bool> clickFunction;
-        bool previousLeftClick;
+        
 
         //text info
         public Vector2 textPosition;
 
         public Rectangle rect;
-        public Rectangle Rect { get => rect; set { hoverableTile.Rect = value; rect = value; text.Rect = value; } }
+        public Rectangle Rect { get => rect; set { hoverableTile.Rect = value; rect = value; text.Rect = value; clickableElement.rect = value; } }
 
 
         public Button(Screen screen, Renderer renderer)
         {
             this.screen = screen;
             this.rect = new Rectangle(0, 0, 250, 100);
-            this.hoverableTile = new HoverableTile(this.screen, renderer, this.rect);
-            this.text = new UIText(this.screen, renderer, this.rect, "");
 
-            this.screen.clickableChildren.Add(this);
+            this.hoverableTile = new HoverableElement(this.screen, renderer, this.rect);
+            this.text = new TextElement(this.screen, renderer, this.rect, "");
+            this.clickableElement = new ClickableElement(this.screen, this.rect);
 
             this.textPosition = rect.Location.ToVector2();
-            previousLeftClick = false;
         }
         public Button(Screen screen, Renderer renderer, Rectangle buttonRectangle) : this(screen, renderer)
         {
@@ -51,7 +50,7 @@ namespace CrossPlatform.GameTop.UI
 
         public void setClick(Func<bool> function)
         {
-            this.clickFunction = function;
+            this.clickableElement.setOnClick(function);
         }
 
         public void changeLocation(int x, int y)
@@ -59,33 +58,9 @@ namespace CrossPlatform.GameTop.UI
             this.Rect = new Rectangle(x, y, Rect.Width, Rect.Height);
         }
 
-        public void onClick()
-        {
-            clickFunction();
-            Console.WriteLine("a button was clicked!");
-        }
-
         public void setText(string text)
         {
             this.text.setText(text);
-        }
-
-        public void updateClick(Point mousePosition, bool leftClick)
-        {
-            if (rect.Contains(mousePosition))
-            {
-                if (previousLeftClick && !leftClick)
-                {
-                    onClick();
-                }
-
-                previousLeftClick = leftClick;
-            }
-            else
-            {
-                previousLeftClick = false;
-            }
-
         }
 
     }

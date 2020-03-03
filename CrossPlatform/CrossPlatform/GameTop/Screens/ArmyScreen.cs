@@ -15,12 +15,23 @@ namespace CrossPlatform.GameTop.Screens
         Button mapButton;
         Button mainButton;
 
+        HoverableElement formationTile;
+        HoverableElement selectedSquadTile;
+        HoverableElement unitSelectorTile;
+        HoverableElement selectedUnitTile;
+
         override public void init(Microsoft.Xna.Framework.Rectangle screenSize)
         {
             //init self
             base.init(screenSize);
             //this.Texture = TextureName.BasicButtonBackground;
             //init children
+
+            formationTile = new HoverableElement(this, this.renderer, new Microsoft.Xna.Framework.Rectangle(0, 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .75)));
+            selectedSquadTile = new HoverableElement(this, this.renderer, new Microsoft.Xna.Framework.Rectangle(0, (int)(screenSize.Height * .75), (int)(screenSize.Width * .5), (int)(screenSize.Height * .25)));
+            unitSelectorTile = new HoverableElement(this, this.renderer, new Microsoft.Xna.Framework.Rectangle((int)(screenSize.Width * .5), 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .5)));
+            selectedUnitTile = new HoverableElement(this, this.renderer, new Microsoft.Xna.Framework.Rectangle((int)(screenSize.Width * .5), (int)(screenSize.Height * .5), (int)(screenSize.Width * .5), (int)(screenSize.Height * .5)));
+
             mapButton = new Button(this, Renderer, new Microsoft.Xna.Framework.Rectangle(300, 100, 250, 100), "Map");
             mapButton.setClick(() => {
                 base.gameController.goToScreen(ScreenState.MapScreenState);
@@ -29,17 +40,11 @@ namespace CrossPlatform.GameTop.Screens
                 return true;
             });
 
-            
-            
-
             mainButton = new Button(this, Renderer, new Microsoft.Xna.Framework.Rectangle(0, 100, 250, 100), "Main Menu");
             mainButton.setClick(() => {
                 base.gameController.goToScreen(ScreenState.MainScreenState);
                 return true;
             });
-
-            
-            
 
 
         }

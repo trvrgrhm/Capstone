@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace CrossPlatform.GameTop.UI
 {
-    class RenderableTile : IRenderable
+    class RenderableElement : IRenderable
     {
         
-        public RenderableTile(Screen screen, Renderer renderer, Rectangle rect)
+        public RenderableElement(Screen screen, Renderer renderer, Rectangle rect)
         {
             this.Screen = screen;
             this.Renderer = renderer;
@@ -21,7 +21,7 @@ namespace CrossPlatform.GameTop.UI
 
             this.screen.renderableChildren.Add(this);
         }
-        public RenderableTile(Screen screen, Renderer renderer, Rectangle rect, TextureName texture) : this (screen, renderer, rect)
+        public RenderableElement(Screen screen, Renderer renderer, Rectangle rect, TextureName texture) : this (screen, renderer, rect)
         {
             this.Texture = texture;
         }

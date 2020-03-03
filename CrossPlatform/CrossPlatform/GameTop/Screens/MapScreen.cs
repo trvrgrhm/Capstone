@@ -13,8 +13,11 @@ namespace CrossPlatform.GameTop.Screens
 
         //testing
         Button backButton;
+        Button battleButton;
         Button armyButton;
-        HoverableTile map;
+        HoverableElement mapTile;
+        HoverableElement selectedCityTile;
+        HoverableElement selectedArmyTIle;
 
         override public void init(Microsoft.Xna.Framework.Rectangle screenSize)
         {
@@ -22,13 +25,22 @@ namespace CrossPlatform.GameTop.Screens
             base.init(screenSize);
 
 
-            map = new HoverableTile(this, Renderer, new Microsoft.Xna.Framework.Rectangle(0, 0, (int)(ScreenSize.Width * .75), (int)(ScreenSize.Height * .75)));
+            mapTile = new HoverableElement(this, Renderer, new Microsoft.Xna.Framework.Rectangle(0, 0, (int)(ScreenSize.Width * .75), (int)(ScreenSize.Height * .75)));
+            selectedCityTile = new HoverableElement(this, Renderer, new Microsoft.Xna.Framework.Rectangle((int)(ScreenSize.Width * .75), 0, (int)(ScreenSize.Width * .25), (int)(ScreenSize.Height)));
+            selectedArmyTIle = new HoverableElement(this, Renderer, new Microsoft.Xna.Framework.Rectangle(0, (int)(ScreenSize.Height * .75), (int)(ScreenSize.Width * .75), (int)(ScreenSize.Height*.25)));
 
             armyButton = new Button(this, Renderer);
             armyButton.setText("Army");
-            armyButton.changeLocation((int)(ScreenSize.Width * .75), (int)(ScreenSize.Height * .75));
+            armyButton.Rect = new Microsoft.Xna.Framework.Rectangle((int)(ScreenSize.Width * .75), (int)(ScreenSize.Height * .75), (int)(ScreenSize.Width * .25), (int)(ScreenSize.Height * .1));
             armyButton.setClick(() => {
                 base.gameController.goToScreen(ScreenState.ArmyScreenState);
+                return true;
+            }); 
+            battleButton = new Button(this, Renderer);
+            battleButton.setText("To Battle!");
+            battleButton.Rect = new Microsoft.Xna.Framework.Rectangle((int)(ScreenSize.Width * .75), (int)(ScreenSize.Height * .9), (int)(ScreenSize.Width * .25), (int)(ScreenSize.Height * .1));
+            battleButton.setClick(() => {
+                base.gameController.goToScreen(ScreenState.BattleScreenState);
                 return true;
             });
 

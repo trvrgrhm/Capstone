@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace CrossPlatform.GameTop.UI
 {
-    class UIText : IRenderable
+    class TextElement : IRenderable
     {
         Screen screen;
         Vector2 position;
         string text;
-        public UIText(Screen screen, Renderer renderer, Rectangle rect, string text)
+        public TextElement(Screen screen, Renderer renderer, Rectangle rect, string text)
         {
             this.Screen = screen;
             this.Renderer = renderer;

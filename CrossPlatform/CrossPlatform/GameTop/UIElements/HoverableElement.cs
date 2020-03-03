@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CrossPlatform.GameTop.UI
 {
-    class HoverableTile : IRenderable, IHoverable
+    class HoverableElement : IRenderable, IHoverable
     {
         
 
@@ -16,7 +16,7 @@ namespace CrossPlatform.GameTop.UI
         bool hovering;
         TextureName hoverTexture;
 
-        public HoverableTile(Screen screen, Renderer renderer, Rectangle buttonRectangle)
+        public HoverableElement(Screen screen, Renderer renderer, Rectangle buttonRectangle)
         {
             this.Renderer = renderer;
             this.Screen = screen;

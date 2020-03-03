@@ -29,7 +29,7 @@ namespace CrossPlatform.GameTop
             screens.Add(ScreenState.ArmyScreenState, new ArmyScreen(this,this.renderer));
             screens[ScreenState.ArmyScreenState].init(screenSize);
             //battle screen
-            screens.Add(ScreenState.BattleScreenState, new Screen(this,this.renderer));
+            screens.Add(ScreenState.BattleScreenState, new BattleScreen(this,this.renderer));
             screens[ScreenState.BattleScreenState].init(screenSize);
             //setting screen
             screens.Add(ScreenState.SettingScreenState, new SettingScreen(this,this.renderer));

@@ -10,7 +10,7 @@ namespace CrossPlatform.GameTop.Interfaces
 {
     interface IClickable
     {
-        void setClick(Func<bool> function);
+        void setOnClick(Func<bool> function);
         void onClick();
         void updateClick(Point mouseLocation, bool leftClick);
     }

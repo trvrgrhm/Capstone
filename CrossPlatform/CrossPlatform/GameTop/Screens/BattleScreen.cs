@@ -13,6 +13,7 @@ namespace CrossPlatform.GameTop.Screens
 
         //testing
         Button backButton;
+        HoverableElement battleControls;
 
         override public void init(Microsoft.Xna.Framework.Rectangle screenSize)
         {
@@ -25,6 +26,8 @@ namespace CrossPlatform.GameTop.Screens
                 base.gameController.goToPreviousScreen();
                 return true;
             });
+
+            battleControls = new HoverableElement(this, Renderer, new Microsoft.Xna.Framework.Rectangle(0, (int)(ScreenSize.Height*.8), (int)(ScreenSize.Width), (int)(ScreenSize.Height*.2)));
         }
     }
 }

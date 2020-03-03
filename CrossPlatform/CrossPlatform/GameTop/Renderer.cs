@@ -44,19 +44,24 @@ namespace CrossPlatform.GameTop
         public void render(float X, float Y, TextureName texture)
         {
             renderObjects.Add(new RenderObject(X, Y, texture));
+            //spriteBatch.Draw(textureMap[texture], new Vector2((int)X, (int)Y), Color.White);
         }
         public void render(Rectangle rect, TextureName texture)
         {
             renderObjects.Add(new RenderObject(rect, texture));
+            //spriteBatch.Draw(textureMap[texture], rect, Color.White);
         }
         public void render(Vector2 position, string text)
         {
             renderObjects.Add(new RenderObject(position, text));
+            //spriteBatch.DrawString(fontMap[FontName.Arial16], text, position, Color.White);
         }
         public void render(FontName font, Vector2 position, string text, Color color)
         {
             renderObjects.Add(new RenderObject(font, position, text, color));
+            //spriteBatch.DrawString(fontMap[font], text, position, color);
         }
+
 
         public void draw(GameTime gameTime)
         {
@@ -69,7 +74,8 @@ namespace CrossPlatform.GameTop
                 }
                 else if (item.IsText)
                 {
-                    spriteBatch.DrawString(fontMap[item.Font], item.Text, item.Position, item.Color);
+                    
+                    spriteBatch.DrawString(fontMap[item.Font], item.Text, item.Position - new Vector2(fontMap[item.Font].MeasureString(item.Text).X/2, fontMap[item.Font].MeasureString(item.Text).Y/2), item.Color) ;
                 }
                 else {
                     spriteBatch.Draw(textureMap[item.Texture], new Vector2(item.X, item.Y), Color.White);

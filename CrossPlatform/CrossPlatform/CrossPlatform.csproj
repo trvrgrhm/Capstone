@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="GameTop\BattleLogic\Battle.cs" />
     <Compile Include="GameTop\Interfaces\IClickable.cs" />
     <Compile Include="GameTop\Interfaces\IHoverable.cs" />
     <Compile Include="GameTop\Screens\ArmyScreen.cs" />
@@ -55,10 +56,12 @@
     <Compile Include="GameTop\Interfaces\IRenderable.cs" />
     <Compile Include="GameTop\Screens\Screen.cs" />
     <Compile Include="GameTop\ScreenController.cs" />
-    <Compile Include="GameTop\UI\Button.cs" />
-    <Compile Include="GameTop\UI\RenderableTile.cs" />
-    <Compile Include="GameTop\UI\UIText.cs" />
-    <Compile Include="GameTop\UI\HoverableTile.cs" />
+    <Compile Include="GameTop\Tiles\BattleTile.cs" />
+    <Compile Include="GameTop\UIElements\Button.cs" />
+    <Compile Include="GameTop\UIElements\ClickableElement.cs" />
+    <Compile Include="GameTop\UIElements\RenderableElement.cs" />
+    <Compile Include="GameTop\UIElements\TextElement.cs" />
+    <Compile Include="GameTop\UIElements\HoverableElement.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
