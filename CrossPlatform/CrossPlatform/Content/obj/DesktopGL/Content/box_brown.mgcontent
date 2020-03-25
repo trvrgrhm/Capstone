@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/box_brown.png</SourceFile>
-  <SourceTime>2020-02-18T00:24:11.9268838-07:00</SourceTime>
-  <DestFile>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/bin/DesktopGL/Content/box_brown.xnb</DestFile>
-  <DestTime>2020-02-20T21:52:40.8833777-07:00</DestTime>
+  <SourceFile>D:/PersonalProject/Capstone/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/box_brown.png</SourceFile>
+  <SourceTime>2020-03-15T10:56:34.0763608-06:00</SourceTime>
+  <DestFile>D:/PersonalProject/Capstone/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/bin/DesktopGL/Content/box_brown.xnb</DestFile>
+  <DestTime>2020-03-25T15:03:14.1664682-06:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2020-01-21T15:41:46-07:00</ImporterTime>
+  <ImporterTime>2020-02-25T22:46:56-07:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2020-01-21T15:41:46-07:00</ProcessorTime>
+  <ProcessorTime>2020-02-25T22:46:56-07:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>

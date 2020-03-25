@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/arial_12.spritefont</SourceFile>
-  <SourceTime>2020-02-17T16:10:39.5171953-07:00</SourceTime>
-  <DestFile>C:/PersonalProjects/Capstone/Project/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/bin/DesktopGL/Content/arial_12.xnb</DestFile>
-  <DestTime>2020-02-17T16:39:03.4590683-07:00</DestTime>
+  <SourceFile>D:/PersonalProject/Capstone/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/arial_12.spritefont</SourceFile>
+  <SourceTime>2020-03-15T10:56:33.7864316-06:00</SourceTime>
+  <DestFile>D:/PersonalProject/Capstone/CapstoneCrossPlatform/CrossPlatform/CrossPlatform/Content/bin/DesktopGL/Content/arial_12.xnb</DestFile>
+  <DestTime>2020-03-25T15:03:13.8682495-06:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
-  <ImporterTime>2020-01-21T15:41:46-07:00</ImporterTime>
+  <ImporterTime>2020-02-25T22:46:56-07:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>
-  <ProcessorTime>2020-01-21T15:41:46-07:00</ProcessorTime>
+  <ProcessorTime>2020-02-25T22:46:56-07:00</ProcessorTime>
   <Parameters>
     <Key>PremultiplyAlpha</Key>
     <Value>True</Value>

@@ -10,23 +10,23 @@ namespace CrossPlatform.GameTop.ArmyInfo
     {
         
         private int maxSize;
-        Unit[] units;
+        public Unit[] units;
         public Squad() : this(5) { }
         public Squad(int maxSize)
         {
-            MaxSize = maxSize;
-            units = new Unit [MaxSize];
+            this.maxSize = maxSize;
+            units = new Unit [maxSize];
         }
 
         public int MaxSize { 
             get { return maxSize; } 
             set 
             { 
-                //if max size is increase, recreate the array
-                if (value >= maxSize)
+                //if max size is increased, recreate the array
+                if (value > maxSize)
                 {
                     maxSize = value;
-                    Unit[] temp = new Unit[maxSize];
+                    Unit[] temp = new Unit[value];
                     for(int i = 0; i < units.Length;i++)
                     {
                         temp[i] = units[i];

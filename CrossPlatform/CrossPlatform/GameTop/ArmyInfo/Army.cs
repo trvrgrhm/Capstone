@@ -8,7 +8,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
 {
     class Army
     {
-        Squad[,] squads;
+        public Squad[,] squads;
         List<Unit> units;
 
         public Army()
