@@ -71,7 +71,7 @@ namespace CrossPlatform.GameTop
         }
 
         //IRenderable
-        protected Renderer renderer;
+        private Renderer renderer;
         public Renderer Renderer { get => renderer; set => renderer = value; }
         public Rectangle ScreenSize { get => screenSize; set => screenSize = value; }
 

@@ -9,11 +9,12 @@ namespace CrossPlatform.GameTop.Screens
 {
     class ArmyScreen: Screen
     {
-        public ArmyScreen(ScreenController controller, Renderer renderer) : base(controller, renderer) { }
+        public ArmyScreen(ScreenController controller, Renderer renderer, PlayerInfo info) : base(controller, renderer) { playerInfo = info; }
 
         //testing
         Button mapButton;
         Button mainButton;
+        PlayerInfo playerInfo;
 
         HoverableElement formationTile;
         HoverableElement selectedSquadTile;
@@ -27,10 +28,10 @@ namespace CrossPlatform.GameTop.Screens
             //this.Texture = TextureName.BasicButtonBackground;
             //init children
 
-            formationTile = new HoverableElement(this, this.renderer, new Microsoft.Xna.Framework.Rectangle(0, 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .75)));
-            selectedSquadTile = new HoverableElement(this, this.renderer, new Microsoft.Xna.Framework.Rectangle(0, (int)(screenSize.Height * .75), (int)(screenSize.Width * .5), (int)(screenSize.Height * .25)));
-            unitSelectorTile = new HoverableElement(this, this.renderer, new Microsoft.Xna.Framework.Rectangle((int)(screenSize.Width * .5), 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .5)));
-            selectedUnitTile = new HoverableElement(this, this.renderer, new Microsoft.Xna.Framework.Rectangle((int)(screenSize.Width * .5), (int)(screenSize.Height * .5), (int)(screenSize.Width * .5), (int)(screenSize.Height * .5)));
+            formationTile = new HoverableElement(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle(0, 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .75)));
+            selectedSquadTile = new HoverableElement(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle(0, (int)(screenSize.Height * .75), (int)(screenSize.Width * .5), (int)(screenSize.Height * .25)));
+            unitSelectorTile = new HoverableElement(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle((int)(screenSize.Width * .5), 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .5)));
+            selectedUnitTile = new HoverableElement(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle((int)(screenSize.Width * .5), (int)(screenSize.Height * .5), (int)(screenSize.Width * .5), (int)(screenSize.Height * .5)));
 
             mapButton = new Button(this, Renderer, new Microsoft.Xna.Framework.Rectangle(300, 100, 250, 100), "Map");
             mapButton.setClick(() => {

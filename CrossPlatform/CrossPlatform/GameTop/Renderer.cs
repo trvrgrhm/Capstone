@@ -29,7 +29,7 @@ namespace CrossPlatform.GameTop
         {
             //for testing
             textureMap.Add(TextureName.Ball, content.Load<Texture2D>("ball"));
-
+            textureMap.Add(TextureName.BasicDude, content.Load<Texture2D>("Idle_000"));
             textureMap.Add(TextureName.BasicTile,content.Load<Texture2D>("box_brown"));
             textureMap.Add(TextureName.BasicButtonBackground, content.Load<Texture2D>("rounded_box_brown"));
             textureMap.Add(TextureName.BasicButtonHover, content.Load<Texture2D>("rounded_box_red_faded"));
@@ -164,7 +164,7 @@ namespace CrossPlatform.GameTop
     {
         //for testing
         Ball,
-
+        BasicDude,
         BasicTile,
         BasicBackground,
         BasicScreenBackground,

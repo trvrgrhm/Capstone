@@ -15,8 +15,13 @@ namespace CrossPlatform.GameTop
         private Dictionary <ScreenState,Screen> screens;
         private Renderer renderer;
 
+        public PlayerInfo playerInfo { get; set; }
+
         public void init(Renderer renderer, Microsoft.Xna.Framework.Rectangle screenSize)
         {
+            //will eventually get this from save data
+            playerInfo = new PlayerInfo();
+
             this.renderer = renderer;
             screens = new Dictionary<ScreenState, Screen>();
             //main screen
@@ -26,10 +31,10 @@ namespace CrossPlatform.GameTop
             screens.Add(ScreenState.MapScreenState, new MapScreen(this,this.renderer));
             screens[ScreenState.MapScreenState].init(screenSize);
             //army screen
-            screens.Add(ScreenState.ArmyScreenState, new ArmyScreen(this,this.renderer));
+            screens.Add(ScreenState.ArmyScreenState, new ArmyScreen(this,this.renderer,this.playerInfo));
             screens[ScreenState.ArmyScreenState].init(screenSize);
             //battle screen
-            screens.Add(ScreenState.BattleScreenState, new BattleScreen(this,this.renderer));
+            screens.Add(ScreenState.BattleScreenState, new BattleScreen(this,this.renderer,this.playerInfo));
             screens[ScreenState.BattleScreenState].init(screenSize);
             //setting screen
             screens.Add(ScreenState.SettingScreenState, new SettingScreen(this,this.renderer));

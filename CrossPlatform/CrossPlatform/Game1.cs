@@ -12,14 +12,14 @@ namespace CrossPlatform
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        ScreenController gameController;
+        ScreenController screenController;
         Renderer renderer;
         
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            gameController = new ScreenController();
+            screenController = new ScreenController();
             renderer = new Renderer();
         }
 
@@ -32,7 +32,15 @@ namespace CrossPlatform
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            gameController.init(renderer, new Rectangle(0,0,GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height));
+
+            
+            screenController.init(renderer, new Rectangle(0,0,GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height));
+
+            //change window size
+            //graphics.PreferredBackBufferWidth = 1600;
+            //graphics.PreferredBackBufferHeight = 1200;
+            //graphics.ApplyChanges();
+
             this.IsMouseVisible = true;
             base.Initialize();
         }
@@ -70,7 +78,7 @@ namespace CrossPlatform
                 Exit();
 
             // TODO: Add your update logic here
-            gameController.update();
+            screenController.update();
 
             base.Update(gameTime);
         }
@@ -82,7 +90,7 @@ namespace CrossPlatform
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            gameController.renderAll();
+            screenController.renderAll();
 
             //I'm not sure if renderer's draw needs a game time
             renderer.draw(gameTime);

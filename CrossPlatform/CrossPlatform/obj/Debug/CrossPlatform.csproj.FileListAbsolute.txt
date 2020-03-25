@@ -27,3 +27,5 @@ C:\PersonalProjects\Capstone\Project\CapstoneCrossPlatform\CrossPlatform\CrossPl
 C:\PersonalProjects\Capstone\Project\CapstoneCrossPlatform\CrossPlatform\CrossPlatform\bin\DesktopGL\AnyCPU\Debug\Content\arial_16.xnb
 C:\PersonalProjects\Capstone\Project\CapstoneCrossPlatform\CrossPlatform\CrossPlatform\bin\DesktopGL\AnyCPU\Debug\Content\box_brown.xnb
 C:\PersonalProjects\Capstone\Project\CapstoneCrossPlatform\CrossPlatform\CrossPlatform\bin\DesktopGL\AnyCPU\Debug\Content\box_tan.xnb
+C:\PersonalProjects\Capstone\Project\CapstoneCrossPlatform\CrossPlatform\CrossPlatform\obj\Debug\CrossPlatform.csproj.CoreCompileInputs.cache
+C:\PersonalProjects\Capstone\Project\CapstoneCrossPlatform\CrossPlatform\CrossPlatform\bin\DesktopGL\AnyCPU\Debug\Content\Idle_000.xnb

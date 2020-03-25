@@ -12,9 +12,9 @@ namespace CrossPlatform.GameTop.Tiles
     {
         Battle battle;
         RenderableElement[] renderables;
-        public BattleTile(Screen screen, Renderer renderer)
+        public BattleTile(Screen screen, Renderer renderer, ArmyInfo.Army player, ArmyInfo.Army enemy)
         {
-            battle = new Battle();
+            battle = new Battle(player, enemy);
         }
 
         public void populateRenderables()
