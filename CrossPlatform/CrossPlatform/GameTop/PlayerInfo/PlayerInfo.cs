@@ -16,7 +16,7 @@ namespace CrossPlatform.GameTop
         {
             Unit firstUnit = new Unit();
             PlayerArmy.addUnit(firstUnit);
-            Squad firstSquad = new Squad();
+            Squad firstSquad = new Squad(2,2);
             firstSquad.addUnit(0, firstUnit);
             PlayerArmy.addSquad(0,0,firstSquad);
         }

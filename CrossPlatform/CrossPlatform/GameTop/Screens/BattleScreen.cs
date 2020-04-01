@@ -33,7 +33,7 @@ namespace CrossPlatform.GameTop.Screens
             battleControls = new HoverableElement(this, Renderer, new Rectangle(0, (int)(ScreenSize.Height*.8), (int)(ScreenSize.Width), (int)(ScreenSize.Height*.2)));
 
             //eventually change to enemy army
-            battleTile = new BattleTile(this,this.Renderer, playerInfo.PlayerArmy, playerInfo.PlayerArmy);
+            battleTile = new BattleTile(this,this.Renderer, new Rectangle(0, 0, (int)(ScreenSize.Width*.5), (int)(ScreenSize.Height * .75)), playerInfo.PlayerArmy, playerInfo.PlayerArmy);
         }
     }
 }

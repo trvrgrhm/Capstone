@@ -13,7 +13,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
 
         public Army()
         {
-            squads = new Squad[5,4];
+            squads = new Squad[4,4];
             units = new List<Unit>();
         }
 
@@ -22,6 +22,8 @@ namespace CrossPlatform.GameTop.ArmyInfo
             if (squads[row, col] == null)
             {
                 squads[row, col] = squad;
+                squad.Row = row;
+                squad.Column = col;
                 Console.WriteLine("[Army] A squad was placed at " + row + "," + col + "!");
                 return;
             }
@@ -41,6 +43,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
             }
             else
             {
+                squads[row, col].removeAllUnits();
                 squads[row, col] = null;
                 Console.WriteLine("[Army] A squad was removed at "+row+","+col+"!");
                 return;

@@ -16,18 +16,23 @@ namespace CrossPlatform.GameTop.UI
         bool hovering;
         TextureName hoverTexture;
 
-        public HoverableElement(Screen screen, Renderer renderer, Rectangle buttonRectangle)
+        public HoverableElement(Screen screen, Renderer renderer, Rectangle rect): this(screen, renderer, rect, TextureName.BasicButtonBackground)
+        {
+
+        }
+        public HoverableElement(Screen screen, Renderer renderer, Rectangle rect, TextureName background)
         {
             this.Renderer = renderer;
             this.Screen = screen;
-            this.Rect = buttonRectangle;
+            this.Rect = rect;
 
-            this.Texture = TextureName.BasicButtonBackground;
+            this.Texture = background;
             this.hoverTexture = TextureName.BasicButtonHover;
             hovering = false;
 
             this.Screen.renderableChildren.Add(this);
             this.Screen.hoverableChildren.Add(this);
+
         }
         
 

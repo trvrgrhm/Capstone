@@ -10,12 +10,17 @@ namespace CrossPlatform.GameTop.ArmyInfo
     {
         
         private int maxSize;
+
+        public int Row { get; set; }
+        public int Column { get; set; }
         public Unit[] units;
-        public Squad() : this(5) { }
-        public Squad(int maxSize)
+        public Squad(int row, int col) : this(row,col,5) { }
+        public Squad(int row, int col, int maxSize)
         {
             this.maxSize = maxSize;
             units = new Unit [maxSize];
+            Row = row;
+            Column = col;
         }
 
         public int MaxSize { 
@@ -50,6 +55,13 @@ namespace CrossPlatform.GameTop.ArmyInfo
                 units[position].IsInSquad = false;
                 units[position] = null;
                 Console.WriteLine("[Squad] A unit was removed!");
+            }
+        }
+        public void removeAllUnits()
+        {
+            for(int i = 0; i < units.Length; i++)
+            {
+                removeUnit(i);
             }
         }
     }
