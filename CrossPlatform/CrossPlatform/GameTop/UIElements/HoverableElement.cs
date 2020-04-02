@@ -14,7 +14,7 @@ namespace CrossPlatform.GameTop.UI
 
         //hover info
         bool hovering;
-        TextureName hoverTexture;
+        public TextureName HoverTexture { get; set; }
 
         public HoverableElement(Screen screen, Renderer renderer, Rectangle rect): this(screen, renderer, rect, TextureName.BasicButtonBackground)
         {
@@ -27,7 +27,7 @@ namespace CrossPlatform.GameTop.UI
             this.Rect = rect;
 
             this.Texture = background;
-            this.hoverTexture = TextureName.BasicButtonHover;
+            this.HoverTexture = TextureName.BasicButtonHover;
             hovering = false;
 
             this.Screen.renderableChildren.Add(this);
@@ -42,21 +42,14 @@ namespace CrossPlatform.GameTop.UI
         }
 
         //IRenderable
-        Screen screen;
-        public Rectangle rect;
-        public Renderer renderer;
-
-        private TextureName texture;
-
-        public Renderer Renderer { get => renderer; set => renderer = value; }
-        public TextureName Texture { get => texture; set => texture = value; } //{ get { return texture; } set { texture = value; }}
-        
-        public Rectangle Rect { get => rect; set => rect = value; }
-        public Screen Screen { get => screen; set => screen = value; }
+        public Renderer Renderer { get; set; }
+        public TextureName Texture { get; set; }
+        public Rectangle Rect { get; set; }
+        public Screen Screen { get; set; }
 
         public void updateHover(Point mousePosition)
         {
-            if (rect.Contains(mousePosition))
+            if (Rect.Contains(mousePosition))
             {
                 onHover();
             }
@@ -69,10 +62,10 @@ namespace CrossPlatform.GameTop.UI
         public void render()
         {
             //render self
-            renderer.render(rect, texture);
+            Renderer.render(Rect, Texture);
             if (hovering)
             {
-                renderer.render(rect, hoverTexture);
+                Renderer.render(Rect, HoverTexture);
             }
             //renderer.render(rect, texture);
         }

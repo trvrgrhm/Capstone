@@ -1,4 +1,5 @@
-﻿using CrossPlatform.GameTop.UI;
+﻿using CrossPlatform.GameTop.Tiles;
+using CrossPlatform.GameTop.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace CrossPlatform.GameTop.Screens
         Button mainButton;
         PlayerInfo playerInfo;
 
-        HoverableElement formationTile;
+        SquadFormationTile formationTile;
         HoverableElement selectedSquadTile;
         HoverableElement unitSelectorTile;
         HoverableElement selectedUnitTile;
@@ -28,7 +29,7 @@ namespace CrossPlatform.GameTop.Screens
             //this.Texture = TextureName.BasicButtonBackground;
             //init children
 
-            formationTile = new HoverableElement(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle(0, 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .75)));
+            formationTile = new SquadFormationTile(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle(0, 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .75)), playerInfo);
             selectedSquadTile = new HoverableElement(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle(0, (int)(screenSize.Height * .75), (int)(screenSize.Width * .5), (int)(screenSize.Height * .25)));
             unitSelectorTile = new HoverableElement(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle((int)(screenSize.Width * .5), 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .5)));
             selectedUnitTile = new HoverableElement(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle((int)(screenSize.Width * .5), (int)(screenSize.Height * .5), (int)(screenSize.Width * .5), (int)(screenSize.Height * .5)));

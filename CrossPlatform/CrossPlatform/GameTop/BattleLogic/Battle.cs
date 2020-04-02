@@ -29,7 +29,7 @@ namespace CrossPlatform.GameTop.BattleLogic
                 {
                     foreach (Unit unit in squad.units)
                     {
-                        if (unit != null)
+                        if (unit != null) 
                         {
                             //get init position from squad
                             BattlePuppet puppet = new BattlePuppet(unit, 0, 0, 2);

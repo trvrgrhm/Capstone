@@ -22,7 +22,7 @@ namespace CrossPlatform.GameTop.UI
         //text info
         public Vector2 textPosition;
 
-        public Rectangle rect;
+        private Rectangle rect;
         public Rectangle Rect { get => rect; set { hoverableTile.Rect = value; rect = value; text.Rect = value; clickableElement.rect = value; } }
 
 
@@ -61,6 +61,14 @@ namespace CrossPlatform.GameTop.UI
         public void setText(string text)
         {
             this.text.setText(text);
+        }
+        public void changeTexture(TextureName texture)
+        {
+            hoverableTile.Texture = texture;
+        }
+        public void changeHoverTexture(TextureName texture)
+        {
+            hoverableTile.HoverTexture = texture;
         }
 
     }
