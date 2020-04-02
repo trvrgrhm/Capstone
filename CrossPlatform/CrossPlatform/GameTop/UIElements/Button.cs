@@ -12,9 +12,9 @@ namespace CrossPlatform.GameTop.UI
     class Button
     {
         Screen screen;
-        HoverableElement hoverableTile;
+        public HoverableElement hoverableTile;
         TextElement text;
-        ClickableElement clickableElement;
+        public ClickableElement clickableElement;
 
         //mouse info
         

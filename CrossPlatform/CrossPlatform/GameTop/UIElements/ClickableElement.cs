@@ -12,7 +12,7 @@ namespace CrossPlatform.GameTop.UI
     {
         Func<bool> onClickFunction;
         bool hasOnClickFunction;
-        Func<bool> onDragFunction;
+        Func<Point,bool> onDragFunction;
         bool hasonDragFunction;
         Func<bool> onClickStartFunction;
         bool hasOnClickStartFunction;
@@ -45,7 +45,7 @@ namespace CrossPlatform.GameTop.UI
 
             hasOnClickFunction = true;
         }
-        public void setOnDrag(Func<bool> function)
+        public void setOnDrag(Func<Point,bool> function)
         {
             this.onDragFunction = function;
 
@@ -69,17 +69,17 @@ namespace CrossPlatform.GameTop.UI
             catch (Exception e) { Console.WriteLine("error with onClick, " + e.StackTrace); }
             Console.WriteLine("a button was clicked!");
         }
-        public void onDrag()
+        private void onDrag(Point mousePosition)
         {
-            try {onDragFunction(); }
+            try {onDragFunction(mousePosition); }
             catch (Exception e) { Console.WriteLine("error with onDrag, " + e.StackTrace); }
         }
-        public void onDragRelease()
+        private void onDragRelease()
         {
             try {onDragReleaseFunction(); }
             catch (Exception e) { Console.WriteLine("error with onDragRelease, " + e.StackTrace); }
         }
-        public void onClickStart()
+        private void onClickStart()
         {
             try { onClickStartFunction(); }
             catch (Exception e) { Console.WriteLine("error with onClickStart, " + e.StackTrace); }
@@ -137,7 +137,7 @@ namespace CrossPlatform.GameTop.UI
             if (clickStarted && leftClick)
             {
                 if(hasonDragFunction)
-                onDrag();
+                onDrag(mousePosition);
                 dragging = true;
 
                 Console.WriteLine("Something is being dragged from a button.");

@@ -18,8 +18,8 @@ namespace CrossPlatform.GameTop.Tiles
         public int Columns { get { return columns; } set { columns = value; colUnit = TileRect.Height / columns; } }
         int rows;
         int columns;
-        int rowUnit { get; set; }
-        int colUnit { get; set; }
+        int rowUnit;
+        int colUnit;
         public SquadFormationTile(Screen screen, Renderer renderer, Rectangle rect, PlayerInfo info)
         {
             TileRect = rect;

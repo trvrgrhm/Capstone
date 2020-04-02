@@ -14,6 +14,7 @@ namespace CrossPlatform.GameTop.UI
 
         //hover info
         bool hovering;
+        public bool Highlight { get; set; }
         public TextureName HoverTexture { get; set; }
 
         public HoverableElement(Screen screen, Renderer renderer, Rectangle rect): this(screen, renderer, rect, TextureName.BasicButtonBackground)
@@ -29,6 +30,7 @@ namespace CrossPlatform.GameTop.UI
             this.Texture = background;
             this.HoverTexture = TextureName.BasicButtonHover;
             hovering = false;
+            Highlight = true;
 
             this.Screen.renderableChildren.Add(this);
             this.Screen.hoverableChildren.Add(this);
@@ -39,6 +41,10 @@ namespace CrossPlatform.GameTop.UI
         public void onHover()
         {
             hovering = true;
+        }
+        public bool isHovering()
+        {
+            return hovering;
         }
 
         //IRenderable
@@ -63,7 +69,7 @@ namespace CrossPlatform.GameTop.UI
         {
             //render self
             Renderer.render(Rect, Texture);
-            if (hovering)
+            if (hovering&& Highlight)
             {
                 Renderer.render(Rect, HoverTexture);
             }

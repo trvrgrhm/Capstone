@@ -17,6 +17,7 @@ namespace CrossPlatform.GameTop
         public List<IMovable> moveableChildren;
         public List<IClickable> clickableChildren;
         public List<IHoverable> hoverableChildren;
+        public List<IScrollable> scrollableChildren;
 
         public RenderableElement renderableTile;
         public Rectangle screenSize;
@@ -25,6 +26,7 @@ namespace CrossPlatform.GameTop
         
         Point mousePosition;
         bool leftClick;
+        int scrollValue;
 
 
         public Screen(ScreenController controller, Renderer renderer)
@@ -37,6 +39,7 @@ namespace CrossPlatform.GameTop
             moveableChildren = new List<IMovable>();
             clickableChildren = new List<IClickable>();
             hoverableChildren = new List<IHoverable>();
+            scrollableChildren = new List<IScrollable>();
         }
         virtual public void init(Rectangle screenSize)
         {
@@ -57,6 +60,7 @@ namespace CrossPlatform.GameTop
             }
             mousePosition = Mouse.GetState().Position.ToVector2().ToPoint();
             leftClick = Mouse.GetState().LeftButton==ButtonState.Pressed;
+            scrollValue = Mouse.GetState().ScrollWheelValue;
             foreach (IClickable child in clickableChildren)
             {
                 //update clickable children
@@ -66,6 +70,11 @@ namespace CrossPlatform.GameTop
             {
                 //update hoverable children
                 child.updateHover(mousePosition);
+            }
+            foreach(IScrollable child in scrollableChildren)
+            {
+                //update scrollable children
+                child.updateScroll(scrollValue);
             }
 
         }
