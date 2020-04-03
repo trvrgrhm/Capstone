@@ -9,11 +9,12 @@ namespace CrossPlatform.GameTop.ArmyInfo
     class Army
     {
         public Squad[,] squads;
-        List<Unit> units;
+        public List<Unit> units;
 
         public Army()
         {
             squads = new Squad[4,4];
+
             units = new List<Unit>();
         }
 

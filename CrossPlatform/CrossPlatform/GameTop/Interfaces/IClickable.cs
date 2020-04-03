@@ -13,5 +13,6 @@ namespace CrossPlatform.GameTop.Interfaces
         void setOnClick(Func<bool> function);
         void onClick();
         void updateClick(Point mouseLocation, bool leftClick);
+        void destroy();
     }
 }

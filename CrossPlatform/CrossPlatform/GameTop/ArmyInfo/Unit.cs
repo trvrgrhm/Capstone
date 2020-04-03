@@ -9,6 +9,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
     class Unit
     {
         public UnitType Type { get; set; }
+        public TextureName Picture { get; set; }
         public bool IsInSquad { get; set; }
         public int MaxHealth { get; set; }
         public int Attack { get; set; }
@@ -17,7 +18,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
         public int MoveSpeed { get; set; }
         public int Range { get; set; }
 
-        public Unit(UnitType type, int health, int attack, int defense, int attackSpeed, int moveSpeed, int range)
+        public Unit(UnitType type, TextureName picture, int health, int attack, int defense, int attackSpeed, int moveSpeed, int range)
         {
             Type = type;
             IsInSquad = false;
@@ -27,9 +28,12 @@ namespace CrossPlatform.GameTop.ArmyInfo
             AttackSpeed = attackSpeed;
             MoveSpeed = moveSpeed;
             Range = range;
+            //get this from type in the future
+            Picture = picture;
+
         }
 
-        public Unit() : this(UnitType.Basic, 100, 10, 5, 1, 1, 1) { }
+        public Unit() : this(UnitType.Basic,TextureName.BasicDude, 100, 10, 5, 1, 1, 1) { }
     }
 
     

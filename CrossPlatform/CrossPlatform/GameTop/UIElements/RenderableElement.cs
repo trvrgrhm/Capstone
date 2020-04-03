@@ -10,7 +10,14 @@ namespace CrossPlatform.GameTop.UI
 {
     class RenderableElement : IRenderable
     {
-        
+        private bool isVisible;
+
+        //IRenderable
+        public TextureName Texture { get; set; }
+        public Rectangle Rect { get; set; }
+        public Renderer Renderer { get; set; }
+        public Screen Screen { get; set; }
+
         public RenderableElement(Screen screen, Renderer renderer, Rectangle rect)
         {
             this.Screen = screen;
@@ -19,26 +26,30 @@ namespace CrossPlatform.GameTop.UI
 
             this.Texture = TextureName.BasicTile;
 
-            this.screen.renderableChildren.Add(this);
+            this.Screen.renderableChildren.Add(this);
+            isVisible = true;
         }
         public RenderableElement(Screen screen, Renderer renderer, Rectangle rect, TextureName texture) : this (screen, renderer, rect)
         {
             this.Texture = texture;
         }
 
-        //IRenderable
-        private Renderer renderer;
-        private TextureName texture;
-        private Rectangle rect;
-        private Screen screen;
-        public TextureName Texture { get => texture; set => texture = value; }
-        public Rectangle Rect { get => rect; set => rect = value; }
-        public Renderer Renderer { get => renderer; set => renderer = value; }
-        public Screen Screen { get => screen; set => screen = value; }
+        public void setVisibility(bool visible)
+        {
+            isVisible = visible;
+        }
 
         public void render()
         {
-            Renderer.render(this.Rect, this.Texture);
+            //only render if visible
+            if (isVisible == true)
+            {
+                Renderer.render(this.Rect, this.Texture);
+            }
+        }
+        public void destroy()
+        {
+            Screen.renderableChildren.Remove(this);
         }
     }
 }

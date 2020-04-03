@@ -10,6 +10,7 @@ namespace CrossPlatform.GameTop.UI
 {
     class ClickableElement: IClickable
     {
+        Screen screen;
         Func<bool> onClickFunction;
         bool hasOnClickFunction;
         Func<Point,bool> onDragFunction;
@@ -27,7 +28,8 @@ namespace CrossPlatform.GameTop.UI
         public ClickableElement(Screen screen, Rectangle clickableRectangle)
         {
             this.rect = clickableRectangle;
-            screen.clickableChildren.Add(this);
+            this.screen = screen;
+            this.screen.clickableChildren.Add(this);
 
             clickStarted = false;
             stayedInBounds = false;
@@ -67,7 +69,7 @@ namespace CrossPlatform.GameTop.UI
         {
             try { onClickFunction(); }
             catch (Exception e) { Console.WriteLine("error with onClick, " + e.StackTrace); }
-            Console.WriteLine("a button was clicked!");
+            //Console.WriteLine("a button was clicked!");
         }
         private void onDrag(Point mousePosition)
         {
@@ -109,7 +111,7 @@ namespace CrossPlatform.GameTop.UI
                     onClickStart(); 
                     //click start
                     //onClickStart
-                    Console.WriteLine("click started");
+                    //Console.WriteLine("click started");
                 }
                 if (clickStarted && stayedInBounds && !leftClick)
                 {
@@ -118,7 +120,9 @@ namespace CrossPlatform.GameTop.UI
                     onClick();
                     clickStarted = false;
                     clickStartedOutOfBounds = false;
-                    Console.WriteLine("onClick");
+                    //Console.WriteLine("onClick");
+                    if (hasOnDragReleaseFunction)
+                        onDragRelease();
                 }
             }
             else
@@ -140,7 +144,7 @@ namespace CrossPlatform.GameTop.UI
                 onDrag(mousePosition);
                 dragging = true;
 
-                Console.WriteLine("Something is being dragged from a button.");
+                //Console.WriteLine("Something is being dragged from a button.");
             }
             if (clickStarted && !leftClick)
             {
@@ -148,15 +152,14 @@ namespace CrossPlatform.GameTop.UI
                 clickStartedOutOfBounds = false;
                 if(hasOnDragReleaseFunction)
                 onDragRelease();
-                Console.WriteLine("A drag has stopped");
+                //Console.WriteLine("A drag has stopped");
                 //onDragDrop
                 //release click
             }
-
-
-
-
-
+        }
+        public void destroy()
+        {
+            screen.clickableChildren.Remove(this);
         }
     }
 }

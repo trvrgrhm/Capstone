@@ -18,8 +18,9 @@ namespace CrossPlatform.GameTop
         public List<IClickable> clickableChildren;
         public List<IHoverable> hoverableChildren;
         public List<IScrollable> scrollableChildren;
+        public List<IUpdatable> updatableChildren;
 
-        public RenderableElement renderableTile;
+        public RenderableElement background;
         public Rectangle screenSize;
 
         //mouse info
@@ -40,12 +41,13 @@ namespace CrossPlatform.GameTop
             clickableChildren = new List<IClickable>();
             hoverableChildren = new List<IHoverable>();
             scrollableChildren = new List<IScrollable>();
+            updatableChildren = new List<IUpdatable>();
         }
         virtual public void init(Rectangle screenSize)
         {
             ScreenSize = screenSize;
             //self
-            renderableTile = new RenderableElement(this, this.Renderer, this.ScreenSize, TextureName.BasicScreenBackground);
+            background = new RenderableElement(this, this.Renderer, this.ScreenSize, TextureName.BasicScreenBackground);
         }
 
         //call update on self and all children
@@ -76,12 +78,14 @@ namespace CrossPlatform.GameTop
                 //update scrollable children
                 child.updateScroll(scrollValue);
             }
+            foreach(IUpdatable child in updatableChildren)
+            {
+                child.update();
+            }
 
         }
-
-        //IRenderable
-        private Renderer renderer;
-        public Renderer Renderer { get => renderer; set => renderer = value; }
+        //
+        public Renderer Renderer { get; set; }
         public Rectangle ScreenSize { get => screenSize; set => screenSize = value; }
 
 

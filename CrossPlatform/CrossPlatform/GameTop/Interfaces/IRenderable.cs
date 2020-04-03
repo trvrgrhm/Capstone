@@ -18,5 +18,6 @@ namespace CrossPlatform.GameTop.Interfaces
         Rectangle Rect { get; set; }
 
         void render();
+        void destroy();
     }
 }

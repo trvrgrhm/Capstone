@@ -1,4 +1,5 @@
-﻿using CrossPlatform.GameTop.Tiles;
+﻿using CrossPlatform.GameTop.ArmyInfo;
+using CrossPlatform.GameTop.Tiles;
 using CrossPlatform.GameTop.UI;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,15 @@ namespace CrossPlatform.GameTop.Screens
         Button mainButton;
         PlayerInfo playerInfo;
 
+        public Squad SelectedSquad { get { return selectedSquad; } set { selectedSquad = value; selectedSquadTile.SelectedSquad = value; } }
+        private Squad selectedSquad;
+        public Unit SelectedUnit { get { return selectedUnit; } set { selectedUnit = value; selectedUnitTile.SelectedUnit = value; } }
+        private Unit selectedUnit;
+
         SquadFormationTile formationTile;
-        HoverableElement selectedSquadTile;
+        SelectedSquadTile selectedSquadTile;
         UnitSelectorTile unitSelectorTile;
-        HoverableElement selectedUnitTile;
+        SelectedUnitTile selectedUnitTile;
 
         override public void init(Microsoft.Xna.Framework.Rectangle screenSize)
         {
@@ -30,9 +36,9 @@ namespace CrossPlatform.GameTop.Screens
             //init children
 
             formationTile = new SquadFormationTile(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle(0, 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .75)), playerInfo);
-            selectedSquadTile = new HoverableElement(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle(0, (int)(screenSize.Height * .75), (int)(screenSize.Width * .5), (int)(screenSize.Height * .25)));
+            selectedSquadTile = new SelectedSquadTile(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle(0, (int)(screenSize.Height * .75), (int)(screenSize.Width * .5), (int)(screenSize.Height * .25)));
             unitSelectorTile = new UnitSelectorTile(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle((int)(screenSize.Width * .5), 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .5)), playerInfo);
-            selectedUnitTile = new HoverableElement(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle((int)(screenSize.Width * .5), (int)(screenSize.Height * .5), (int)(screenSize.Width * .5), (int)(screenSize.Height * .5)));
+            selectedUnitTile = new SelectedUnitTile(this, this.Renderer, new Microsoft.Xna.Framework.Rectangle((int)(screenSize.Width * .5), (int)(screenSize.Height * .5), (int)(screenSize.Width * .5), (int)(screenSize.Height * .5)));
 
             mapButton = new Button(this, Renderer, new Microsoft.Xna.Framework.Rectangle(300, 100, 250, 100), "Map");
             mapButton.setClick(() => {
@@ -49,6 +55,23 @@ namespace CrossPlatform.GameTop.Screens
             });
 
 
+        }
+
+        public override void update()
+        {
+            base.update();
+            if (formationTile.NewSquadSelected)
+            {
+                SelectedSquad = formationTile.SelectedSquad;
+                formationTile.NewSquadSelected = false;
+            }
+            if (unitSelectorTile.NewUnitSelected)
+            {
+                SelectedUnit = unitSelectorTile.SelectedUnit;
+                unitSelectorTile.NewUnitSelected = false;
+            }
+            //update selected unit
+            //update selected squad
         }
     }
 }

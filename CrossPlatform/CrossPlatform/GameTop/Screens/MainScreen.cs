@@ -22,7 +22,7 @@ namespace CrossPlatform.GameTop
             //init self
             base.init(screenSize);
             //this.texture = TextureName.MainScreenBackground;
-            this.renderableTile.Texture = TextureName.MainScreenBackground;
+            this.background.Texture = TextureName.MainScreenBackground;
             //init children
 
 

@@ -18,6 +18,8 @@ namespace CrossPlatform.GameTop.UIElements
 
         public bool sliderMoving;
 
+        private bool isVisible;
+
         public SliderElement(Screen screen, Renderer renderer, Rectangle sliderBar)
         {
             SliderBar = new RenderableElement(screen, renderer, sliderBar, TextureName.BasicButtonHover);
@@ -27,6 +29,7 @@ namespace CrossPlatform.GameTop.UIElements
 
             SliderButton.clickableElement.setOnDrag(dragSlider);
             SliderButton.clickableElement.setOnDragRelease(sliderStopped);
+            isVisible = true;
         }
         private bool dragSlider(Point mousePosition) {
             moveSliderButton(mousePosition.Y);
@@ -38,7 +41,7 @@ namespace CrossPlatform.GameTop.UIElements
             if (yPosition >= SliderBar.Rect.Y && yPosition <= (SliderBar.Rect.Y + SliderBar.Rect.Height - SliderButton.Rect.Height))
             {
                 SliderButton.changeLocation(SliderButton.Rect.X, yPosition);
-                SliderValue = (SliderButton.Rect.Y - SliderBar.Rect.Y) / (1.0 * SliderBar.Rect.Height);
+                SliderValue = (SliderButton.Rect.Y - SliderBar.Rect.Y) / (1.0 * (SliderBar.Rect.Height-SliderButton.Rect.Height));
                 Console.WriteLine("slider value is " + SliderValue);
                 sliderMoving = true;
             }
@@ -49,7 +52,22 @@ namespace CrossPlatform.GameTop.UIElements
             return true;
         }
 
+        public void setVisibility(bool visible)
+        {
+            SliderButton.setVisibility(visible);
+            SliderBar.setVisibility(visible);
+            isVisible = visible;
+        }
+        public bool getVisibility()
+        {
+            return isVisible;
+        }
 
+        public void destroy()
+        {
+            SliderBar.destroy();
+            SliderButton.destroy();
+        }
 
     }
 }

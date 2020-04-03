@@ -65,6 +65,7 @@
     <Compile Include="GameTop\BattleLogic\BattlePuppet.cs" />
     <Compile Include="GameTop\Interfaces\IClickable.cs" />
     <Compile Include="GameTop\Interfaces\IHoverable.cs" />
+    <Compile Include="GameTop\Interfaces\IUpdatable.cs" />
     <Compile Include="GameTop\Interfaces\IScrollable.cs" />
     <Compile Include="GameTop\PlayerInfo\PlayerInfo.cs" />
     <Compile Include="GameTop\Screens\ArmyScreen.cs" />
@@ -79,9 +80,12 @@
     <Compile Include="GameTop\ScreenController.cs" />
     <Compile Include="GameTop\Tiles\BattleTile.cs" />
     <Compile Include="GameTop\Tiles\BasicTile.cs" />
+    <Compile Include="GameTop\Tiles\SelectedUnitTile.cs" />
+    <Compile Include="GameTop\Tiles\SelectedSquadTile.cs" />
     <Compile Include="GameTop\Tiles\UnitSelectorTile.cs" />
     <Compile Include="GameTop\Tiles\SquadFormationTile.cs" />
     <Compile Include="GameTop\UIElements\Button.cs" />
+    <Compile Include="GameTop\UIElements\DraggableElement.cs" />
     <Compile Include="GameTop\UIElements\SliderElement.cs" />
     <Compile Include="GameTop\UIElements\ScrollableElement.cs" />
     <Compile Include="GameTop\UIElements\ClickableElement.cs" />

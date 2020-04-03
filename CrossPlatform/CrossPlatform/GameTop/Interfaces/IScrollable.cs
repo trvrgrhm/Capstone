@@ -11,5 +11,6 @@ namespace CrossPlatform.GameTop.Interfaces
         void onScrollDown();
         void onScrollUp();
         void updateScroll(int scrollValue);
+        void destroy();
     }
 }

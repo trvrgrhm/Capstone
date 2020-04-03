@@ -10,12 +10,18 @@ namespace CrossPlatform.GameTop.UI
 {
     class HoverableElement : IRenderable, IHoverable
     {
-        
 
+        private bool isVisible;
         //hover info
         bool hovering;
         public bool Highlight { get; set; }
         public TextureName HoverTexture { get; set; }
+        //IRenderable
+        public Renderer Renderer { get; set; }
+        public TextureName Texture { get; set; }
+        public Rectangle Rect { get; set; }
+        public Screen Screen { get; set; }
+
 
         public HoverableElement(Screen screen, Renderer renderer, Rectangle rect): this(screen, renderer, rect, TextureName.BasicButtonBackground)
         {
@@ -34,6 +40,7 @@ namespace CrossPlatform.GameTop.UI
 
             this.Screen.renderableChildren.Add(this);
             this.Screen.hoverableChildren.Add(this);
+            isVisible = true;
 
         }
         
@@ -46,13 +53,16 @@ namespace CrossPlatform.GameTop.UI
         {
             return hovering;
         }
+        public void setVisibility(bool visible)
+        {
+            isVisible = visible;
+        }
+        public bool getVisibility()
+        {
+            return isVisible;
+        }
 
-        //IRenderable
-        public Renderer Renderer { get; set; }
-        public TextureName Texture { get; set; }
-        public Rectangle Rect { get; set; }
-        public Screen Screen { get; set; }
-
+        
         public void updateHover(Point mousePosition)
         {
             if (Rect.Contains(mousePosition))
@@ -67,13 +77,21 @@ namespace CrossPlatform.GameTop.UI
 
         public void render()
         {
-            //render self
-            Renderer.render(Rect, Texture);
-            if (hovering&& Highlight)
+            //only render if visible
+            if (isVisible)
             {
-                Renderer.render(Rect, HoverTexture);
+                //render self
+                Renderer.render(Rect, Texture);
+                if (hovering && Highlight)
+                {
+                    Renderer.render(Rect, HoverTexture);
+                }
             }
-            //renderer.render(rect, texture);
+        }
+        public void destroy()
+        {
+            Screen.renderableChildren.Remove(this);
+            Screen.hoverableChildren.Remove(this);
         }
 
     }

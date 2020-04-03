@@ -24,6 +24,7 @@ namespace CrossPlatform.GameTop.UI
 
         private Rectangle rect;
         public Rectangle Rect { get => rect; set { hoverableTile.Rect = value; rect = value; text.Rect = value; clickableElement.rect = value; } }
+        private bool isVisible;
 
 
         public Button(Screen screen, Renderer renderer)
@@ -69,6 +70,21 @@ namespace CrossPlatform.GameTop.UI
         public void changeHoverTexture(TextureName texture)
         {
             hoverableTile.HoverTexture = texture;
+        }
+        public void setVisibility(bool visible)
+        {
+            hoverableTile.setVisibility(visible);
+            isVisible = visible;
+        }
+        public bool getVisibility()
+        {
+            return isVisible;
+        }
+        public void destroy()
+        {
+            hoverableTile.destroy();
+            clickableElement.destroy();
+            text.destroy();
         }
 
     }
