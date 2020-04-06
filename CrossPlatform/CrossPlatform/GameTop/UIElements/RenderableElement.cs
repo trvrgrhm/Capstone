@@ -29,9 +29,16 @@ namespace CrossPlatform.GameTop.UI
             this.Screen.renderableChildren.Add(this);
             isVisible = true;
         }
-        public RenderableElement(Screen screen, Renderer renderer, Rectangle rect, TextureName texture) : this (screen, renderer, rect)
+        public RenderableElement(Screen screen, Renderer renderer, Rectangle rect, TextureName texture) : this(screen, renderer, rect)
         {
             this.Texture = texture;
+        }
+
+        public void moveToTopLayer()
+        {
+            this.Screen.renderableChildren.Remove(this);
+            this.Screen.renderableTopLayerChildren.Add(this);
+
         }
 
         public void setVisibility(bool visible)

@@ -11,17 +11,20 @@ namespace CrossPlatform.GameTop.ArmyInfo
         public UnitType Type { get; set; }
         public TextureName Picture { get; set; }
         public bool IsInSquad { get; set; }
+        public int SquadPosition { get; set; }
         public int MaxHealth { get; set; }
         public int Attack { get; set; }
         public int Defense { get; set; }
         public int AttackSpeed { get; set; }
         public int MoveSpeed { get; set; }
         public int Range { get; set; }
+        public string Name { get; set; }
 
         public Unit(UnitType type, TextureName picture, int health, int attack, int defense, int attackSpeed, int moveSpeed, int range)
         {
             Type = type;
             IsInSquad = false;
+            SquadPosition = -1;
             MaxHealth = health;
             Attack = attack;
             Defense = defense;
@@ -30,6 +33,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
             Range = range;
             //get this from type in the future
             Picture = picture;
+            Name = "Basic Unit";
 
         }
 
@@ -44,6 +48,7 @@ namespace CrossPlatform.GameTop
 {
     public enum UnitType
     {
-        Basic
+        Basic,
+        Miku
     }
 }

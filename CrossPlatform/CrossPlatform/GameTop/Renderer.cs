@@ -30,6 +30,7 @@ namespace CrossPlatform.GameTop
             //for testing
             textureMap.Add(TextureName.Ball, content.Load<Texture2D>("ball"));
             textureMap.Add(TextureName.BasicDude, content.Load<Texture2D>("Idle_000"));
+            textureMap.Add(TextureName.MikuWarrior, content.Load<Texture2D>("miku warrior"));
             textureMap.Add(TextureName.BasicTile,content.Load<Texture2D>("box_brown"));
             textureMap.Add(TextureName.BasicButtonBackground, content.Load<Texture2D>("rounded_box_brown"));
             textureMap.Add(TextureName.BasicButtonHover, content.Load<Texture2D>("rounded_box_red_faded"));
@@ -66,6 +67,7 @@ namespace CrossPlatform.GameTop
         public void draw(GameTime gameTime)
         {
             spriteBatch.Begin();
+            //renderObjects.Reverse();
             foreach (RenderObject item in renderObjects)
             {
                 if (item.ContainsRectangle)
@@ -169,6 +171,7 @@ namespace CrossPlatform.GameTop
         BasicBackground,
         BasicScreenBackground,
         MainScreenBackground,
+        MikuWarrior,
         BasicButtonBackground,
         BasicButtonHover,
         BackButton,

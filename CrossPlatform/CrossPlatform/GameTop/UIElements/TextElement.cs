@@ -10,9 +10,15 @@ namespace CrossPlatform.GameTop.UI
 {
     class TextElement : IRenderable
     {
-        Screen screen;
-        Vector2 position;
-        string text;
+
+        public Renderer Renderer { get; set; }
+        public Rectangle Rect { get => rect; set { rect = value; Position = new Vector2(value.Location.X + value.Width / 2, value.Location.Y + value.Height / 2); } }
+        private Rectangle rect;
+        public Screen Screen { get; set; }
+        public Vector2 Position { get; set; }
+        public string Text { get; set; }
+        bool isVisible;
+
         public TextElement(Screen screen, Renderer renderer, Rectangle rect, string text)
         {
             this.Screen = screen;
@@ -20,7 +26,7 @@ namespace CrossPlatform.GameTop.UI
             this.Rect = rect;
             this.Text = text;
             this.Screen.renderableChildren.Add(this);
-
+            isVisible = true;
         }
 
         public void setText(string text)
@@ -28,24 +34,22 @@ namespace CrossPlatform.GameTop.UI
             this.Text = text;
         }
 
-        private Renderer renderer;
-        private Rectangle rect;
-        private TextureName texture;
-        public Renderer Renderer { get => renderer; set => renderer = value; }
-        public TextureName Texture { get => texture; set => texture = value; }
-        public Rectangle Rect { get => rect; set { rect = value;position = new Vector2(value.Location.X + value.Width / 2, value.Location.Y + value.Height / 2); } }
-        public Screen Screen { get => screen; set => screen = value; }
-
-        public Vector2 Position { get => position; set => position = value; }
-        public string Text { get => text; set => text = value; }
+        
+        public void setVisibility(bool visible)
+        {
+            isVisible = visible;
+        }
 
         public void render()
         {
-            renderer.render(Position, Text);
+            if (isVisible)
+            {
+                Renderer.render(Position, Text);
+            }
         }
         public void destroy()
         {
-            screen.renderableChildren.Remove(this);
+            Screen.renderableChildren.Remove(this);
         }
     }
 }

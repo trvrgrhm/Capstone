@@ -11,8 +11,12 @@ namespace CrossPlatform.GameTop.Tiles
 {
     class SelectedSquadTile
     {
-        public Squad SelectedSquad { get { return SelectedSquad; } set { selectedSquad = value; populateWithSquad(value); } }
+        public Squad SelectedSquad { get { return selectedSquad; } set { selectedSquad = value; populateWithSquad(value); } }
         private Squad selectedSquad;
+        public Unit SelectedUnit { get { return selectedUnit; } set { selectedUnit = value; NewUnitSelected = true; } }
+        private Unit selectedUnit;
+        public bool NewUnitSelected { get; set; }
+
         RenderableElement Background { get; set; }
         Button LeaderButton { get; set; }
         RenderableElement LeaderPicture { get; set; }
@@ -22,6 +26,7 @@ namespace CrossPlatform.GameTop.Tiles
         public SelectedSquadTile(Screen screen, Renderer renderer, Rectangle frame)
         {
             Background = new RenderableElement(screen, renderer, frame);
+            Background.Texture = TextureName.MainScreenBackground;
 
             LeaderButton = new Button(screen, renderer, new Rectangle(frame.X,frame.Y,frame.Width/4,frame.Height));
             UnitButtonPanel = new Button[6];
@@ -30,9 +35,9 @@ namespace CrossPlatform.GameTop.Tiles
             for(int i = 0; i < 3; i++)
             {
                 int j = 0;
-                UnitButtonPanel[i] = new Button(screen, renderer, new Rectangle(j*panelButtonWidth+frame.X+LeaderButton.Rect.Width,i*panelButtonHeight+frame.Y,panelButtonWidth,panelButtonHeight));
+                UnitButtonPanel[i] = new Button(screen, renderer, new Rectangle(i*panelButtonWidth+frame.X+LeaderButton.Rect.Width,j*panelButtonHeight+frame.Y,panelButtonWidth,panelButtonHeight));
                 j = 1;
-                UnitButtonPanel[i+3] = new Button(screen, renderer, new Rectangle(j * panelButtonWidth + frame.X + LeaderButton.Rect.Width, i * panelButtonHeight + frame.Y, panelButtonWidth, panelButtonHeight));
+                UnitButtonPanel[i+3] = new Button(screen, renderer, new Rectangle(i * panelButtonWidth + frame.X + LeaderButton.Rect.Width, j * panelButtonHeight + frame.Y, panelButtonWidth, panelButtonHeight));
 
             }
             LeaderPicture = new RenderableElement(screen, renderer, new Rectangle(LeaderButton.Rect.X, LeaderButton.Rect.Y, LeaderButton.Rect.Width, LeaderButton.Rect.Width));
@@ -53,32 +58,52 @@ namespace CrossPlatform.GameTop.Tiles
 
         public void populateWithSquad(Squad squad)
         {
-            if(squad.units[0]!= null)
+            if (squad != null)
             {
-                LeaderPicture.Texture =  (squad.units[0].Picture);
-                LeaderPicture.setVisibility(true);
-                LeaderButton.hoverableTile.Highlight = true;
+                if (squad.units[0] != null)
+                {
+                    //leader
+                    LeaderPicture.Texture = (squad.units[0].Picture);
+                    LeaderPicture.setVisibility(true);
+                    LeaderButton.hoverableTile.Highlight = true;
+                    LeaderButton.clickableElement.setOnClick(()=> { SelectedUnit = squad.units[0]; return true; });
+                    //units
+                    for (int i = 0; i < squad.MaxSize - 1; i++)
+                    {
+                        if (squad.units[i + 1] != null)
+                        {
+                            Unit temp = squad.units[i + 1];
+                            UnitPictures[i].Texture = (temp.Picture);
+                            UnitPictures[i].setVisibility(true);
+                            UnitButtonPanel[i].hoverableTile.Highlight = true;
+                            UnitButtonPanel[i].clickableElement.setOnClick(() => { SelectedUnit = temp; return true; });
+                        }
+                        else
+                        {
+
+                            UnitPictures[i].setVisibility(false);
+                            UnitButtonPanel[i].hoverableTile.Highlight = false;
+                            UnitButtonPanel[i].clickableElement.setOnClick(() => { return true; });
+                        }
+                        //UnitButtonPanel[i-1].clickableElement
+                    }
+                }
             }
             else
             {
+                //squad is null
                 LeaderPicture.setVisibility(false);
                 LeaderButton.hoverableTile.Highlight = false;
-            }
-            for(int i = 0; i < squad.MaxSize-1; i++)
-            {
-                if (squad.units[i+1] != null)
+                LeaderButton.clickableElement.setOnClick(() => { return true; });
+                foreach (RenderableElement picture in UnitPictures)
                 {
-                    UnitPictures[i].Texture = (squad.units[i + 1].Picture);
-                    UnitPictures[i].setVisibility(true);
-                    UnitButtonPanel[i].hoverableTile.Highlight = true;
+                    picture.setVisibility(false);
                 }
-                else
+                foreach (Button button in UnitButtonPanel)
                 {
-
-                    UnitPictures[i].setVisibility(false);
-                    UnitButtonPanel[i].hoverableTile.Highlight = false;
+                    button.hoverableTile.Highlight = false;
+                    button.clickableElement.setOnClick(() => { return true; });
                 }
-                //UnitButtonPanel[i-1].clickableElement
             }
         }
 

@@ -10,34 +10,40 @@ namespace CrossPlatform.GameTop.UI
 {
     class ClickableElement: IClickable
     {
-        Screen screen;
+        Screen Screen { get; set; }
         Func<bool> onClickFunction;
         bool hasOnClickFunction;
         Func<Point,bool> onDragFunction;
-        bool hasonDragFunction;
-        Func<bool> onClickStartFunction;
-        bool hasOnClickStartFunction;
-        Func<bool> onDragReleaseFunction;
+        bool hasonDragFromHereFunction;
+        Func<bool> onClickStartHereFunction;
+        bool hasOnClickStartHereFunction;
+        Action onDragEndHereFunction;
+        bool hasOnDragEndHereFunction;
+        Action onDragReleaseFunction;
         bool hasOnDragReleaseFunction;
         public Rectangle rect;
-        bool clickStarted;
-        bool stayedInBounds;
-        bool dragging;
-        bool clickStartedOutOfBounds;
+        bool clickStartedHere;
+        //bool stayedInBounds;
+        //bool dragging;
+        //bool clickStartedOutOfBounds;
+
+        //static stuff
+        //public static bool dragStartedOverall = false;
 
         public ClickableElement(Screen screen, Rectangle clickableRectangle)
         {
             this.rect = clickableRectangle;
-            this.screen = screen;
-            this.screen.clickableChildren.Add(this);
+            this.Screen = screen;
+            this.Screen.clickableChildren.Insert(0,this);
 
-            clickStarted = false;
-            stayedInBounds = false;
-            dragging = false;
-            clickStartedOutOfBounds = false;
+            clickStartedHere = false;
+            //stayedInBounds = false;
+            //dragging = false;
+            //clickStartedOutOfBounds = false;
             hasOnClickFunction = false;
-            hasOnClickStartFunction = false;
-            hasonDragFunction = false;
+            hasOnClickStartHereFunction = false;
+            hasOnDragEndHereFunction = false;
+            hasonDragFromHereFunction = false;
             hasOnDragReleaseFunction = false;
         }
 
@@ -51,18 +57,30 @@ namespace CrossPlatform.GameTop.UI
         {
             this.onDragFunction = function;
 
-            hasonDragFunction = true;
+            hasonDragFromHereFunction = true;
         }
-        public void setOnDragRelease(Func<bool> function)
+        public void setOnDragRelease(Action function)
         {
             this.onDragReleaseFunction = function;
             hasOnDragReleaseFunction = true;
         }
-        public void setOnClickStart(Func<bool> function)
+        public void setOnClickStartHere(Func<bool> function)
         {
-            this.onClickStartFunction = function;
+            this.onClickStartHereFunction = function;
+            if (function != null)
+            {
+                hasOnClickStartHereFunction = true;
+            }
+            else
+            {
+                hasOnClickStartHereFunction = false;
+            }
+        }
+        public void setOnClickEndHere(Action function)
+        {
+            this.onDragEndHereFunction = function;
 
-            hasOnClickStartFunction = true;
+            hasOnDragEndHereFunction = true;
         }
 
         public void onClick()
@@ -71,95 +89,185 @@ namespace CrossPlatform.GameTop.UI
             catch (Exception e) { Console.WriteLine("error with onClick, " + e.StackTrace); }
             //Console.WriteLine("a button was clicked!");
         }
-        private void onDrag(Point mousePosition)
+        private void onDragFromHere(Point mousePosition)
         {
             try {onDragFunction(mousePosition); }
             catch (Exception e) { Console.WriteLine("error with onDrag, " + e.StackTrace); }
         }
         private void onDragRelease()
         {
-            try {onDragReleaseFunction(); }
+            try { onDragReleaseFunction(); }
             catch (Exception e) { Console.WriteLine("error with onDragRelease, " + e.StackTrace); }
         }
-        private void onClickStart()
+        private void onClickStartHere()
         {
-            try { onClickStartFunction(); }
+            try { onClickStartHereFunction(); }
             catch (Exception e) { Console.WriteLine("error with onClickStart, " + e.StackTrace); }
             
         }
-        public Boolean isDragging()
+        private void onDragEndHere()
         {
-            return dragging;
-        }
+            try { onDragEndHereFunction(); }
+            catch (Exception e) { Console.WriteLine("error with onClickStart, " + e.StackTrace); }
 
-        public void updateClick(Point mousePosition, bool leftClick)
+        }
+        //public Boolean isDragging()
+        //{
+        //    return dragging;
+        //}
+
+        public void updateClick(Point mousePosition, bool leftClick, bool dragStarted)
         {
-            
-            //TODO fix this
             if (rect.Contains(mousePosition))
             {
-                if (clickStartedOutOfBounds && !leftClick)
+                if (dragStarted)
                 {
-                    clickStartedOutOfBounds = false;
-                }
-                if (leftClick&&!clickStarted&&!clickStartedOutOfBounds)
-                {
-                    clickStarted = true;
-                    clickStartedOutOfBounds = false;
-                    stayedInBounds = true;
-                    if(hasOnClickStartFunction)
-                    onClickStart(); 
-                    //click start
-                    //onClickStart
-                    //Console.WriteLine("click started");
-                }
-                if (clickStarted && stayedInBounds && !leftClick)
-                {
-                    //click started and released in bounds
-                    if(hasOnClickFunction)
-                    onClick();
-                    clickStarted = false;
-                    clickStartedOutOfBounds = false;
-                    //Console.WriteLine("onClick");
-                    if (hasOnDragReleaseFunction)
-                        onDragRelease();
-                }
-            }
-            else
-            {
-                stayedInBounds = false;
-                
-                if (leftClick && !clickStarted)
-                {
-                    clickStartedOutOfBounds = true;
-                }
-                if(!leftClick && clickStartedOutOfBounds)
-                {
-                    clickStartedOutOfBounds = false;
-                }
-            }
-            if (clickStarted && leftClick)
-            {
-                if(hasonDragFunction)
-                onDrag(mousePosition);
-                dragging = true;
+                    if (!leftClick)
+                    {
+                        if (clickStartedHere)
+                        {
+                            if(hasOnClickFunction)
+                            onClick();
+                            Console.WriteLine("full click");
+                        }
+                        else
+                        {
+                            if(hasOnDragEndHereFunction)
+                            onDragEndHere();
+                            Console.WriteLine("drag ended here");
+                        }
+                        Screen.dragStarted = false;
 
-                //Console.WriteLine("Something is being dragged from a button.");
+
+                    }
+                }
+                else
+                {
+                    if (leftClick)
+                    {
+                        clickStartedHere = true;
+                        if(hasOnClickStartHereFunction)
+                        onClickStartHere();
+                        Screen.dragStarted = true;
+                        Console.WriteLine("click started here");
+                    }
+                }
             }
-            if (clickStarted && !leftClick)
+            //if (!leftClick)
+            //{
+            //    clickStartedHere = false;
+            //    Console.WriteLine("drag released");
+            //    if (hasOnDragReleaseFunction)
+            //        onDragRelease();
+            //}
+            if (dragStarted&& clickStartedHere)
             {
-                clickStarted = false;
-                clickStartedOutOfBounds = false;
-                if(hasOnDragReleaseFunction)
-                onDragRelease();
-                //Console.WriteLine("A drag has stopped");
-                //onDragDrop
-                //release click
+                if(hasonDragFromHereFunction)
+                onDragFromHere(mousePosition);
+                Console.WriteLine("drag continued here");
+                if (!leftClick)
+                {
+                    
+                }
+
             }
+            if (!leftClick&& clickStartedHere)
+            {
+                Console.WriteLine("drag released");
+                if (hasOnDragReleaseFunction)
+                    onDragRelease();
+                clickStartedHere = false;
+            }
+
+            //TODO fix this
+            //if (rect.Contains(mousePosition))
+            //{
+            //    if (clickStartedOutOfBounds && !leftClick)
+            //    {
+            //        clickStartedOutOfBounds = false;
+            //    }
+            //    if (leftClick && !clickStartedHere && !clickStartedOutOfBounds)
+            //    {
+            //        clickStartedHere = true;
+            //        clickStartedOutOfBounds = false;
+            //        stayedInBounds = true;
+            //        if (hasOnClickStartHereFunction)
+            //            onClickStartHere();
+
+            //        dragStartedOverall = true;
+            //        Console.WriteLine("drag started overall");
+            //        //click start overall and here 
+            //        //onClickStart
+            //        //Console.WriteLine("click started");
+            //    }
+            //    if (clickStartedHere && stayedInBounds && !leftClick)
+            //    {
+            //        //click started and released in bounds
+            //        if (hasOnClickFunction)
+            //            onClick();
+            //        clickStartedHere = false;
+            //        clickStartedOutOfBounds = false;
+            //        dragStartedOverall = false;
+            //        //Console.WriteLine("onClick");
+            //        if (hasOnDragReleaseFunction)
+            //            onDragRelease();
+            //    }
+            //    if (!leftClick && dragStartedOverall)
+            //    {
+            //        dragStartedOverall = false;
+            //        if (hasOnClickEndHereFunction)
+            //            onDragEndHere();
+
+            //        Console.WriteLine("drag ended here");
+            //        //
+            //        //click ends here
+            //    }
+            //}
+            //else
+            //{
+            //    stayedInBounds = false;
+
+            //    if (leftClick && !clickStartedHere)
+            //    {
+            //        clickStartedOutOfBounds = true;
+            //    }
+            //    if (!leftClick && clickStartedOutOfBounds)
+            //    {
+            //        clickStartedOutOfBounds = false;
+            //    }
+            //    if (!leftClick && dragStartedOverall)
+            //    {
+            //        //dragStartedOverall = false;
+            //        Console.WriteLine("drag ended here first lol");
+            //        //click ends here
+            //    }
+            //}
+
+
+            //if (clickStartedHere && leftClick)
+            //{
+            //    if (hasonDragFunction)
+            //        onDrag(mousePosition);
+            //    dragging = true;
+
+            //    //Console.WriteLine("Something is being dragged from a button.");
+            //}
+            //if (clickStartedHere && !leftClick)
+            //{
+            //    clickStartedHere = false;
+            //    clickStartedOutOfBounds = false;
+            //    dragStartedOverall = false;
+            //    if (hasOnDragReleaseFunction)
+            //        onDragRelease();
+            //    Console.WriteLine("drag ended somewhere else");
+            //    //Console.WriteLine("A drag has stopped");
+            //    //onDragDrop
+            //    //release click
+            //}
         }
         public void destroy()
         {
-            screen.clickableChildren.Remove(this);
+            Screen.clickableChildren.Remove(this);
         }
     }
 }

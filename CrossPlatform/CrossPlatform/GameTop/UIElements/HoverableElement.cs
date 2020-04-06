@@ -39,7 +39,7 @@ namespace CrossPlatform.GameTop.UI
             Highlight = true;
 
             this.Screen.renderableChildren.Add(this);
-            this.Screen.hoverableChildren.Add(this);
+            this.Screen.hoverableChildren.Insert(0,this);
             isVisible = true;
 
         }

@@ -40,19 +40,23 @@ namespace CrossPlatform.GameTop.ArmyInfo
                 }
             } }
 
-        public void addUnit(int position, Unit unit)
+        public bool addUnit(int position, Unit unit)
         {
-            if (!unit.IsInSquad) {
-                units[position] = unit;
+            if (!unit.IsInSquad&&!this.isFull()) {
                 unit.IsInSquad = true;
+                unit.SquadPosition = position;
+                units[position] = unit;
                 Console.WriteLine("[Squad] A unit was added!");
+                return true;
             }
+            return false;
         }
         public void removeUnit(int position)
         {
             if (units[position] != null)
             {
                 units[position].IsInSquad = false;
+                units[position].SquadPosition = -1;
                 units[position] = null;
                 Console.WriteLine("[Squad] A unit was removed!");
             }
@@ -63,6 +67,17 @@ namespace CrossPlatform.GameTop.ArmyInfo
             {
                 removeUnit(i);
             }
+        }
+        public bool isFull()
+        {
+            foreach(Unit unit in units)
+            {
+                if (unit == null)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

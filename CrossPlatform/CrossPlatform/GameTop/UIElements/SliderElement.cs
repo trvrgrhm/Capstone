@@ -24,7 +24,7 @@ namespace CrossPlatform.GameTop.UIElements
         {
             SliderBar = new RenderableElement(screen, renderer, sliderBar, TextureName.BasicButtonHover);
             SliderButton = new Button(screen, renderer, new Rectangle(sliderBar.X, sliderBar.Y, sliderBar.Width, sliderBar.Width));
-            SliderButton.changeTexture(TextureName.Ball);
+            SliderButton.setTexture(TextureName.Ball);
             SliderButton.hoverableTile.Highlight = false;
 
             SliderButton.clickableElement.setOnDrag(dragSlider);
@@ -46,10 +46,10 @@ namespace CrossPlatform.GameTop.UIElements
                 sliderMoving = true;
             }
         }
-        private bool sliderStopped()
+        private void sliderStopped()
         {
             sliderMoving = false;
-            return true;
+            //return true;
         }
 
         public void setVisibility(bool visible)

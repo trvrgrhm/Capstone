@@ -14,6 +14,7 @@ namespace CrossPlatform.GameTop
     {
         protected ScreenController gameController;
         public List<IRenderable> renderableChildren;
+        public List<IRenderable> renderableTopLayerChildren;
         public List<IMovable> moveableChildren;
         public List<IClickable> clickableChildren;
         public List<IHoverable> hoverableChildren;
@@ -28,6 +29,7 @@ namespace CrossPlatform.GameTop
         Point mousePosition;
         bool leftClick;
         int scrollValue;
+        public bool dragStarted;
 
 
         public Screen(ScreenController controller, Renderer renderer)
@@ -37,6 +39,7 @@ namespace CrossPlatform.GameTop
 
             //children
             renderableChildren = new List<IRenderable>();
+            renderableTopLayerChildren = new List<IRenderable>();
             moveableChildren = new List<IMovable>();
             clickableChildren = new List<IClickable>();
             hoverableChildren = new List<IHoverable>();
@@ -48,6 +51,8 @@ namespace CrossPlatform.GameTop
             ScreenSize = screenSize;
             //self
             background = new RenderableElement(this, this.Renderer, this.ScreenSize, TextureName.BasicScreenBackground);
+
+            dragStarted = false;
         }
 
         //call update on self and all children
@@ -66,7 +71,18 @@ namespace CrossPlatform.GameTop
             foreach (IClickable child in clickableChildren)
             {
                 //update clickable children
-                child.updateClick(mousePosition, leftClick);
+                //if (leftClick)
+                //{
+                    //if (!dragStarted)
+                    //{
+                    //    dragStarted = true;
+                    //}
+                //}
+                child.updateClick(mousePosition, leftClick, dragStarted);
+            }
+            if (!leftClick)
+            {
+                dragStarted = false;
             }
             foreach (IHoverable child in hoverableChildren)
             {
@@ -96,6 +112,10 @@ namespace CrossPlatform.GameTop
             //renderer.render(Rect, Texture);
             //render children
             foreach(IRenderable child in renderableChildren)
+            {
+                child.render();
+            }
+            foreach(IRenderable child in renderableTopLayerChildren)
             {
                 child.render();
             }

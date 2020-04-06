@@ -15,33 +15,35 @@ namespace CrossPlatform.GameTop.UI
         public HoverableElement hoverableTile;
         TextElement text;
         public ClickableElement clickableElement;
-
-        //mouse info
-        
+        RenderableElement icon;
+        bool iconVisible;
+                
 
         //text info
         public Vector2 textPosition;
 
         private Rectangle rect;
-        public Rectangle Rect { get => rect; set { hoverableTile.Rect = value; rect = value; text.Rect = value; clickableElement.rect = value; } }
+        public Rectangle Rect { get => rect; set { hoverableTile.Rect = value; rect = value; text.Rect = value; clickableElement.rect = value; icon.Rect = value; } }
         private bool isVisible;
 
 
         public Button(Screen screen, Renderer renderer)
         {
             this.screen = screen;
-            this.rect = new Rectangle(0, 0, 250, 100);
+            this.rect = new Rectangle(0, 0, screen.ScreenSize.Width/20, screen.ScreenSize.Height/20);
 
-            this.hoverableTile = new HoverableElement(this.screen, renderer, this.rect);
-            this.text = new TextElement(this.screen, renderer, this.rect, "");
-            this.clickableElement = new ClickableElement(this.screen, this.rect);
+            this.hoverableTile = new HoverableElement(this.screen, renderer, Rect);
+            this.text = new TextElement(this.screen, renderer, Rect, "");
+            this.clickableElement = new ClickableElement(this.screen, Rect);
+            icon = new RenderableElement(this.screen, renderer, Rect);
+            icon.setVisibility(false);
 
             this.textPosition = rect.Location.ToVector2();
         }
         public Button(Screen screen, Renderer renderer, Rectangle buttonRectangle) : this(screen, renderer)
         {
 
-            this.Rect = buttonRectangle;
+            Rect = buttonRectangle;
 
         }
         public Button(Screen screen, Renderer renderer, Rectangle buttonRectangle, string text) : this(screen, renderer,buttonRectangle)
@@ -63,17 +65,29 @@ namespace CrossPlatform.GameTop.UI
         {
             this.text.setText(text);
         }
-        public void changeTexture(TextureName texture)
+        public void setTexture(TextureName texture)
         {
             hoverableTile.Texture = texture;
         }
-        public void changeHoverTexture(TextureName texture)
+        public void setHoverTexture(TextureName texture)
         {
             hoverableTile.HoverTexture = texture;
+        }
+        public void setIconTexture(TextureName texture)
+        {
+            icon.Texture = texture;
+        }
+        public void setIconVisibility(bool visible)
+        {
+            iconVisible = visible;
+            icon.setVisibility(visible);
         }
         public void setVisibility(bool visible)
         {
             hoverableTile.setVisibility(visible);
+            text.setVisibility(visible);
+            if(iconVisible)
+            icon.setVisibility(visible);
             isVisible = visible;
         }
         public bool getVisibility()
@@ -84,6 +98,7 @@ namespace CrossPlatform.GameTop.UI
         {
             hoverableTile.destroy();
             clickableElement.destroy();
+            icon.destroy();
             text.destroy();
         }
 

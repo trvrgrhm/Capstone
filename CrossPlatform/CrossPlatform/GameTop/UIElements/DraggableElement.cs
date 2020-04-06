@@ -12,19 +12,25 @@ namespace CrossPlatform.GameTop.UIElements
     {
         public Button DragOrigin;
         public RenderableElement DragIcon;
-        public bool CursorIcon { get { return cursorIcon; } set { cursorIcon = value;DragIcon.setVisibility(value); } }
+        public RenderableElement OriginIcon;
+        public bool CursorIcon { get { return cursorIcon; } set { cursorIcon = value;if(value)DragIcon.setVisibility(true); } }
         public bool cursorIcon;
 
         public bool dragging;
+        bool hasCustomDragRelease;
 
         private Func<bool> customDragRelease;
 
         public DraggableElement(Screen screen, Renderer renderer, Rectangle origin)
         {
-            DragOrigin = new Button(screen,renderer,origin);
-            DragIcon = new RenderableElement(screen,renderer,origin);
+            DragOrigin = new Button(screen, renderer, origin);
+            OriginIcon = new RenderableElement(screen, renderer, origin);
+            DragIcon = new RenderableElement(screen, renderer, origin);
+            DragIcon.moveToTopLayer();
             cursorIcon = true;
             dragging = false;
+            DragIcon.setVisibility(false);
+            hasCustomDragRelease = false;
 
             DragOrigin.clickableElement.setOnDrag(dragItem);
             DragOrigin.clickableElement.setOnDragRelease(onDragRelease);
@@ -35,25 +41,29 @@ namespace CrossPlatform.GameTop.UIElements
             dragging = true;
             if (cursorIcon)
             {
+                DragIcon.setVisibility(true);
                 centerIconOnCursor(mousePosition);
             }
             return true;
         }
-        private bool onDragRelease()
+        private void onDragRelease()
         {
-            dragging = false; 
-            DragIcon.Rect = DragOrigin.Rect;
-            customDragRelease?.Invoke();
-            return true;
+            dragging = false;
+            //DragIcon.Rect = DragOrigin.Rect;
+            DragIcon.setVisibility(false);
+            if(hasCustomDragRelease)
+            customDragRelease();
+            //return true;
         }
         public void setOnDragRelease(Func<bool> func)
         {
             customDragRelease = func;
+            hasCustomDragRelease = true;
         }
 
         public void setCursorVisibility(bool visible)
         {
-            DragIcon.setVisibility(true);
+            //DragIcon.setVisibility(true);
             cursorIcon = visible;
         }
         private void centerIconOnCursor(Point mousePosition)
@@ -63,7 +73,7 @@ namespace CrossPlatform.GameTop.UIElements
         public void changeLocation(int x,int y)
         {
             DragOrigin.Rect = new Rectangle(x, y, DragOrigin.Rect.Width, DragOrigin.Rect.Height);
-            DragIcon.Rect = new Rectangle(x, y, DragIcon.Rect.Width, DragIcon.Rect.Height);
+            OriginIcon.Rect = new Rectangle(x, y, OriginIcon.Rect.Width, OriginIcon.Rect.Height);
         }
 
 
@@ -71,6 +81,7 @@ namespace CrossPlatform.GameTop.UIElements
         public void destroy()
         {
             DragOrigin.destroy();
+            OriginIcon.destroy();
             DragIcon.destroy();
         }
     }

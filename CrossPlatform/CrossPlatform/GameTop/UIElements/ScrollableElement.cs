@@ -37,7 +37,7 @@ namespace CrossPlatform.GameTop.UIElements
             ScrollingFrame.Texture = TextureName.MainScreenBackground;
 
             scrollUnit = (int)((ViewFrame.Rect.Height) * .1);
-            Screen.scrollableChildren.Add(this);
+            Screen.scrollableChildren.Insert(0,this);
         }
 
         public void onScrollDown()
@@ -77,6 +77,11 @@ namespace CrossPlatform.GameTop.UIElements
                 TotalFrame = new Rectangle(TotalFrame.X, TotalFrame.Y, TotalFrame.Width, newHeight);
                 ScrollingFrame.Rect = TotalFrame;
                 actuallyScrollable = true;
+            }
+            else
+            {
+                TotalFrame = ViewFrame.Rect;
+                ScrollingFrame.Rect = TotalFrame;
             }
             if(TotalFrame.Height == ViewFrame.Rect.Height)
             {

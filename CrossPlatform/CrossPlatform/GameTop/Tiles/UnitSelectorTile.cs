@@ -22,10 +22,11 @@ namespace CrossPlatform.GameTop.Tiles
         private Unit selectedUnit;
         public bool NewUnitSelected { get; set; }
         List<Unit> DisplayableUnits { get; set; }
-        List<DraggableElement> buttons;
+        List<Button> buttons;
         Army army;
         private bool needToUpdate;
         private int buttonSideSize;
+        public bool unitTilesReset;
 
         public UnitSelectorTile(Screen screen, Renderer renderer, Rectangle rect, PlayerInfo info)
         {
@@ -33,10 +34,12 @@ namespace CrossPlatform.GameTop.Tiles
             Renderer = renderer;
             ScrollableTile = new ScrollableElement(screen, renderer, rect);
             army = info.PlayerArmy;
-            buttons = new List<DraggableElement>();
+            buttons = new List<Button>();
             Rect = rect;
             buttonSideSize = Rect.Width / 4;
+            unitTilesReset = false;
             initUnits();
+
 
 
             needToUpdate = true;
@@ -74,7 +77,7 @@ namespace CrossPlatform.GameTop.Tiles
 
         public void updateButtons()
         {
-            foreach(DraggableElement button in buttons)
+            foreach(Button button in buttons)
             {
                 button.destroy();
             }
@@ -84,10 +87,11 @@ namespace CrossPlatform.GameTop.Tiles
             foreach(Unit unit in DisplayableUnits)
             {
 
-                DraggableElement temp = new DraggableElement(Screen, Renderer, new Rectangle((i*buttonSideSize)+this.Rect.X, (j * buttonSideSize) + this.Rect.Y,buttonSideSize,buttonSideSize));
+                Button temp = new Button(Screen, Renderer, new Rectangle((i*buttonSideSize)+this.Rect.X, (j * buttonSideSize) + this.Rect.Y,buttonSideSize,buttonSideSize));
                 //temp.DragOrigin.changeTexture(unit.Picture);
-                temp.DragIcon.Texture = unit.Picture;
-                temp.DragOrigin.clickableElement.setOnClickStart(() => { SelectedUnit = unit; return true; });
+                temp.setIconTexture(unit.Picture);
+                temp.setIconVisibility(true);
+                temp.clickableElement.setOnClickStartHere(() => { SelectedUnit = unit; return true; });
                 //temp.setOnDragRelease(() => { SelectedUnit = unit; return true; });
                 buttons.Add(temp);
                 ScrollableTile.changeScrollingHeight((j+1)* buttonSideSize);
@@ -98,12 +102,13 @@ namespace CrossPlatform.GameTop.Tiles
                     j++;
                 }
             }
+            unitTilesReset = true;
         }
         public void updateButtonPositions(int howMuch)
         {
-            foreach (DraggableElement button in buttons)
+            foreach (Button button in buttons)
             {
-                button.changeLocation(button.DragOrigin.Rect.X, button.DragOrigin.Rect.Y + howMuch);
+                button.changeLocation(button.Rect.X, button.Rect.Y + howMuch);
             }
         }
 

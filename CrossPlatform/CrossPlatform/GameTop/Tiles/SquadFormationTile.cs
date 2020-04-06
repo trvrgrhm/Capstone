@@ -12,7 +12,7 @@ namespace CrossPlatform.GameTop.Tiles
 {
     class SquadFormationTile
     {
-        DraggableElement[,] buttons;
+        SquadTile[,] buttons;
         public Squad SelectedSquad { get { return selectedSquad; } set { selectedSquad = value; NewSquadSelected = true; } }
         private Squad selectedSquad;
         public bool NewSquadSelected { get; set; }
@@ -30,18 +30,22 @@ namespace CrossPlatform.GameTop.Tiles
             army = info.PlayerArmy;
             Rows = army.squads.GetLength(0);
             Columns = army.squads.GetLength(1);
-            buttons = new DraggableElement[Rows,Columns];
+            buttons = new SquadTile[Rows,Columns];
             for (int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j< Columns; j++)
                 {
-                    buttons[i, j] = new DraggableElement(screen, renderer, new Rectangle(i * rowUnit+TileRect.X, j * colUnit+TileRect.Y, rowUnit, colUnit));
-                    buttons[i, j].DragOrigin.changeTexture(TextureName.Ball);
-                    buttons[i, j].DragIcon.setVisibility(false);
-                    if (army.squads[i, j] != null)
-                    {
-                        addSquadTile(i, j);
-                    }
+                    SquadTile leButton = new SquadTile();
+                    leButton.button = new DraggableElement(screen, renderer, new Rectangle(i * rowUnit+TileRect.X, j * colUnit+TileRect.Y, rowUnit, colUnit));
+                    leButton.button.DragOrigin.setTexture(TextureName.Ball);
+                    leButton.button.OriginIcon.setVisibility(false);
+                    leButton.button.setCursorVisibility(false);
+                    leButton.row = i;
+                    leButton.col = j;
+                    leButton.button.DragOrigin.clickableElement.setOnClickEndHere(() => { if(SelectedSquad != null) swapTiles(leButton.row, leButton.col);});
+                    buttons[i, j] = leButton;
+                    addSquadTile(i, j);
+
                 }
             }
 
@@ -50,17 +54,43 @@ namespace CrossPlatform.GameTop.Tiles
         {
             if (army.squads[row, col] != null)
             {
-                buttons[row, col].DragIcon.Texture = army.squads[row, col].units[0].Picture;
-                buttons[row, col].DragOrigin.clickableElement.setOnClickStart(() => { SelectedSquad = army.squads[row, col]; return true; });
-                buttons[row, col].DragIcon.setVisibility(true);
+                buttons[row, col].button.DragIcon.Texture = army.squads[row, col].units[0].Picture;
+                buttons[row, col].button.OriginIcon.Texture = army.squads[row, col].units[0].Picture;
+                buttons[row, col].button.OriginIcon.setVisibility(true);
+                buttons[row, col].button.setCursorVisibility(true);
             }
+
+            buttons[row, col].button.DragOrigin.clickableElement.setOnClickStartHere(() => { SelectedSquad = army.squads[row, col]; return true; });
         }
         public void removeSquadTile(int row, int col)
         {
-            buttons[row, col].DragIcon.setVisibility(false);
-            buttons[row, col].DragOrigin.clickableElement.setOnClickStart(null);
+            buttons[row, col].button.setCursorVisibility(false);
+            buttons[row, col].button.OriginIcon.setVisibility(false);
+            buttons[row, col].button.DragOrigin.clickableElement.setOnClickStartHere(null);
         }
 
+        public void swapTiles(int newRow, int newCol)
+        {
+            Console.WriteLine("attemptint to move squad to " + newRow + ", " + newCol);
+            int tempRow = SelectedSquad.Row;
+            int tempCol = SelectedSquad.Column;
+            //Squad newSquad = army.squads[newRow, newCol];
+            removeSquadTile(tempRow, tempCol);
+            removeSquadTile(newRow, newCol);
+            army.swapSquads(tempRow, tempCol, newRow, newCol);
+            addSquadTile(tempRow, tempCol);
+            addSquadTile(newRow, newCol);
+            //return true;
+        }
+
+
+    }
+    class SquadTile
+    {
+        public DraggableElement button;
+        public Squad squad;
+        public int row;
+        public int col;
 
     }
 }
