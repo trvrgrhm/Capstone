@@ -51,6 +51,14 @@ namespace CrossPlatform.GameTop.Tiles
             
             SelectedUnit = tile.SelectedUnit;
         }
+        public void reset()
+        {
+            Tile.reset();
+            UnitPicture.reset();
+            UnitName.reset();
+            SquadButton.reset();
+            SquadInfo.reset();
+        }
 
         private void setUpNewUnit(Unit unit)
         {

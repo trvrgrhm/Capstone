@@ -23,22 +23,28 @@ namespace CrossPlatform.GameTop.ArmyInfo
             Column = col;
         }
 
-        public int MaxSize { 
-            get { return maxSize; } 
-            set 
-            { 
+        public int MaxSize
+        {
+            get { return maxSize; }
+            set
+            {
                 //if max size is increased, recreate the array
                 if (value > maxSize)
                 {
                     maxSize = value;
                     Unit[] temp = new Unit[value];
-                    for(int i = 0; i < units.Length;i++)
+                    for (int i = 0; i < units.Length; i++)
                     {
                         temp[i] = units[i];
                     }
                     units = temp;
                 }
-            } }
+            }
+        }
+        public bool containsUnit(Unit unit)
+        {
+            return units.Contains(unit);
+        }
 
         public bool addUnit(int position, Unit unit)
         {
@@ -55,10 +61,45 @@ namespace CrossPlatform.GameTop.ArmyInfo
         {
             if (units[position] != null)
             {
-                units[position].IsInSquad = false;
-                units[position].SquadPosition = -1;
-                units[position] = null;
-                Console.WriteLine("[Squad] A unit was removed!");
+                //if (position ==0 && units[position + 1] != null)
+                //{
+                    //removeUnitForSure(position);
+                    units[position].IsInSquad = false;
+                    units[position].SquadPosition = -1;
+                    units[position] = null;
+                    Console.WriteLine("[Squad] A unit was removed!");
+                    shiftUnitsLeft(position);
+                //}
+                //else
+                //{
+                //    removeUnitForSure(position);
+                //}
+
+            }
+        }
+        //private void removeUnitForSure(int position)
+        //{
+
+        //units[position].IsInSquad = false;
+        //            units[position].SquadPosition = -1;
+        //            units[position] = null;
+        //            Console.WriteLine("[Squad] A unit was removed!");
+            
+        //}
+        //shift units left from a certain position
+        private void shiftUnitsLeft(int position)
+        {
+            for(int i = position+1; i < maxSize; i++)
+            {
+                units[i - 1] = units[i];
+                if (units[i - 1] != null)
+                {
+                    units[i - 1].SquadPosition = i - 1;
+                }
+                if(i == maxSize - 1)
+                {
+                    units[i] = null;
+                }
             }
         }
         public void removeAllUnits()

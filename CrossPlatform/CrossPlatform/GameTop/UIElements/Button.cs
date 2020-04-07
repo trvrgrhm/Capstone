@@ -94,6 +94,13 @@ namespace CrossPlatform.GameTop.UI
         {
             return isVisible;
         }
+        public void reset()
+        {
+            hoverableTile.reset();
+            clickableElement.reset();
+            icon.reset();
+            text.reset();
+        }
         public void destroy()
         {
             hoverableTile.destroy();

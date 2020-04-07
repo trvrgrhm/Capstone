@@ -110,7 +110,14 @@ namespace CrossPlatform.GameTop.UIElements
                 moveScrollingFrame(SliderBar.SliderValue);
             }
         }
-
+        public void reset()
+        {
+            Screen.scrollableChildren.Remove(this);
+            Screen.scrollableChildren.Insert(0,this);
+            ViewFrame.reset();
+            ScrollingFrame.reset();
+            SliderBar.reset();
+        }
         public void destroy()
         {
             Screen.scrollableChildren.Remove(this);

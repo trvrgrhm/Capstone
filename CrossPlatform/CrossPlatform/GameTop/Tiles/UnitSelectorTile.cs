@@ -86,7 +86,7 @@ namespace CrossPlatform.GameTop.Tiles
             int j = 0;
             foreach(Unit unit in DisplayableUnits)
             {
-
+                initUnits();
                 Button temp = new Button(Screen, Renderer, new Rectangle((i*buttonSideSize)+this.Rect.X, (j * buttonSideSize) + this.Rect.Y,buttonSideSize,buttonSideSize));
                 //temp.DragOrigin.changeTexture(unit.Picture);
                 temp.setIconTexture(unit.Picture);

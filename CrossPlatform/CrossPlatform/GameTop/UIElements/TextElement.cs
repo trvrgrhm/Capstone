@@ -47,6 +47,11 @@ namespace CrossPlatform.GameTop.UI
                 Renderer.render(Position, Text);
             }
         }
+        public void reset()
+        {
+            Screen.renderableChildren.Remove(this);
+            Screen.renderableChildren.Add(this);
+        }
         public void destroy()
         {
             Screen.renderableChildren.Remove(this);

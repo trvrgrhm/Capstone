@@ -88,6 +88,14 @@ namespace CrossPlatform.GameTop.UI
                 }
             }
         }
+
+        public void reset()
+        {
+            Screen.renderableChildren.Remove(this);
+            Screen.renderableChildren.Add(this);
+            Screen.hoverableChildren.Remove(this);
+            Screen.hoverableChildren.Insert(0,this);
+        }
         public void destroy()
         {
             Screen.renderableChildren.Remove(this);

@@ -77,7 +77,12 @@ namespace CrossPlatform.GameTop.UIElements
         }
 
 
-
+        public void reset()
+        {
+            DragOrigin.reset();
+            OriginIcon.reset();
+            DragIcon.reset();
+        }
         public void destroy()
         {
             DragOrigin.destroy();

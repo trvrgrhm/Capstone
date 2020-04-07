@@ -39,6 +39,8 @@ namespace CrossPlatform.GameTop.Screens
 
             formationTile = new SquadFormationTile(this, this.Renderer, new Rectangle(0, 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .75)), playerInfo);
             selectedSquadTile = new SelectedSquadTile(this, this.Renderer, new Rectangle(0, (int)(screenSize.Height * .75), (int)(screenSize.Width * .5), (int)(screenSize.Height * .25)));
+            SelectedSquad = playerInfo.PlayerArmy.squads[0, 0];
+            formationTile.SelectedSquad = SelectedSquad;
             unitSelectorTile = new UnitSelectorTile(this, this.Renderer, new Rectangle((int)(screenSize.Width * .5), 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .5)), playerInfo);
             selectedUnitTile = new SelectedUnitTile(this, this.Renderer, new Rectangle((int)(screenSize.Width * .5), (int)(screenSize.Height * .5), (int)(screenSize.Width * .5), (int)(screenSize.Height * .3)));
 
@@ -62,45 +64,59 @@ namespace CrossPlatform.GameTop.Screens
             base.update();
             if (formationTile.NewSquadSelected)
             {
+                //update selected squad
+                if (SelectedSquad.containsUnit(SelectedUnit))
+                {
+                    SelectedUnit = null;
+                }
                 SelectedSquad = formationTile.SelectedSquad;
+                
                 formationTile.NewSquadSelected = false;
             }
             if (unitSelectorTile.NewUnitSelected)
             {
+                //update selected unit
                 SelectedUnit = unitSelectorTile.SelectedUnit;
                 unitSelectorTile.NewUnitSelected = false;
             }
             if (selectedSquadTile.NewUnitSelected)
             {
+                //update selected unit
                 SelectedUnit = selectedSquadTile.SelectedUnit;
                 selectedSquadTile.NewUnitSelected = false;
             }
-            if (unitSelectorTile.unitTilesReset)
-            {
-                selectedUnitTile.destroy();
-                selectedUnitTile = new SelectedUnitTile(this, Renderer, new Rectangle((int)(screenSize.Width * .5), (int)(screenSize.Height * .5), (int)(screenSize.Width * .5), (int)(screenSize.Height * .3)));
-                Button newButton = new Button(this, Renderer, new Rectangle((int)(screenSize.Width * .5), (int)(screenSize.Height * .5), (int)(screenSize.Width * .5), (int)(screenSize.Height * .3)));
-                selectedUnitTile.SelectedUnit = SelectedUnit;
-            }
+            
             if (selectedUnitTile.addUnitToSquad)
             {
-                //addUnit function
+                //add unit
                 if (playerInfo.PlayerArmy.addUnitToSquad(SelectedUnit, SelectedSquad.Row, SelectedSquad.Column))
                 {
                     unitSelectorTile.removeUnitFromTile(SelectedUnit);
                     selectedSquadTile.populateWithSquad(SelectedSquad);
+                    formationTile.addSquadTile(selectedSquad.Row,selectedSquad.Column);
+                    Console.WriteLine("unit added");
                 }
                 selectedUnitTile.addUnitToSquad = false;
             }
             if (selectedUnitTile.removeUnitFromSquad)
             {
+                //remove unit
                 if (playerInfo.PlayerArmy.removeUnitFromSquad(SelectedUnit.SquadPosition, SelectedSquad.Row, SelectedSquad.Column))
                 {
                     unitSelectorTile.addUnitToTile(SelectedUnit);
                     selectedSquadTile.populateWithSquad(SelectedSquad);
+                    formationTile.removeSquadTile(selectedSquad.Row, selectedSquad.Column);
+                    formationTile.addSquadTile(selectedSquad.Row, selectedSquad.Column);
+                    Console.WriteLine("unit removed");
                 }
-                //removeUnit function
                 selectedUnitTile.removeUnitFromSquad = false;
+            }
+
+            if (unitSelectorTile.unitTilesReset)
+            {
+                //reset unit selector
+                selectedUnitTile.reset();
+                selectedUnitTile.SelectedUnit = SelectedUnit;
             }
             //update selected unit
             //update selected squad

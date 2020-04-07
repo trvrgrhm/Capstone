@@ -24,8 +24,11 @@ namespace CrossPlatform.GameTop
         public RenderableElement background;
         public Rectangle screenSize;
 
+        public Renderer Renderer { get; set; }
+        public Rectangle ScreenSize { get => screenSize; set => screenSize = value; }
+
         //mouse info
-        
+
         Point mousePosition;
         bool leftClick;
         int scrollValue;
@@ -100,10 +103,6 @@ namespace CrossPlatform.GameTop
             }
 
         }
-        //
-        public Renderer Renderer { get; set; }
-        public Rectangle ScreenSize { get => screenSize; set => screenSize = value; }
-
 
         //call render method of self and all children
         public void render()

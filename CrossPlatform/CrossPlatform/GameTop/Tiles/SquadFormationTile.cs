@@ -13,7 +13,7 @@ namespace CrossPlatform.GameTop.Tiles
     class SquadFormationTile
     {
         SquadTile[,] buttons;
-        public Squad SelectedSquad { get { return selectedSquad; } set { selectedSquad = value; NewSquadSelected = true; } }
+        public Squad SelectedSquad { get { return selectedSquad; } set { if(selectedSquad != null)changeSelectedSquadBackground(TextureName.Ball); selectedSquad = value; if (selectedSquad != null) changeSelectedSquadBackground(TextureName.BasicButtonHover); NewSquadSelected = true; } }
         private Squad selectedSquad;
         public bool NewSquadSelected { get; set; }
         Army army;
@@ -42,7 +42,7 @@ namespace CrossPlatform.GameTop.Tiles
                     leButton.button.setCursorVisibility(false);
                     leButton.row = i;
                     leButton.col = j;
-                    leButton.button.DragOrigin.clickableElement.setOnClickEndHere(() => { if(SelectedSquad != null) swapTiles(leButton.row, leButton.col);});
+                    leButton.button.DragOrigin.clickableElement.setOnClickEndHere(() => { if(SelectedSquad.units[0] != null) swapTiles(leButton.row, leButton.col);});
                     buttons[i, j] = leButton;
                     addSquadTile(i, j);
 
@@ -52,7 +52,7 @@ namespace CrossPlatform.GameTop.Tiles
         }
         public void addSquadTile(int row, int col)
         {
-            if (army.squads[row, col] != null)
+            if (army.squads[row, col].units[0] != null)
             {
                 buttons[row, col].button.DragIcon.Texture = army.squads[row, col].units[0].Picture;
                 buttons[row, col].button.OriginIcon.Texture = army.squads[row, col].units[0].Picture;
@@ -60,7 +60,7 @@ namespace CrossPlatform.GameTop.Tiles
                 buttons[row, col].button.setCursorVisibility(true);
             }
 
-            buttons[row, col].button.DragOrigin.clickableElement.setOnClickStartHere(() => { SelectedSquad = army.squads[row, col]; return true; });
+            buttons[row, col].button.DragOrigin.clickableElement.setOnClickStartHere(() => { SelectedSquad = army.squads[row, col];/* changeSelectedSquadBackground(TextureName.BasicButtonHover) ;*/ return true; });
         }
         public void removeSquadTile(int row, int col)
         {
@@ -69,8 +69,13 @@ namespace CrossPlatform.GameTop.Tiles
             buttons[row, col].button.DragOrigin.clickableElement.setOnClickStartHere(null);
         }
 
+        public void changeSelectedSquadBackground(TextureName texture)
+        {
+            buttons[SelectedSquad.Row, SelectedSquad.Column].button.DragOrigin.setTexture(texture);
+        }
         public void swapTiles(int newRow, int newCol)
         {
+            changeSelectedSquadBackground(TextureName.Ball);
             Console.WriteLine("attemptint to move squad to " + newRow + ", " + newCol);
             int tempRow = SelectedSquad.Row;
             int tempCol = SelectedSquad.Column;
@@ -80,6 +85,7 @@ namespace CrossPlatform.GameTop.Tiles
             army.swapSquads(tempRow, tempCol, newRow, newCol);
             addSquadTile(tempRow, tempCol);
             addSquadTile(newRow, newCol);
+            SelectedSquad = SelectedSquad;
             //return true;
         }
 
@@ -88,7 +94,6 @@ namespace CrossPlatform.GameTop.Tiles
     class SquadTile
     {
         public DraggableElement button;
-        public Squad squad;
         public int row;
         public int col;
 

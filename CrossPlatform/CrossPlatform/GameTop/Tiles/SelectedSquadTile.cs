@@ -58,8 +58,7 @@ namespace CrossPlatform.GameTop.Tiles
 
         public void populateWithSquad(Squad squad)
         {
-            if (squad != null)
-            {
+            
                 if (squad.units[0] != null)
                 {
                     //leader
@@ -88,10 +87,9 @@ namespace CrossPlatform.GameTop.Tiles
                         //UnitButtonPanel[i-1].clickableElement
                     }
                 }
-            }
             else
             {
-                //squad is null
+                //squad is empty
                 LeaderPicture.setVisibility(false);
                 LeaderButton.hoverableTile.Highlight = false;
                 LeaderButton.clickableElement.setOnClick(() => { return true; });

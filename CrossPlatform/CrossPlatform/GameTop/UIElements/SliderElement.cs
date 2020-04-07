@@ -62,7 +62,11 @@ namespace CrossPlatform.GameTop.UIElements
         {
             return isVisible;
         }
-
+        public void reset()
+        {
+            SliderBar.reset();
+            SliderButton.reset();
+        }
         public void destroy()
         {
             SliderBar.destroy();
