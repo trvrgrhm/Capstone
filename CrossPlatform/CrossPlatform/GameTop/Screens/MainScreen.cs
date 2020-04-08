@@ -10,7 +10,7 @@ namespace CrossPlatform.GameTop
 {
     class MainScreen: Screen
     {
-        public MainScreen(ScreenController controller, Renderer renderer) : base(controller, renderer) { }
+        public MainScreen(ScreenController controller, Renderer renderer, PlayerInfo playerInfo) : base(controller, renderer, playerInfo) { }
 
         //testing
         Button mapButton;
@@ -22,7 +22,7 @@ namespace CrossPlatform.GameTop
             //init self
             base.init(screenSize);
             //this.texture = TextureName.MainScreenBackground;
-            this.renderableTile.Texture = TextureName.MainScreenBackground;
+            this.background.Texture = TextureName.MainScreenBackground;
             //init children
 
 

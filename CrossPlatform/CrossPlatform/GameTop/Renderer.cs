@@ -29,7 +29,8 @@ namespace CrossPlatform.GameTop
         {
             //for testing
             textureMap.Add(TextureName.Ball, content.Load<Texture2D>("ball"));
-
+            textureMap.Add(TextureName.BasicDude, content.Load<Texture2D>("Idle_000"));
+            textureMap.Add(TextureName.MikuWarrior, content.Load<Texture2D>("miku warrior"));
             textureMap.Add(TextureName.BasicTile,content.Load<Texture2D>("box_brown"));
             textureMap.Add(TextureName.BasicButtonBackground, content.Load<Texture2D>("rounded_box_brown"));
             textureMap.Add(TextureName.BasicButtonHover, content.Load<Texture2D>("rounded_box_red_faded"));
@@ -44,23 +45,29 @@ namespace CrossPlatform.GameTop
         public void render(float X, float Y, TextureName texture)
         {
             renderObjects.Add(new RenderObject(X, Y, texture));
+            //spriteBatch.Draw(textureMap[texture], new Vector2((int)X, (int)Y), Color.White);
         }
         public void render(Rectangle rect, TextureName texture)
         {
             renderObjects.Add(new RenderObject(rect, texture));
+            //spriteBatch.Draw(textureMap[texture], rect, Color.White);
         }
         public void render(Vector2 position, string text)
         {
             renderObjects.Add(new RenderObject(position, text));
+            //spriteBatch.DrawString(fontMap[FontName.Arial16], text, position, Color.White);
         }
         public void render(FontName font, Vector2 position, string text, Color color)
         {
             renderObjects.Add(new RenderObject(font, position, text, color));
+            //spriteBatch.DrawString(fontMap[font], text, position, color);
         }
+
 
         public void draw(GameTime gameTime)
         {
             spriteBatch.Begin();
+            //renderObjects.Reverse();
             foreach (RenderObject item in renderObjects)
             {
                 if (item.ContainsRectangle)
@@ -69,7 +76,8 @@ namespace CrossPlatform.GameTop
                 }
                 else if (item.IsText)
                 {
-                    spriteBatch.DrawString(fontMap[item.Font], item.Text, item.Position, item.Color);
+                    
+                    spriteBatch.DrawString(fontMap[item.Font], item.Text, item.Position - new Vector2(fontMap[item.Font].MeasureString(item.Text).X/2, fontMap[item.Font].MeasureString(item.Text).Y/2), item.Color) ;
                 }
                 else {
                     spriteBatch.Draw(textureMap[item.Texture], new Vector2(item.X, item.Y), Color.White);
@@ -158,11 +166,12 @@ namespace CrossPlatform.GameTop
     {
         //for testing
         Ball,
-
+        BasicDude,
         BasicTile,
         BasicBackground,
         BasicScreenBackground,
         MainScreenBackground,
+        MikuWarrior,
         BasicButtonBackground,
         BasicButtonHover,
         BackButton,

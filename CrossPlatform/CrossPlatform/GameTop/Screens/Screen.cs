@@ -14,35 +14,51 @@ namespace CrossPlatform.GameTop
     {
         protected ScreenController gameController;
         public List<IRenderable> renderableChildren;
+        public List<IRenderable> renderableTopLayerChildren;
         public List<IMovable> moveableChildren;
         public List<IClickable> clickableChildren;
         public List<IHoverable> hoverableChildren;
+        public List<IScrollable> scrollableChildren;
+        public List<IUpdatable> updatableChildren;
 
-        public RenderableTile renderableTile;
+        public PlayerInfo playerInfo { get; set; }
+
+        public RenderableElement background;
         public Rectangle screenSize;
 
+        public Renderer Renderer { get; set; }
+        public Rectangle ScreenSize { get => screenSize; set => screenSize = value; }
+
         //mouse info
-        
+
         Point mousePosition;
         bool leftClick;
+        int scrollValue;
+        public bool dragStarted;
 
 
-        public Screen(ScreenController controller, Renderer renderer)
+        public Screen(ScreenController controller, Renderer renderer,PlayerInfo playerInfo)
         {
             this.gameController = controller;
             this.Renderer = renderer;
+            this.playerInfo = playerInfo;
 
             //children
             renderableChildren = new List<IRenderable>();
+            renderableTopLayerChildren = new List<IRenderable>();
             moveableChildren = new List<IMovable>();
             clickableChildren = new List<IClickable>();
             hoverableChildren = new List<IHoverable>();
+            scrollableChildren = new List<IScrollable>();
+            updatableChildren = new List<IUpdatable>();
         }
         virtual public void init(Rectangle screenSize)
         {
             ScreenSize = screenSize;
             //self
-            renderableTile = new RenderableTile(this, this.Renderer, this.ScreenSize, TextureName.BasicScreenBackground);
+            background = new RenderableElement(this, this.Renderer, this.ScreenSize, TextureName.BasicScreenBackground);
+
+            dragStarted = false;
         }
 
         //call update on self and all children
@@ -57,24 +73,39 @@ namespace CrossPlatform.GameTop
             }
             mousePosition = Mouse.GetState().Position.ToVector2().ToPoint();
             leftClick = Mouse.GetState().LeftButton==ButtonState.Pressed;
+            scrollValue = Mouse.GetState().ScrollWheelValue;
             foreach (IClickable child in clickableChildren)
             {
                 //update clickable children
-                child.updateClick(mousePosition, leftClick);
+                //if (leftClick)
+                //{
+                    //if (!dragStarted)
+                    //{
+                    //    dragStarted = true;
+                    //}
+                //}
+                child.updateClick(mousePosition, leftClick, dragStarted);
+            }
+            if (!leftClick)
+            {
+                dragStarted = false;
             }
             foreach (IHoverable child in hoverableChildren)
             {
                 //update hoverable children
                 child.updateHover(mousePosition);
             }
+            foreach(IScrollable child in scrollableChildren)
+            {
+                //update scrollable children
+                child.updateScroll(scrollValue);
+            }
+            foreach(IUpdatable child in updatableChildren)
+            {
+                child.update();
+            }
 
         }
-
-        //IRenderable
-        protected Renderer renderer;
-        public Renderer Renderer { get => renderer; set => renderer = value; }
-        public Rectangle ScreenSize { get => screenSize; set => screenSize = value; }
-
 
         //call render method of self and all children
         public void render()
@@ -83,6 +114,10 @@ namespace CrossPlatform.GameTop
             //renderer.render(Rect, Texture);
             //render children
             foreach(IRenderable child in renderableChildren)
+            {
+                child.render();
+            }
+            foreach(IRenderable child in renderableTopLayerChildren)
             {
                 child.render();
             }

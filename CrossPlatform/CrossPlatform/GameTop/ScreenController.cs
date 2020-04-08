@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CrossPlatform.GameTop.Interfaces;
 using CrossPlatform.GameTop.Screens;
+using Microsoft.Xna.Framework;
 
 namespace CrossPlatform.GameTop
 {
@@ -14,33 +15,38 @@ namespace CrossPlatform.GameTop
         private ScreenState currentScreen;
         private Dictionary <ScreenState,Screen> screens;
         private Renderer renderer;
+        private Rectangle ScreenSize { get; set; }
 
-        public void init(Renderer renderer, Microsoft.Xna.Framework.Rectangle screenSize)
+        public PlayerInfo playerInfo { get; set; }
+
+        public void init(Renderer renderer, Rectangle screenSize)
         {
+            //will eventually get this from save data
+            playerInfo = new PlayerInfo();
+
+            ScreenSize = screenSize;
+
             this.renderer = renderer;
             screens = new Dictionary<ScreenState, Screen>();
             //main screen
-            screens.Add(ScreenState.MainScreenState, new MainScreen(this,this.renderer));
-            screens[ScreenState.MainScreenState].init(screenSize);
+            screens.Add(ScreenState.MainScreenState, new MainScreen(this,this.renderer,this.playerInfo));
             //map screen
-            screens.Add(ScreenState.MapScreenState, new MapScreen(this,this.renderer));
-            screens[ScreenState.MapScreenState].init(screenSize);
+            screens.Add(ScreenState.MapScreenState, new MapScreen(this,this.renderer,this.playerInfo));
             //army screen
-            screens.Add(ScreenState.ArmyScreenState, new ArmyScreen(this,this.renderer));
-            screens[ScreenState.ArmyScreenState].init(screenSize);
+            screens.Add(ScreenState.ArmyScreenState, new ArmyScreen(this,this.renderer,this.playerInfo));
             //battle screen
-            screens.Add(ScreenState.BattleScreenState, new Screen(this,this.renderer));
-            screens[ScreenState.BattleScreenState].init(screenSize);
+            screens.Add(ScreenState.BattleScreenState, new BattleScreen(this,this.renderer,this.playerInfo));
             //setting screen
-            screens.Add(ScreenState.SettingScreenState, new SettingScreen(this,this.renderer));
-            screens[ScreenState.SettingScreenState].init(screenSize);
+            screens.Add(ScreenState.SettingScreenState, new SettingScreen(this,this.renderer,this.playerInfo));
 
-            currentScreen = ScreenState.MainScreenState;
+
+            goToScreen(ScreenState.MainScreenState);
         }
 
         public void goToScreen(ScreenState screenState)
         {
             previousScreen = currentScreen;
+            screens[screenState].init(ScreenSize);
             currentScreen = screenState;
         }
 
@@ -48,7 +54,7 @@ namespace CrossPlatform.GameTop
         {
             goToScreen(previousScreen);
         }
-
+        
         public void update()
         {
             screens[currentScreen].update();

@@ -14,5 +14,6 @@ namespace CrossPlatform.GameTop.Interfaces
         int Y { get; set; }
 
         void move();
+        void destroy();
     }
 }

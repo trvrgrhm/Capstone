@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace CrossPlatform.GameTop.Interfaces
 {
-    interface IHoverable
+    interface IUpdatable
     {
-        void onHover();
-        void updateHover(Point mousePosition);
+        void update();
         void destroy();
     }
 }
