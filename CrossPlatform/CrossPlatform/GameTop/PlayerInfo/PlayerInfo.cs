@@ -1,4 +1,5 @@
 ﻿using CrossPlatform.GameTop.ArmyInfo;
+using CrossPlatform.GameTop.LevelInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,12 @@ namespace CrossPlatform.GameTop
 {
     class PlayerInfo
     {
+        public CityMap SelectedMap { get; set; }
         public Army PlayerArmy { get; set; }
+        public Army EnemyArmy { get; set; }
         //settings?
 
-        public PlayerInfo() : this(new Army())
+        public PlayerInfo() : this(new Army(), new CityMap())
         {
             Unit firstUnit = new Unit();
             Unit special = new Unit();
@@ -29,9 +32,11 @@ namespace CrossPlatform.GameTop
             }
             PlayerArmy.squads[0, 0].addUnit(0, firstUnit);
         }
-        public PlayerInfo(Army army)
+        public PlayerInfo(Army playerArmy, CityMap cityMap)
         {
-            PlayerArmy = army;
+            PlayerArmy = playerArmy;
+            SelectedMap = cityMap;
+            EnemyArmy = null;
         }
     }
 }

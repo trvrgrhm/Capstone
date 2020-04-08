@@ -10,7 +10,7 @@ namespace CrossPlatform.GameTop
 {
     class MainScreen: Screen
     {
-        public MainScreen(ScreenController controller, Renderer renderer) : base(controller, renderer) { }
+        public MainScreen(ScreenController controller, Renderer renderer, PlayerInfo playerInfo) : base(controller, renderer, playerInfo) { }
 
         //testing
         Button mapButton;

@@ -1,4 +1,6 @@
-﻿using CrossPlatform.GameTop.Tiles;
+﻿using CrossPlatform.GameTop.ArmyInfo;
+using CrossPlatform.GameTop.BattleLogic;
+using CrossPlatform.GameTop.Tiles;
 using CrossPlatform.GameTop.UI;
 using Microsoft.Xna.Framework;
 using System;
@@ -11,17 +13,21 @@ namespace CrossPlatform.GameTop.Screens
 {
     class BattleScreen : Screen
     {
-        public BattleScreen(ScreenController controller, Renderer renderer, PlayerInfo info) : base(controller, renderer) { playerInfo = info; }
+        public Army PlayerArmy { get; set; }
+        public Army EnemyArmy { get; set; }
+        Battle battle;
+        public BattleScreen(ScreenController controller, Renderer renderer, PlayerInfo info) : base(controller, renderer, info) {}
 
         //testing
         Button backButton;
-        HoverableElement battleControls;
+        BattleInfoTile battleControls;
 
         BattleTile battleTile;
-        PlayerInfo playerInfo;
 
-        override public void init(Microsoft.Xna.Framework.Rectangle screenSize)
+        override public void init(Rectangle screenSize)
         {
+            
+
             //init self
             base.init(screenSize);
             backButton = new Button(this, Renderer, new Rectangle(0, 0, 100, 100), "Back");
@@ -30,10 +36,18 @@ namespace CrossPlatform.GameTop.Screens
                 return true;
             });
 
-            battleControls = new HoverableElement(this, Renderer, new Rectangle(0, (int)(ScreenSize.Height*.8), (int)(ScreenSize.Width), (int)(ScreenSize.Height*.2)));
+            battleControls = new BattleInfoTile(this, Renderer, new Rectangle(0, (int)(ScreenSize.Height*.8), (int)(ScreenSize.Width), (int)(ScreenSize.Height*.2)));
 
-            //eventually change to enemy army
-            battleTile = new BattleTile(this,this.Renderer, new Rectangle(0, 0, (int)(ScreenSize.Width*.5), (int)(ScreenSize.Height * .75)), playerInfo.PlayerArmy, playerInfo.PlayerArmy);
+            Rectangle battleTileRect = new Rectangle(0, 0, (int)(ScreenSize.Width), (int)(ScreenSize.Height * .8));
+            battle = new Battle(playerInfo.PlayerArmy, playerInfo.EnemyArmy, battleTileRect);
+
+            battleTile = new BattleTile(this,this.Renderer, battleTileRect, battle);
+        }
+        public override void update()
+        {
+            base.update();
+
+            battleTile.update();
         }
     }
 }

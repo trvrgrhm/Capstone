@@ -12,12 +12,11 @@ namespace CrossPlatform.GameTop.Screens
 {
     class ArmyScreen: Screen
     {
-        public ArmyScreen(ScreenController controller, Renderer renderer, PlayerInfo info) : base(controller, renderer) { playerInfo = info; }
+        public ArmyScreen(ScreenController controller, Renderer renderer, PlayerInfo info) : base(controller, renderer, info) { }
 
         //testing
         Button mapButton;
         Button mainButton;
-        PlayerInfo playerInfo;
 
         public Squad SelectedSquad { get { return selectedSquad; } set { selectedSquad = value; selectedSquadTile.SelectedSquad = value; } }
         private Squad selectedSquad;
@@ -29,14 +28,13 @@ namespace CrossPlatform.GameTop.Screens
         UnitSelectorTile unitSelectorTile;
         SelectedUnitTile selectedUnitTile;
 
-        override public void init(Microsoft.Xna.Framework.Rectangle screenSize)
+        override public void init(Rectangle screenSize)
         {
             //init self
             base.init(screenSize);
-            //this.Texture = TextureName.BasicButtonBackground;
-            //init children
-            
 
+
+            //init children
             formationTile = new SquadFormationTile(this, this.Renderer, new Rectangle(0, 0, (int)(screenSize.Width * .5), (int)(screenSize.Height * .75)), playerInfo);
             selectedSquadTile = new SelectedSquadTile(this, this.Renderer, new Rectangle(0, (int)(screenSize.Height * .75), (int)(screenSize.Width * .5), (int)(screenSize.Height * .25)));
             SelectedSquad = playerInfo.PlayerArmy.squads[0, 0];
@@ -118,8 +116,6 @@ namespace CrossPlatform.GameTop.Screens
                 selectedUnitTile.reset();
                 selectedUnitTile.SelectedUnit = SelectedUnit;
             }
-            //update selected unit
-            //update selected squad
         }
     }
 }

@@ -21,6 +21,8 @@ namespace CrossPlatform.GameTop
         public List<IScrollable> scrollableChildren;
         public List<IUpdatable> updatableChildren;
 
+        public PlayerInfo playerInfo { get; set; }
+
         public RenderableElement background;
         public Rectangle screenSize;
 
@@ -35,10 +37,11 @@ namespace CrossPlatform.GameTop
         public bool dragStarted;
 
 
-        public Screen(ScreenController controller, Renderer renderer)
+        public Screen(ScreenController controller, Renderer renderer,PlayerInfo playerInfo)
         {
             this.gameController = controller;
             this.Renderer = renderer;
+            this.playerInfo = playerInfo;
 
             //children
             renderableChildren = new List<IRenderable>();

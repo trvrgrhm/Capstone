@@ -67,6 +67,8 @@
     <Compile Include="GameTop\Interfaces\IHoverable.cs" />
     <Compile Include="GameTop\Interfaces\IUpdatable.cs" />
     <Compile Include="GameTop\Interfaces\IScrollable.cs" />
+    <Compile Include="GameTop\LevelInfo\CityMap.cs" />
+    <Compile Include="GameTop\LevelInfo\City.cs" />
     <Compile Include="GameTop\PlayerInfo\PlayerInfo.cs" />
     <Compile Include="GameTop\Screens\ArmyScreen.cs" />
     <Compile Include="GameTop\Screens\BattleScreen.cs" />
@@ -78,12 +80,15 @@
     <Compile Include="GameTop\Interfaces\IRenderable.cs" />
     <Compile Include="GameTop\Screens\Screen.cs" />
     <Compile Include="GameTop\ScreenController.cs" />
-    <Compile Include="GameTop\Tiles\BattleTile.cs" />
-    <Compile Include="GameTop\Tiles\BasicTile.cs" />
-    <Compile Include="GameTop\Tiles\SelectedUnitTile.cs" />
-    <Compile Include="GameTop\Tiles\SelectedSquadTile.cs" />
-    <Compile Include="GameTop\Tiles\UnitSelectorTile.cs" />
-    <Compile Include="GameTop\Tiles\SquadFormationTile.cs" />
+    <Compile Include="GameTop\Tiles\BattleScreeen\BattleTile.cs" />
+    <Compile Include="GameTop\Tiles\BattleScreeen\BattleInfoTile.cs" />
+    <Compile Include="GameTop\Tiles\MapScreen\ArmyInfoTile.cs" />
+    <Compile Include="GameTop\Tiles\MapScreen\MapTile.cs" />
+    <Compile Include="GameTop\Tiles\MapScreen\CityInfoTile.cs" />
+    <Compile Include="GameTop\Tiles\FormationScreen\SelectedUnitTile.cs" />
+    <Compile Include="GameTop\Tiles\FormationScreen\SelectedSquadTile.cs" />
+    <Compile Include="GameTop\Tiles\FormationScreen\UnitSelectorTile.cs" />
+    <Compile Include="GameTop\Tiles\FormationScreen\SquadFormationTile.cs" />
     <Compile Include="GameTop\UIElements\Button.cs" />
     <Compile Include="GameTop\UIElements\DraggableElement.cs" />
     <Compile Include="GameTop\UIElements\SliderElement.cs" />
@@ -161,6 +166,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

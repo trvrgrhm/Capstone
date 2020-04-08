@@ -32,8 +32,6 @@ namespace CrossPlatform.GameTop.UIElements
             ScrollingFrame = new RenderableElement(screen, renderer, TotalFrame);
 
             SliderBar = new SliderElement(screen, renderer, new Rectangle(viewRect.X+viewRect.Width- (int)(viewRect.Width * .1), viewRect.Y, (int)(viewRect.Width * .1), viewRect.Height));
-            //for testing (doubles scroll height)
-            //changeScrollingHeight(TotalFrame.Height*3);
             ScrollingFrame.Texture = TextureName.MainScreenBackground;
 
             scrollUnit = (int)((ViewFrame.Rect.Height) * .1);

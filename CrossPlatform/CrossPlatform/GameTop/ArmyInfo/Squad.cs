@@ -61,32 +61,14 @@ namespace CrossPlatform.GameTop.ArmyInfo
         {
             if (units[position] != null)
             {
-                //if (position ==0 && units[position + 1] != null)
-                //{
-                    //removeUnitForSure(position);
                     units[position].IsInSquad = false;
                     units[position].SquadPosition = -1;
                     units[position] = null;
                     Console.WriteLine("[Squad] A unit was removed!");
                     shiftUnitsLeft(position);
-                //}
-                //else
-                //{
-                //    removeUnitForSure(position);
-                //}
 
             }
         }
-        //private void removeUnitForSure(int position)
-        //{
-
-        //units[position].IsInSquad = false;
-        //            units[position].SquadPosition = -1;
-        //            units[position] = null;
-        //            Console.WriteLine("[Squad] A unit was removed!");
-            
-        //}
-        //shift units left from a certain position
         private void shiftUnitsLeft(int position)
         {
             for(int i = position+1; i < maxSize; i++)

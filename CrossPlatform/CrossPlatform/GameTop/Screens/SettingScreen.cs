@@ -9,7 +9,7 @@ namespace CrossPlatform.GameTop.Screens
 {
     class SettingScreen : Screen
     {
-        public SettingScreen(ScreenController controller, Renderer renderer) : base(controller, renderer) { }
+        public SettingScreen(ScreenController controller, Renderer renderer, PlayerInfo playerInfo) : base(controller, renderer, playerInfo) { }
 
         //testing
         Button backButton;
