@@ -41,7 +41,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
 
         }
 
-        public Unit() : this(UnitType.Basic,TextureName.BasicDude, 100, 10, 5, 1, 4, 5, 1) { }
+        public Unit() : this(UnitType.Basic,TextureName.BasicDude, 100, 10, 5, 1, 4, 50, 1) { }
     }
 
     

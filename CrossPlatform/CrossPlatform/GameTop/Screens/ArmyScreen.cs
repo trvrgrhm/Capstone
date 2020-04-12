@@ -12,7 +12,7 @@ namespace CrossPlatform.GameTop.Screens
 {
     class ArmyScreen: Screen
     {
-        public ArmyScreen(ScreenController controller, Renderer renderer, PlayerInfo info) : base(controller, renderer, info) { }
+        public ArmyScreen(ScreenController controller, Renderer renderer, SoundController soundController, PlayerInfo info) : base(controller, renderer,soundController, info) { }
 
         //testing
         Button mapButton;

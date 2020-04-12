@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,7 +17,7 @@ namespace CrossPlatform.GameTop
         SpriteBatch spriteBatch;
         ContentManager content;
         List<RenderObject> renderObjects;
-        
+
 
         public void init(SpriteBatch spriteBatch, ContentManager content) {
             this.spriteBatch = spriteBatch;
@@ -40,6 +41,14 @@ namespace CrossPlatform.GameTop
 
             fontMap.Add(FontName.Arial12, content.Load<SpriteFont>("arial_12"));
             fontMap.Add(FontName.Arial16, content.Load<SpriteFont>("arial_16"));
+
+        }
+        public void unloadContent()
+        {
+            foreach(Texture2D texture in textureMap.Values)
+            {
+                texture.Dispose();
+            }
         }
 
         public void render(float X, float Y, TextureName texture)

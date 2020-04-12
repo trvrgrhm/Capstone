@@ -12,11 +12,14 @@ namespace CrossPlatform.GameTop.UI
     class Button
     {
         Screen screen;
+        Renderer renderer { get; set; }
         public HoverableElement hoverableTile;
         TextElement text;
         public ClickableElement clickableElement;
         RenderableElement icon;
         bool iconVisible;
+
+        bool clickSoundActive = true;
                 
 
         //text info
@@ -31,6 +34,7 @@ namespace CrossPlatform.GameTop.UI
         {
             this.screen = screen;
             this.rect = new Rectangle(0, 0, screen.ScreenSize.Width/20, screen.ScreenSize.Height/20);
+            this.renderer = renderer;
 
             this.hoverableTile = new HoverableElement(this.screen, renderer, Rect);
             this.text = new TextElement(this.screen, renderer, Rect, "");
@@ -53,7 +57,7 @@ namespace CrossPlatform.GameTop.UI
 
         public void setClick(Func<bool> function)
         {
-            this.clickableElement.setOnClick(function);
+            this.clickableElement.setOnClick(() => { if (clickSoundActive) { screen.playClickSound = true; } return function(); }) ;
         }
 
         public void changeLocation(int x, int y)

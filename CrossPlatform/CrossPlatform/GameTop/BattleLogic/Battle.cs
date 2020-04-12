@@ -24,6 +24,8 @@ namespace CrossPlatform.GameTop.BattleLogic
             EnemyPuppets = new List<BattlePuppet>();
             generatePlayerPuppets(player,new Point(BattleArea.X, BattleArea.Y + BattleArea.Height / 4));
             generateEnemyPuppets(enemy,new Point(BattleArea.X+BattleArea.Width-(BattleArea.Width/2), BattleArea.Y + BattleArea.Height / 4));
+            giveThemBadGuys(PlayerPuppets,EnemyPuppets);
+            giveThemBadGuys(EnemyPuppets, PlayerPuppets);
         }
 
         public void update()
@@ -76,8 +78,6 @@ namespace CrossPlatform.GameTop.BattleLogic
         }
         private void generateEnemyPuppets(Army army, Point startPosition)
         {
-            int squadX;
-            int squadY;
             foreach (Squad squad in army.squads)
             {
                 if (squad != null)
@@ -90,6 +90,16 @@ namespace CrossPlatform.GameTop.BattleLogic
                             EnemyPuppets.Add(new BattlePuppet(squad.units[i], squadRect.X + squadRect.Width - (i * (squadRect.Width / squad.MaxSize)), squadRect.Y + (squadRect.Height / 2), BattleArea.Center));
                         }
                     }
+                }
+            }
+        }
+        private void giveThemBadGuys(List<BattlePuppet> goodGuys, List<BattlePuppet> BadGuys)
+        {
+            foreach (BattlePuppet goodGuy in goodGuys)
+            {
+                foreach(BattlePuppet badGuy in BadGuys)
+                {
+                    goodGuy.Enemies.Add(badGuy);
                 }
             }
         }

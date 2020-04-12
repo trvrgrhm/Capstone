@@ -23,7 +23,7 @@ namespace CrossPlatform.GameTop.Screens
         MapTile mapTile;
         CityInfoTile selectedCityTile;
         ArmyInfoTile selectedArmyTile;
-        public MapScreen(ScreenController controller, Renderer renderer, PlayerInfo playerInfo) : base(controller, renderer, playerInfo) { this.playerInfo = playerInfo; }
+        public MapScreen(ScreenController controller, Renderer renderer,SoundController soundController, PlayerInfo playerInfo) : base(controller, renderer, soundController,playerInfo) { this.playerInfo = playerInfo; }
 
         
 

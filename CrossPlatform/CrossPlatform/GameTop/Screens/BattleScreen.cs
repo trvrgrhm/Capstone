@@ -16,7 +16,7 @@ namespace CrossPlatform.GameTop.Screens
         public Army PlayerArmy { get; set; }
         public Army EnemyArmy { get; set; }
         Battle battle;
-        public BattleScreen(ScreenController controller, Renderer renderer, PlayerInfo info) : base(controller, renderer, info) {}
+        public BattleScreen(ScreenController controller, Renderer renderer, SoundController soundController, PlayerInfo info) : base(controller, renderer,soundController, info) {}
 
         //testing
         Button backButton;
@@ -42,6 +42,8 @@ namespace CrossPlatform.GameTop.Screens
             battle = new Battle(playerInfo.PlayerArmy, playerInfo.EnemyArmy, battleTileRect);
 
             battleTile = new BattleTile(this,this.Renderer, battleTileRect, battle);
+
+            soundController.playSong("HeroicDemise");
         }
         public override void update()
         {

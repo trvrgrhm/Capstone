@@ -14,6 +14,7 @@ namespace CrossPlatform
         SpriteBatch spriteBatch;
         ScreenController screenController;
         Renderer renderer;
+        SoundController soundController;
         
         public Game1()
         {
@@ -21,6 +22,7 @@ namespace CrossPlatform
             Content.RootDirectory = "Content";
             screenController = new ScreenController();
             renderer = new Renderer();
+            soundController = new SoundController();
         }
 
         /// <summary>
@@ -33,8 +35,10 @@ namespace CrossPlatform
         {
             // TODO: Add your initialization logic here
 
-            
-            screenController.init(renderer, new Rectangle(0,0,GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height));
+
+            soundController.init(Content);
+            soundController.loadContent();
+            screenController.init(renderer, soundController, new Rectangle(0,0,GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height));
 
             //change window size
             //graphics.PreferredBackBufferWidth = 1600;
@@ -56,6 +60,7 @@ namespace CrossPlatform
 
             renderer.init(spriteBatch, Content);
             renderer.loadContent();
+
         }
 
         /// <summary>
@@ -65,6 +70,8 @@ namespace CrossPlatform
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            renderer.unloadContent();
+            soundController.unloadContent();
         }
 
         /// <summary>

@@ -63,6 +63,7 @@
     <Compile Include="GameTop\ArmyInfo\Squad.cs" />
     <Compile Include="GameTop\BattleLogic\Battle.cs" />
     <Compile Include="GameTop\BattleLogic\BattlePuppet.cs" />
+    <Compile Include="GameTop\SoundController.cs" />
     <Compile Include="GameTop\Interfaces\IClickable.cs" />
     <Compile Include="GameTop\Interfaces\IHoverable.cs" />
     <Compile Include="GameTop\Interfaces\IUpdatable.cs" />
@@ -166,7 +167,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

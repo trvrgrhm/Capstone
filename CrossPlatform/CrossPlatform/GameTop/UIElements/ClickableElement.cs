@@ -85,7 +85,7 @@ namespace CrossPlatform.GameTop.UI
 
         public void onClick()
         {
-            try { onClickFunction(); }
+            try { /*Screen.playClickSound = true; */onClickFunction(); }
             catch (Exception e) { Console.WriteLine("error with onClick, " + e.StackTrace); }
             //Console.WriteLine("a button was clicked!");
         }

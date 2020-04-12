@@ -10,7 +10,7 @@ namespace CrossPlatform.GameTop
 {
     class MainScreen: Screen
     {
-        public MainScreen(ScreenController controller, Renderer renderer, PlayerInfo playerInfo) : base(controller, renderer, playerInfo) { }
+        public MainScreen(ScreenController controller, Renderer renderer, SoundController soundController, PlayerInfo playerInfo) : base(controller, renderer, soundController, playerInfo) { }
 
         //testing
         Button mapButton;
@@ -47,6 +47,7 @@ namespace CrossPlatform.GameTop
 
 
 
+            soundController.playSong("MagicalTheme");
 
 
         }
