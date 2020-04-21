@@ -1633,18 +1633,6 @@
 /processorParam:TextureFormat=Color
 /build:Characters/Goblin01/Head.png
 
-#begin Characters/Goblin01/Idle_001.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Characters/Goblin01/Idle_001.png
-
 #begin Characters/Goblin01/Left Arm.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1680,6 +1668,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Characters/Goblin01/Left Leg.png
+
+#begin Characters/Goblin01/Picture.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Characters/Goblin01/Picture.png
 
 #begin Characters/Goblin01/Right Arm.png
 /importer:TextureImporter

@@ -25,40 +25,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
             }
             units = new List<Unit>();
         }
-
-        //public void addSquad(int row, int col, Squad squad)
-        //{
-        //    if (squads[row, col] == null)
-        //    {
-        //        squads[row, col] = squad;
-        //        squad.Row = row;
-        //        squad.Column = col;
-        //        Console.WriteLine("[Army] A squad was placed at " + row + "," + col + "!");
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("[Army] Squads must be removed from a spot before a new one can be placed!");
-        //        return;
-        //    }
-        //}
-
-        //public void removeSquad(int row, int col)
-        //{
-        //    if (squads[row, col] == null)
-        //    {
-        //        Console.WriteLine("[Army] There is no squad to remove!");
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        squads[row, col].removeAllUnits();
-        //        squads[row, col] = null;
-        //        Console.WriteLine("[Army] A squad was removed at "+row+","+col+"!");
-        //        return;
-        //    }
-        //}
-        
+                
         private void swapSquads(ref Squad squad1, ref Squad squad2)
         {
             //TODO check this...
@@ -165,16 +132,16 @@ namespace CrossPlatform.GameTop.ArmyInfo
             Unit chosenUnit = units[rnd.Next(units.Count)];
             if (removeUnitFromArmy(chosenUnit))
             {
-                Console.WriteLine("successfully added a unit to an army");
+                Console.WriteLine("successfully removed a random unit");
                 return chosenUnit;
             }
             chosenUnit = units[0];
             if (removeUnitFromArmy(chosenUnit))
             {
-                Console.WriteLine("successfully added a unit to an army");
+                Console.WriteLine("successfully removed a random unit");
                 return chosenUnit;
             }
-            Console.WriteLine("failed to add a unit to an army");
+            Console.WriteLine("failed to remove a random unit");
             return null;
             
 

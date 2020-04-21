@@ -68,6 +68,7 @@ namespace CrossPlatform.GameTop.Tiles
             renderables = renderables.OrderBy( item => item.puppet.ImageBox.Y).ToList();
             foreach(PuppetBundle renderable in renderables)
             {
+                if(!renderable.puppet.isDead)
                 renderable.image.reset();
             }
             updateCaptainButtons();

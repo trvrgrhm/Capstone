@@ -55,6 +55,7 @@ namespace CrossPlatform.GameTop.Storage
                 {
                     Unit unit = new Unit(unitWrapper.type);
                     army.squads[squadWrapper.row, squadWrapper.col].addUnit(i, unit);
+                    army.addUnit(unit);
                     i++;
                 }
             }

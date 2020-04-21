@@ -51,6 +51,9 @@ namespace CrossPlatform
             soundController.loadContent();
             screenController.init(renderer,playerInfo, storageManager, soundController, new Rectangle(0,0,GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height));
 
+            
+            storageManager.LoadGame();
+
             Window.Title = "Generic Strategy Game";
 
             

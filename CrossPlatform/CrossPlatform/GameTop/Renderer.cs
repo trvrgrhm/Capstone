@@ -26,23 +26,7 @@ namespace CrossPlatform.GameTop
             fontMap = new Dictionary<FontName, SpriteFont>();
             renderObjects = new List<RenderObject>();
         }
-        public void loadContent()
-        {
-            //for testing
-            textureMap.Add(TextureName.Ball, content.Load<Texture2D>("ball"));
-            textureMap.Add(TextureName.BasicDude, content.Load<Texture2D>("Idle_000"));
-            textureMap.Add(TextureName.MikuWarrior, content.Load<Texture2D>("miku warrior"));
-            textureMap.Add(TextureName.BasicTile,content.Load<Texture2D>("box_brown"));
-            textureMap.Add(TextureName.BasicButtonBackground, content.Load<Texture2D>("rounded_box_brown"));
-            textureMap.Add(TextureName.BasicButtonHover, content.Load<Texture2D>("rounded_box_red_faded"));
-            textureMap.Add(TextureName.MainScreenBackground, content.Load<Texture2D>("box_tan"));
-            textureMap.Add(TextureName.BasicScreenBackground, content.Load<Texture2D>("box_tan"));
-            textureMap.Add(TextureName.BackButton, content.Load<Texture2D>("ball"));
-
-            fontMap.Add(FontName.Arial12, content.Load<SpriteFont>("arial_12"));
-            fontMap.Add(FontName.Arial16, content.Load<SpriteFont>("arial_16"));
-
-        }
+        
         public void unloadContent()
         {
             foreach(Texture2D texture in textureMap.Values)
@@ -166,6 +150,47 @@ namespace CrossPlatform.GameTop
             }
         }
 
+
+        public void loadContent()
+        {
+            //for testing
+            textureMap.Add(TextureName.Ball, content.Load<Texture2D>("ball"));
+            textureMap.Add(TextureName.BasicTile, content.Load<Texture2D>("box_brown"));
+            textureMap.Add(TextureName.BasicButtonBackground, content.Load<Texture2D>("rounded_box_brown"));
+            textureMap.Add(TextureName.BasicButtonHover, content.Load<Texture2D>("rounded_box_red_faded"));
+            textureMap.Add(TextureName.MainScreenBackground, content.Load<Texture2D>("box_tan"));
+            textureMap.Add(TextureName.BasicScreenBackground, content.Load<Texture2D>("box_tan"));
+            textureMap.Add(TextureName.BackButton, content.Load<Texture2D>("ball"));
+
+            fontMap.Add(FontName.Arial12, content.Load<SpriteFont>("arial_12"));
+            fontMap.Add(FontName.Arial16, content.Load<SpriteFont>("arial_16"));
+
+            //units
+            textureMap.Add(TextureName.BasicDude, content.Load<Texture2D>("Idle_000"));
+            textureMap.Add(TextureName.Miku, content.Load<Texture2D>("miku warrior"));
+            textureMap.Add(TextureName.Archer1, content.Load<Texture2D>("Characters/Archer01/Picture"));
+            textureMap.Add(TextureName.Archer2, content.Load<Texture2D>("Characters/Archer02/Picture"));
+            textureMap.Add(TextureName.Archer3, content.Load<Texture2D>("Characters/Archer03/Picture"));
+            textureMap.Add(TextureName.Cyclop1, content.Load<Texture2D>("Characters/Cyclop01/Picture"));
+            textureMap.Add(TextureName.Cyclop2, content.Load<Texture2D>("Characters/Cyclop02/Picture"));
+            textureMap.Add(TextureName.Cyclop3, content.Load<Texture2D>("Characters/Cyclop03/Picture"));
+            textureMap.Add(TextureName.Demon1, content.Load<Texture2D>("Characters/Demon01/Picture"));
+            textureMap.Add(TextureName.Demon2, content.Load<Texture2D>("Characters/Demon02/Picture"));
+            textureMap.Add(TextureName.Demon3, content.Load<Texture2D>("Characters/Demon03/Picture"));
+            textureMap.Add(TextureName.Goblin1, content.Load<Texture2D>("Characters/Goblin01/Picture"));
+            textureMap.Add(TextureName.Goblin2, content.Load<Texture2D>("Characters/Goblin02/Picture"));
+            textureMap.Add(TextureName.Goblin3, content.Load<Texture2D>("Characters/Goblin03/Picture"));
+            textureMap.Add(TextureName.Knight1, content.Load<Texture2D>("Characters/Knight01/Picture"));
+            textureMap.Add(TextureName.Knight2, content.Load<Texture2D>("Characters/Knight02/Picture"));
+            textureMap.Add(TextureName.Knight3, content.Load<Texture2D>("Characters/Knight03/Picture"));
+            textureMap.Add(TextureName.Orc1, content.Load<Texture2D>("Characters/Orc01/Picture"));
+            textureMap.Add(TextureName.Orc2, content.Load<Texture2D>("Characters/Orc02/Picture"));
+            textureMap.Add(TextureName.Orc3, content.Load<Texture2D>("Characters/Orc03/Picture"));
+            textureMap.Add(TextureName.Skull1, content.Load<Texture2D>("Characters/Skull01/Picture"));
+            textureMap.Add(TextureName.Skull2, content.Load<Texture2D>("Characters/Skull02/Picture"));
+            textureMap.Add(TextureName.Skull3, content.Load<Texture2D>("Characters/Skull03/Picture"));
+
+        }
     }
     
 
@@ -175,15 +200,39 @@ namespace CrossPlatform.GameTop
     {
         //for testing
         Ball,
-        BasicDude,
         BasicTile,
         BasicBackground,
         BasicScreenBackground,
         MainScreenBackground,
-        MikuWarrior,
         BasicButtonBackground,
         BasicButtonHover,
         BackButton,
+
+        //units
+        Archer1,
+        Archer2,
+        Archer3,
+        Cyclop1,
+        Cyclop2,
+        Cyclop3,
+        Demon1,
+        Demon2,
+        Demon3,
+        Goblin1,
+        Goblin2,
+        Goblin3,
+        Knight1,
+        Knight2,
+        Knight3,
+        Orc1,
+        Orc2,
+        Orc3,
+        Skull1,
+        Skull2,
+        Skull3,
+
+        BasicDude,
+        Miku,
     }
     public enum FontName
     {
