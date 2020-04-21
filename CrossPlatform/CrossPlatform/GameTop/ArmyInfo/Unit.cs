@@ -10,6 +10,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
     {
         public UnitType Type { get; set; }
         public TextureName Picture { get; set; }
+        public Squad squad { get; set; }
         public bool IsInSquad { get; set; }
         public int SquadPosition { get; set; }
         public int MaxHealth { get; set; }
@@ -41,7 +42,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
 
         }
 
-        public Unit() : this(UnitType.Basic,TextureName.BasicDude, 100, 10, 5, 1, 4, 50, 1) { }
+        public Unit() : this(UnitType.Basic,TextureName.BasicDude, 100, 10, 5, 1, 2, 50, 1) { }
     }
 
     

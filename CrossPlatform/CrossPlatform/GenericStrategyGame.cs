@@ -8,7 +8,7 @@ namespace CrossPlatform
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    public class GenericStrategyGame : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -16,7 +16,7 @@ namespace CrossPlatform
         Renderer renderer;
         SoundController soundController;
         
-        public Game1()
+        public GenericStrategyGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -35,15 +35,18 @@ namespace CrossPlatform
         {
             // TODO: Add your initialization logic here
 
+            //change window size
+            //graphics.PreferredBackBufferWidth = 1600;
+            //graphics.PreferredBackBufferHeight = 1200;
+            //graphics.ApplyChanges();
 
             soundController.init(Content);
             soundController.loadContent();
             screenController.init(renderer, soundController, new Rectangle(0,0,GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height));
 
-            //change window size
-            //graphics.PreferredBackBufferWidth = 1600;
-            //graphics.PreferredBackBufferHeight = 1200;
-            //graphics.ApplyChanges();
+            Window.Title = "Generic Strategy Game";
+
+            
 
             this.IsMouseVisible = true;
             base.Initialize();

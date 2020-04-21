@@ -15,7 +15,7 @@ namespace CrossPlatform.GameTop
         public Army EnemyArmy { get; set; }
         //settings?
 
-        public PlayerInfo() : this(new Army(), new CityMap())
+        public PlayerInfo() : this(new Army("Player"), new CityMap())
         {
             Unit firstUnit = new Unit();
             Unit special = new Unit();

@@ -35,7 +35,7 @@ namespace CrossPlatform.GameTop
             textureMap.Add(TextureName.BasicTile,content.Load<Texture2D>("box_brown"));
             textureMap.Add(TextureName.BasicButtonBackground, content.Load<Texture2D>("rounded_box_brown"));
             textureMap.Add(TextureName.BasicButtonHover, content.Load<Texture2D>("rounded_box_red_faded"));
-            textureMap.Add(TextureName.MainScreenBackground, content.Load<Texture2D>("disgusted miku"));
+            textureMap.Add(TextureName.MainScreenBackground, content.Load<Texture2D>("box_tan"));
             textureMap.Add(TextureName.BasicScreenBackground, content.Load<Texture2D>("box_tan"));
             textureMap.Add(TextureName.BackButton, content.Load<Texture2D>("ball"));
 

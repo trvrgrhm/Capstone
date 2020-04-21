@@ -34,6 +34,7 @@ namespace CrossPlatform.GameTop
         public void playSong(string songName)
         {
             MediaPlayer.Play(songList[songName]);
+            MediaPlayer.IsRepeating = true;
         }
         public void playSound(string soundName)
         {

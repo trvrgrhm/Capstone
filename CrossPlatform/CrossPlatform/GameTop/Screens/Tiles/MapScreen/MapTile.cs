@@ -29,7 +29,7 @@ namespace CrossPlatform.GameTop.Tiles
             CityButtons = new List<CityButton>();
             foreach (City city in Map.Cities)
             {
-                Rectangle cityRect = new Rectangle((rect.Location + city.MapLocation), new Point(Rect.Width / 10, Rect.Width / 10));
+                Rectangle cityRect = new Rectangle(new Point(rect.Location.X + (int)((1.0 * city.MapLocation.X / Map.MapRect.Width) * rect.Width),rect.Location.Y + (int)((1.0*city.MapLocation.Y / Map.MapRect.Height) * rect.Height)), new Point(Rect.Width / 10, Rect.Width / 10));
                 Button button = new Button(screen, renderer, cityRect, city.CityName);
                 button.setClick(() => { SelectedCity = city; return true; });
                 CityButton cityButton = new CityButton(city, button);

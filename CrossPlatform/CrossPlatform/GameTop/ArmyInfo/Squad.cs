@@ -51,6 +51,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
             if (!unit.IsInSquad&&!this.isFull()) {
                 unit.IsInSquad = true;
                 unit.SquadPosition = position;
+                unit.squad = this;
                 units[position] = unit;
                 Console.WriteLine("[Squad] A unit was added!");
                 return true;
@@ -61,11 +62,12 @@ namespace CrossPlatform.GameTop.ArmyInfo
         {
             if (units[position] != null)
             {
-                    units[position].IsInSquad = false;
-                    units[position].SquadPosition = -1;
-                    units[position] = null;
-                    Console.WriteLine("[Squad] A unit was removed!");
-                    shiftUnitsLeft(position);
+                units[position].IsInSquad = false;
+                units[position].squad = null;
+                units[position].SquadPosition = -1;
+                units[position] = null;
+                Console.WriteLine("[Squad] A unit was removed!");
+                shiftUnitsLeft(position);
 
             }
         }

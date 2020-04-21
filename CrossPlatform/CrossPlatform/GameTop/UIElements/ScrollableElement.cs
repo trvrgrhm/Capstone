@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrossPlatform.GameTop.UIElements
+namespace CrossPlatform.GameTop.UI
 {
     class ScrollableElement : IScrollable
     {

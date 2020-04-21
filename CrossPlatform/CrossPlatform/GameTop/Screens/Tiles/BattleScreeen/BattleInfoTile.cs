@@ -15,7 +15,7 @@ namespace CrossPlatform.GameTop.Tiles
         public BattleInfoTile(Screen screen, Renderer renderer, Rectangle rect)
         {
             Background = new HoverableElement(screen, renderer, rect);
-            BattleInfo = new TextElement(screen, renderer, rect, "Battle Information");
+            BattleInfo = new TextElement(screen, renderer, rect, "Battle Controls");
 
         }
     }

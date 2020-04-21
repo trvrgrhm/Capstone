@@ -72,6 +72,8 @@ namespace CrossPlatform.GameTop.Tiles
             }
             else
             {
+
+                UnitName.Text = unit.Name;
                 UnitPicture.Texture = unit.Picture;
                 UnitPicture.setVisibility(true);
                 if (unit.IsInSquad)

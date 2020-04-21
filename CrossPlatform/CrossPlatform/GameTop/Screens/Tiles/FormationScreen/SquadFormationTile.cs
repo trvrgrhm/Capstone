@@ -1,6 +1,5 @@
 ﻿using CrossPlatform.GameTop.ArmyInfo;
 using CrossPlatform.GameTop.UI;
-using CrossPlatform.GameTop.UIElements;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

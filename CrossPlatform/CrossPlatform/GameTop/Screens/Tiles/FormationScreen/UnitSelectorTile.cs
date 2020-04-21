@@ -1,7 +1,6 @@
 ﻿using CrossPlatform.GameTop.ArmyInfo;
 using CrossPlatform.GameTop.Interfaces;
 using CrossPlatform.GameTop.UI;
-using CrossPlatform.GameTop.UIElements;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -102,6 +101,7 @@ namespace CrossPlatform.GameTop.Tiles
                     j++;
                 }
             }
+            ScrollableTile.SliderBar.reset();
             unitTilesReset = true;
         }
         public void updateButtonPositions(int howMuch)

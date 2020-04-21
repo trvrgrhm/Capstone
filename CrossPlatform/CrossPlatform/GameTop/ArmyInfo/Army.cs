@@ -8,11 +8,13 @@ namespace CrossPlatform.GameTop.ArmyInfo
 {
     class Army
     {
+        public String Owner { get; set; }
         public Squad[,] squads;
         public List<Unit> units;
 
-        public Army()
+        public Army(string owner)
         {
+            Owner = owner;
             squads = new Squad[4,4];
             for(int i = 0;i < 4; i++)
             {
@@ -147,14 +149,76 @@ namespace CrossPlatform.GameTop.ArmyInfo
             return false;
         }
 
-        public void addUnit(Unit unit)
+        public bool removeUnitFromSquad(Unit unit, Squad squad)
         {
-            units.Add(unit);
+            if (squad.containsUnit(unit))
+            {
+                return removeUnitFromSquad(unit.SquadPosition, squad);
+            }
+            return false;
         }
 
-        public void remove(Unit unit)
+
+        public Unit removeRandomUnitFromArmy()
         {
-            units.Remove(unit);
+            Random rnd = new Random();
+            Unit chosenUnit = units[rnd.Next(units.Count)];
+            if (removeUnitFromArmy(chosenUnit))
+            {
+                Console.WriteLine("successfully added a unit to an army");
+                return chosenUnit;
+            }
+            chosenUnit = units[0];
+            if (removeUnitFromArmy(chosenUnit))
+            {
+                Console.WriteLine("successfully added a unit to an army");
+                return chosenUnit;
+            }
+            Console.WriteLine("failed to add a unit to an army");
+            return null;
+            
+
+        }
+
+
+        public void addUnit(Unit unit)
+        {
+            if (unit != null)
+            {
+                units.Add(unit);
+            }
+        }
+
+        private bool removeUnitFromArmy(Unit unit)
+        {
+            if (containsUnit(unit))
+            {
+                foreach (Squad squad in squads)
+                {
+                    if (squad.containsUnit(unit))
+                    {
+                        if (removeUnitFromSquad(unit, squad))
+                        {
+                            units.Remove(unit);
+                            return true;
+                        }
+                    }
+                }
+                units.Remove(unit);
+                return true;
+            }
+            return false;
+        }
+        public bool containsUnit(Unit unit)
+        {
+            foreach(Unit unitCheck in units)
+            {
+                if(unit == unitCheck)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace CrossPlatform.GameTop.Tiles
             }
             else
             {
-                cityStats.Text = "City Information";
+                cityStats.Text = "Owned by: " + SelectedCity.GetCityOwner(); ;
             }
         }
 

@@ -111,10 +111,6 @@ namespace CrossPlatform.GameTop.UI
             catch (Exception e) { Console.WriteLine("error with onClickStart, " + e.StackTrace); }
 
         }
-        //public Boolean isDragging()
-        //{
-        //    return dragging;
-        //}
 
         public void updateClick(Point mousePosition, bool leftClick, bool dragStarted)
         {
@@ -137,8 +133,6 @@ namespace CrossPlatform.GameTop.UI
                             Console.WriteLine("drag ended here");
                         }
                         Screen.dragStarted = false;
-
-
                     }
                 }
                 else
@@ -153,13 +147,6 @@ namespace CrossPlatform.GameTop.UI
                     }
                 }
             }
-            //if (!leftClick)
-            //{
-            //    clickStartedHere = false;
-            //    Console.WriteLine("drag released");
-            //    if (hasOnDragReleaseFunction)
-            //        onDragRelease();
-            //}
             if (dragStarted&& clickStartedHere)
             {
                 if(hasonDragFromHereFunction)
@@ -179,6 +166,7 @@ namespace CrossPlatform.GameTop.UI
                 clickStartedHere = false;
             }
         }
+
         public void reset()
         {
             Screen.clickableChildren.Remove(this);

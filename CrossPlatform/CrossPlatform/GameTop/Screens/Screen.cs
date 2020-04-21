@@ -37,7 +37,7 @@ namespace CrossPlatform.GameTop
 
         //mouse info
 
-        Point mousePosition;
+        public Point mousePosition;
         bool leftClick;
         int scrollValue;
         public bool dragStarted;

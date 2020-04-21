@@ -13,7 +13,7 @@ namespace CrossPlatform.GameTop.Screens
 {
     class MapScreen: Screen
     {
-        public City SelectedCity { get { return selectedCity; } set { selectedCity = value; selectedArmyTile.SelectedArmy = (value != null) ?  value.StationedArmy :  null; selectedCityTile.SelectedCity = value; } }
+        public City SelectedCity { get { return selectedCity; } set { selectedCity = value; selectedArmyTile.SelectedArmy = (value != null) ?  value.GetStationedArmy() :  null; selectedCityTile.SelectedCity = value; } }
         private City selectedCity;
 
         //testing
@@ -44,19 +44,20 @@ namespace CrossPlatform.GameTop.Screens
             battleButton = new Button(this, Renderer, new Rectangle((int)(ScreenSize.Width * .75), (int)(ScreenSize.Height * .9), (int)(ScreenSize.Width * .25), (int)(ScreenSize.Height * .1)), "To Battle!");
             battleButton.setClick(() =>
             {
-                if (SelectedCity != null)
+                if (SelectedCity != null&&SelectedCity.GetCityOwner() != "Player")
                 {
-                    playerInfo.EnemyArmy = SelectedCity.StationedArmy;
+                    playerInfo.SelectedMap.SelectedCity = SelectedCity;
+                    playerInfo.EnemyArmy = SelectedCity.GetStationedArmy();
                     base.gameController.goToScreen(ScreenState.BattleScreenState);
                 }
                 return true;
             });
 
-            backButton = new Button(this, Renderer, new Rectangle(0, 0, 100, 100), "Back");
-            backButton.setClick(() => {
-                base.gameController.goToPreviousScreen();
-                return true;
-            });
+            //backButton = new Button(this, Renderer, new Rectangle(0, 0, 100, 100), "Back");
+            //backButton.setClick(() => {
+            //    base.gameController.goToPreviousScreen();
+            //    return true;
+            //});
 
 
 
