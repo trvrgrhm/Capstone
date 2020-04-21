@@ -31,7 +31,8 @@ namespace CrossPlatform.GameTop.Storage
                 SaveGame save = new SaveGame();
 
                 //generate and add wrappers
-                save.army = wrapperManager.generateArmyWrapper(Info.PlayerArmy);
+                save.army = wrapperManager.generateWrapperFromArmy(Info.PlayerArmy);
+                save.map = wrapperManager.generateWrapperFromMap(Info.SelectedMap);
 
                 //save game
                 IsolatedStorageFile isoFile;
@@ -74,10 +75,17 @@ namespace CrossPlatform.GameTop.Storage
                 using(isoStream = isoFile.OpenFile("PlayerData", FileMode.Open, FileAccess.ReadWrite))
                 {
                     SaveGame save = (SaveGame)Serializer.Deserialize(isoStream);
-                    ArmyInfo.Army temp = wrapperManager.generateArmyFromWrapper(save.army);
-                    if(temp.units.Count>0)
-                    Info.PlayerArmy = temp;
+                    ArmyInfo.Army tempArmy = wrapperManager.generateArmyFromWrapper(save.army);
+                    LevelInfo.CityMap tempMap = wrapperManager.generateMapFromWrapper(save.map);
+                    if (tempArmy.units.Count > 0)
+                    {
+                        Info.PlayerArmy = tempArmy;
+                        Info.SelectedMap = tempMap;
+                    }
+
                 }
+                isoFile.Close();
+                isoStream.Dispose();
 
             }
             catch (Exception e)
@@ -98,6 +106,7 @@ namespace CrossPlatform.GameTop.Storage
     public struct SaveGame
     {
         public ArmyWrapper army;
+        public MapWrapper map;
     }
 
     

@@ -1,4 +1,5 @@
 ﻿using CrossPlatform.GameTop.ArmyInfo;
+using CrossPlatform.GameTop.LevelInfo;
 using System;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ namespace CrossPlatform.GameTop.Storage
 {
     class WrapperManager
     {
-        public ArmyWrapper generateArmyWrapper(Army army)
+        public ArmyWrapper generateWrapperFromArmy(Army army)
         {
             ArmyWrapper wrapper = new ArmyWrapper();
             wrapper.squads = new List<SquadWrapper>();
@@ -65,6 +66,39 @@ namespace CrossPlatform.GameTop.Storage
             }
             return army;
         }
+
+        public MapWrapper generateWrapperFromMap(CityMap map)
+        {
+            MapWrapper wrapper = new MapWrapper();
+            wrapper.cities = new List<CityWrapper>();
+            foreach(City city in map.Cities)
+            {
+                wrapper.cities.Add(generateWrapperFromCity(city));
+            }
+            return wrapper;
+        }
+        public CityMap generateMapFromWrapper(MapWrapper wrapper)
+        {
+            CityMap map = new CityMap();
+            foreach(CityWrapper city in wrapper.cities)
+            {
+                Army tempArmy = generateArmyFromWrapper(city.army);
+                City temp = new City(map, new Microsoft.Xna.Framework.Point(city.xPosition, city.yPosition), city.name,tempArmy.Owner);
+                temp.SetStationedArmy(tempArmy);
+                //map.Cities.Add(temp);
+            }
+            return map;
+        }
+
+        public CityWrapper generateWrapperFromCity(City city)
+        {
+            CityWrapper wrapper = new CityWrapper();
+            wrapper.name = city.CityName;
+            wrapper.xPosition = city.MapLocation.X;
+            wrapper.yPosition = city.MapLocation.Y;
+            wrapper.army = generateWrapperFromArmy(city.GetStationedArmy());
+            return wrapper;
+        }
     }
 
     [Serializable]
@@ -86,4 +120,19 @@ namespace CrossPlatform.GameTop.Storage
     {
         public string type;
     }
+    [Serializable]
+    public struct MapWrapper
+    {
+        public List<CityWrapper> cities;
+    }
+    [Serializable]
+    public struct CityWrapper
+    {
+        public string name;
+        public int xPosition;
+        public int yPosition;
+        public ArmyWrapper army;
+    }
+
+
 }
