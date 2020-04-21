@@ -39,6 +39,7 @@ namespace CrossPlatform.GameTop.BattleLogic
         public bool battleOver;
 
         //for now
+        bool diedMessage = false;
 
         public BattlePuppet(Battle battle, Unit unit, int initialX, int initialY, Point initialDestination)
         {
@@ -56,7 +57,7 @@ namespace CrossPlatform.GameTop.BattleLogic
             HitBox = ImageBox;
             CurrentState = BattlePuppetState.Walking;
             Destination = initialDestination;
-            sightRange = 200;
+            sightRange = 250;
             battleOver = false;
             overridingTarget = false;
         }
@@ -80,7 +81,10 @@ namespace CrossPlatform.GameTop.BattleLogic
             {
                 if (CurrentState == BattlePuppetState.Dead)
                 {
+                    if(!diedMessage)
                     Console.WriteLine("character has completely died");
+
+                    diedMessage = true;
 
                 }
                 else if (CurrentState == BattlePuppetState.Dying)

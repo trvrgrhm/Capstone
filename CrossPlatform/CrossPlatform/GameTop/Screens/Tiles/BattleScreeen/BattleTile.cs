@@ -78,8 +78,18 @@ namespace CrossPlatform.GameTop.Tiles
         {
             foreach(CaptainBundle captainBundle in captains)
             {
-                captainBundle.captainButton.DragOrigin.changeLocation(captainBundle.puppetBundle.puppet.ImageBox.X, captainBundle.puppetBundle.puppet.ImageBox.Y);
+                if (!captainBundle.puppetBundle.puppet.isDead)
+                {
+
+                    captainBundle.captainButton.DragOrigin.changeLocation(captainBundle.puppetBundle.puppet.ImageBox.X, captainBundle.puppetBundle.puppet.ImageBox.Y);
+                }
+                else
+                {
+                    captainBundle.captainButton.destroy();
+                    captainBundle.removeMe = true;
+                }
             }
+            captains.RemoveAll(captain => captain.removeMe);
         }
         public void update()
         {
@@ -102,6 +112,7 @@ namespace CrossPlatform.GameTop.Tiles
     {
         public PuppetBundle puppetBundle;
         public DraggableElement captainButton;
+        public bool removeMe = false;
 
         public CaptainBundle(Screen screen, Renderer renderer, PuppetBundle bundle, BattlePuppetSquad squad)
         {
