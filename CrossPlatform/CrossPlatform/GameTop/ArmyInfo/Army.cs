@@ -99,7 +99,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
             //if unit is in army
             if(units.Contains(unit))
             {
-                //if squad doesn't exist, create one
+                //if squad doesn't exist, create one; this shouldn't happen though...
                 if(squad == null)
                 {
                     squad = new Squad(row,col);

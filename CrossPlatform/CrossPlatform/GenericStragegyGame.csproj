@@ -92,6 +92,8 @@
     <Compile Include="GameTop\Screens\Tiles\FormationScreen\SelectedSquadTile.cs" />
     <Compile Include="GameTop\Screens\Tiles\FormationScreen\UnitSelectorTile.cs" />
     <Compile Include="GameTop\Screens\Tiles\FormationScreen\SquadFormationTile.cs" />
+    <Compile Include="GameTop\Storage\WrapperManager.cs" />
+    <Compile Include="GameTop\Storage\StorageManager.cs" />
     <Compile Include="GameTop\UIElements\Button.cs" />
     <Compile Include="GameTop\UIElements\DraggableElement.cs" />
     <Compile Include="GameTop\UIElements\SliderElement.cs" />

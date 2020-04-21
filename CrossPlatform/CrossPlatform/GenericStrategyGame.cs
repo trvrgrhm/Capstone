@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using CrossPlatform.GameTop;
+using CrossPlatform.GameTop.Storage;
 
 namespace CrossPlatform
 {
@@ -15,6 +16,8 @@ namespace CrossPlatform
         ScreenController screenController;
         Renderer renderer;
         SoundController soundController;
+        PlayerInfo playerInfo;
+        StorageManager storageManager;
         
         public GenericStrategyGame()
         {
@@ -23,6 +26,10 @@ namespace CrossPlatform
             screenController = new ScreenController();
             renderer = new Renderer();
             soundController = new SoundController();
+
+            playerInfo = new PlayerInfo();
+
+            storageManager = new StorageManager(playerInfo);
         }
 
         /// <summary>
@@ -42,7 +49,7 @@ namespace CrossPlatform
 
             soundController.init(Content);
             soundController.loadContent();
-            screenController.init(renderer, soundController, new Rectangle(0,0,GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height));
+            screenController.init(renderer,playerInfo, storageManager, soundController, new Rectangle(0,0,GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height));
 
             Window.Title = "Generic Strategy Game";
 
