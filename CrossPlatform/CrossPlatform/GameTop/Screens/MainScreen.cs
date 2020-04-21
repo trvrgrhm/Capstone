@@ -10,9 +10,10 @@ namespace CrossPlatform.GameTop
 {
     class MainScreen: Screen
     {
-        public MainScreen(ScreenController controller, Renderer renderer, PlayerInfo playerInfo) : base(controller, renderer, playerInfo) { }
+        public MainScreen(ScreenController controller, Renderer renderer, SoundController soundController, PlayerInfo playerInfo) : base(controller, renderer, soundController, playerInfo) { }
 
         //testing
+        TextElement title;
         Button mapButton;
         Button armyButton;
         Button settingsButton;
@@ -27,19 +28,20 @@ namespace CrossPlatform.GameTop
 
 
             var midWidth = ScreenSize.Width / 2;
-
-            mapButton = new Button(this, Renderer, new Microsoft.Xna.Framework.Rectangle(0,(int)(ScreenSize.Height * .25),midWidth,100), "Map");
+            int numButtons = 4;
+            title = new TextElement(this, Renderer, new Microsoft.Xna.Framework.Rectangle(0, (ScreenSize.Height / numButtons) * 0, ScreenSize.Width, (ScreenSize.Height / numButtons)), "Generic Strategy Game");
+            mapButton = new Button(this, Renderer, new Microsoft.Xna.Framework.Rectangle(0, (ScreenSize.Height / numButtons) * 1, ScreenSize.Width, (ScreenSize.Height / numButtons)), "Map");
             mapButton.setClick(() => {
                 base.gameController.goToScreen(ScreenState.MapScreenState);
                 return true; });
 
-            armyButton = new Button(this, Renderer, new Microsoft.Xna.Framework.Rectangle(0, (int)(ScreenSize.Height * .5), midWidth,100), "Army");
+            armyButton = new Button(this, Renderer, new Microsoft.Xna.Framework.Rectangle(0, (ScreenSize.Height / numButtons) * 2, ScreenSize.Width, (ScreenSize.Height / numButtons)), "Army");
             armyButton.setClick(() => {
                 base.gameController.goToScreen(ScreenState.ArmyScreenState);
                 return true;
             });
 
-            settingsButton = new Button(this, Renderer, new Microsoft.Xna.Framework.Rectangle(0, (int)(ScreenSize.Height * .75), midWidth, 100), "Settings");
+            settingsButton = new Button(this, Renderer, new Microsoft.Xna.Framework.Rectangle(0, (ScreenSize.Height / numButtons) * 3, ScreenSize.Width, (ScreenSize.Height / numButtons)), "Settings");
             settingsButton.setClick(() => {
                 base.gameController.goToScreen(ScreenState.SettingScreenState);
                 return true;
@@ -47,6 +49,7 @@ namespace CrossPlatform.GameTop
 
 
 
+            soundController.playSong("MagicalTheme");
 
 
         }

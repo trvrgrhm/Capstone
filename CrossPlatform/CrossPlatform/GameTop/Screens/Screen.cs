@@ -7,6 +7,7 @@ using CrossPlatform.GameTop.Interfaces;
 using CrossPlatform.GameTop.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace CrossPlatform.GameTop
 {
@@ -27,21 +28,27 @@ namespace CrossPlatform.GameTop
         public Rectangle screenSize;
 
         public Renderer Renderer { get; set; }
+        public SoundController soundController { get; set; }
         public Rectangle ScreenSize { get => screenSize; set => screenSize = value; }
+
+
+        //public Song backgroundMusic;
+        public bool playClickSound;
 
         //mouse info
 
-        Point mousePosition;
+        public Point mousePosition;
         bool leftClick;
         int scrollValue;
         public bool dragStarted;
 
 
-        public Screen(ScreenController controller, Renderer renderer,PlayerInfo playerInfo)
+        public Screen(ScreenController controller, Renderer renderer, SoundController soundController, PlayerInfo playerInfo)
         {
             this.gameController = controller;
             this.Renderer = renderer;
             this.playerInfo = playerInfo;
+            this.soundController = soundController;
 
             //children
             renderableChildren = new List<IRenderable>();
@@ -103,6 +110,12 @@ namespace CrossPlatform.GameTop
             foreach(IUpdatable child in updatableChildren)
             {
                 child.update();
+            }
+            if (playClickSound)
+            {
+                soundController.playSound("clickSound");
+
+                playClickSound = false;
             }
 
         }

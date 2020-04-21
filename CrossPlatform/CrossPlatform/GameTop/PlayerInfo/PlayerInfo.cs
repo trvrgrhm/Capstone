@@ -15,18 +15,12 @@ namespace CrossPlatform.GameTop
         public Army EnemyArmy { get; set; }
         //settings?
 
-        public PlayerInfo() : this(new Army(), new CityMap())
+        public PlayerInfo() : this(new Army("Player"), new CityMap())
         {
             Unit firstUnit = new Unit();
-            Unit special = new Unit();
-            special.Type = UnitType.Miku;
-            special.Picture = TextureName.MikuWarrior;
-            special.MaxHealth += 50;
-            special.Attack += 10;
-            special.AttackSpeed += 1;
             PlayerArmy.addUnit(firstUnit);
-            PlayerArmy.addUnit(special);
-            for(int i = 0;i < 10; i++)
+            PlayerArmy.addUnit(new Unit(UnitType.Miku));
+            for (int i = 0;i < 10; i++)
             {
                 PlayerArmy.addUnit(new Unit());
             }
@@ -37,6 +31,22 @@ namespace CrossPlatform.GameTop
             PlayerArmy = playerArmy;
             SelectedMap = cityMap;
             EnemyArmy = null;
+        }
+
+        public void resetGame()
+        {
+            PlayerArmy = new Army("Player");
+            SelectedMap = new CityMap();
+            EnemyArmy = null;
+
+            Unit firstUnit = new Unit();
+            PlayerArmy.addUnit(firstUnit);
+            PlayerArmy.addUnit(new Unit(UnitType.Miku));
+            for (int i = 0; i < 10; i++)
+            {
+                PlayerArmy.addUnit(new Unit());
+            }
+            PlayerArmy.squads[0, 0].addUnit(0, firstUnit);
         }
     }
 }

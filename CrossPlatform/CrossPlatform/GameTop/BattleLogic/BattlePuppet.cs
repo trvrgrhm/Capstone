@@ -10,6 +10,7 @@ namespace CrossPlatform.GameTop.BattleLogic
 {
     class BattlePuppet
     {
+        Battle battle;
         public Unit Unit { get; set; }
         public Rectangle ImageBox { get; set; }
         public Rectangle HitBox { get; set; }
@@ -23,19 +24,26 @@ namespace CrossPlatform.GameTop.BattleLogic
         public int CurrentHealth { get; set; }
         public bool isDead;
         public int CurrentDamageReceived { get; set; }
+        public List<BattlePuppet> Enemies { get; set; }
         public List<BattlePuppet> BattleTargets { get; set; }
+        //public BattlePuppet CurrentTarget { get; set; }
         public BattlePuppetState CurrentState { get; set; }
         public int sightRange;
+
+        bool overridingTarget;
 
         //delays
         public int dyingDelay;
         public int attackDelay;
         public int idleDelay;
+        public bool battleOver;
 
         //for now
+        bool diedMessage = false;
 
-        public BattlePuppet(Unit unit, int initialX, int initialY, Point initialDestination)
+        public BattlePuppet(Battle battle, Unit unit, int initialX, int initialY, Point initialDestination)
         {
+            this.battle = battle;
             Unit = unit;
             CurrentHealth = unit.MaxHealth;
             isDead = false;
@@ -44,11 +52,14 @@ namespace CrossPlatform.GameTop.BattleLogic
             CurrentDX = 0;
             CurrentDY = 0;
             BattleTargets = new List<BattlePuppet>();
+            Enemies = new List<BattlePuppet>();
             ImageBox = new Rectangle(initialX, initialY, Unit.Size*5, Unit.Size*5);
             HitBox = ImageBox;
             CurrentState = BattlePuppetState.Walking;
             Destination = initialDestination;
-            sightRange = 200;
+            sightRange = 250;
+            battleOver = false;
+            overridingTarget = false;
         }
         //other things can request this puppet to take damage
         public void dealDamage(int amount)
@@ -64,70 +75,85 @@ namespace CrossPlatform.GameTop.BattleLogic
             }
         }
 
-        
-
         public void update()
         {
-            if (CurrentState == BattlePuppetState.Dead)
+            if (!battleOver)
             {
-                
+                if (CurrentState == BattlePuppetState.Dead)
+                {
+                    if(!diedMessage)
+                    Console.WriteLine("character has completely died");
+
+                    diedMessage = true;
+
+                }
+                else if (CurrentState == BattlePuppetState.Dying)
+                {
+                    if (dyingDelay == 0)
+                    {
+                        CurrentState = BattlePuppetState.Dead;
+                    }
+                    else
+                    {
+                        dyingDelay--;
+                    }
+                }
+                else if (CurrentState == BattlePuppetState.Walking)
+                {
+                    if (inRangeOfTarget())
+                    {
+                        beginAttackState();
+                    }
+                    else
+                    {
+                        updateTarget();
+                        move();
+                    }
+                    damageSelf();
+                    checkDeath();
+                }
+                else if (CurrentState == BattlePuppetState.Idle)
+                {
+                    if (inRangeOfTarget() && idleDelay == 0)
+                    {
+                        beginAttackState();
+                    }
+                    else
+                    {
+                        idleDelay--;
+                    }
+                    damageSelf();
+                    checkDeath();
+                }
+                else if (CurrentState == BattlePuppetState.Attacking)
+                {
+                    if (attackDelay == 0)
+                    {
+                        beginIdleState();
+                    }
+                    else
+                    {
+                        attackDelay--;
+                    }
+                    damageSelf();
+                    checkDeath();
+                }
             }
-            else if (CurrentState == BattlePuppetState.Dying)
+            if (battleOver)
             {
-                if (dyingDelay == 0)
-                {
-                    CurrentState = BattlePuppetState.Dead;
-                }
-            }
-            else if (CurrentState == BattlePuppetState.Walking)
-            {
-                if (inRangeOfTarget())
-                {
-                    beginAttackState();
-                }
-                else
-                {
-                    updateTarget();
-                    move();
-                }
-                damageSelf();
-                checkDeath();
-            }
-            else if (CurrentState == BattlePuppetState.Idle)
-            {
-                if(inRangeOfTarget() && idleDelay == 0)
-                {
-                    beginAttackState();
-                }
-                else
-                {
-                    idleDelay--;
-                }
-                damageSelf();
-                checkDeath();
-            }
-            else if (CurrentState == BattlePuppetState.Attacking)
-            {
-                if(attackDelay == 0)
-                {
-                    beginIdleState();
-                }
-                else
-                {
-                    attackDelay--;
-                }
-                damageSelf();
-                checkDeath();
+                battle.battleOver = true;
             }
         }
         void beginIdleState()
         {
+            Console.WriteLine("beginning idle state");
             CurrentState = BattlePuppetState.Idle;
             //TODO: augment by attack speed
             idleDelay = 10;
         }
         void beginAttackState()
         {
+            Console.WriteLine("beginning attack state");
             damageEnemy();
             CurrentState = BattlePuppetState.Attacking;
             attackDelay = 5;
@@ -135,17 +161,28 @@ namespace CrossPlatform.GameTop.BattleLogic
         }
         void beginDyingState()
         {
+            Console.WriteLine("beginning dying state");
+            CurrentState = BattlePuppetState.Dying;
             dyingDelay = 10;
             //TODO: augment by animation
         }
+        //if target is in hitting range
         bool inRangeOfTarget()
         {
+            //remove dead or out of range targets
+            BattleTargets.RemoveAll(target => target.isDead || target.distance(HitBox.Center) > sightRange);
+            BattleTargets.OrderBy(target => target.distance(HitBox.Center));
+
             if (BattleTargets.Count >0)
             {
                 if (distance(BattleTargets[0].HitBox.Center) <= Unit.Range)
                 {
                     return true;
                 }
+            }
+            else
+            {
+                CurrentState = BattlePuppetState.Walking;
             }
             return false;
         }
@@ -159,8 +196,9 @@ namespace CrossPlatform.GameTop.BattleLogic
         void damageEnemy()
         {
             //damage as many enemies in range as possible
-            int counter = Unit.MaxTargets;
-            foreach (BattlePuppet target in BattleTargets) {
+                int counter = Unit.MaxTargets;
+            foreach (BattlePuppet target in BattleTargets)
+            {
                 if (counter >= 0)
                 {
                     target.dealDamage(Unit.Attack);
@@ -182,23 +220,67 @@ namespace CrossPlatform.GameTop.BattleLogic
         }
         void updateTarget()
         {
-            //remove dead or out of range targets
-            BattleTargets.RemoveAll(target => target.isDead || target.distance(HitBox.Center) > sightRange);
-            if(BattleTargets.Count > 0)
+            if (overridingTarget)
             {
-                //target first target
-                Destination = BattleTargets[0].HitBox.Center;
+                if (distance(Destination)<=10)
+                {
+                    //successfully reached target;
+                    overridingTarget = false;
+                }
+            }
+            else
+            {
+                //remove dead or out of range targets
+                BattleTargets.RemoveAll(target => target.isDead || target.distance(HitBox.Center) > sightRange);
+                BattleTargets.OrderBy(target => target.distance(HitBox.Center));
+                if (BattleTargets.Count > 0)
+                {
+                    //target nearest target
+                    Destination = BattleTargets[0].HitBox.Center;
+                }
+                else
+                {
+                    Enemies.RemoveAll(target => target.isDead);
+                    if (Enemies.Count > 0)
+                    {
+                        Enemies.OrderBy(target => target.distance(HitBox.Center));
+                        //Destination = Enemies[0].HitBox.Center;
+                        foreach (BattlePuppet enemy in Enemies)
+                        {
+                            checkTarget(enemy);
+                        }
+                    }
+                    else
+                    {
+                        //no enemies, hoooraaaay!!
+                        CurrentState = BattlePuppetState.Idle;
+                        battleOver = true;
+
+                        //Destination = HitBox.Center;
+                    }
+                }
             }
         }
         void move()
         {
             //adjust velocity toward destination
-            CurrentDX = (int)((1.0 *(Unit.MoveSpeed) / distance(Destination)) * (Destination.X - HitBox.Center.X));
-            CurrentDY = (int)((1.0*(Unit.MoveSpeed) / distance(Destination)) * (Destination.Y - HitBox.Center.Y));
-            CurrentX += CurrentDX;
-            CurrentY += CurrentDY;
-            ImageBox = new Rectangle(ImageBox.X + CurrentDX, ImageBox.Y + CurrentDY, ImageBox.Width, ImageBox.Height);
-            HitBox = new Rectangle(HitBox.X + CurrentDX, HitBox.Y + CurrentDY, HitBox.Width, ImageBox.Height);
+            if (!(distance(Destination) <= 5))
+            {
+                CurrentDX = (int)((1.0 * (Unit.MoveSpeed) / distance(Destination)) * (Destination.X - HitBox.Center.X));
+                CurrentDY = (int)((1.0 * (Unit.MoveSpeed) / distance(Destination)) * (Destination.Y - HitBox.Center.Y));
+                CurrentX += CurrentDX;
+                CurrentY += CurrentDY;
+                ImageBox = new Rectangle(ImageBox.X + CurrentDX, ImageBox.Y + CurrentDY, ImageBox.Width, ImageBox.Height);
+                HitBox = new Rectangle(HitBox.X + CurrentDX, HitBox.Y + CurrentDY, HitBox.Width, ImageBox.Height);
+            }
+        }
+
+        public void overrideTarget(Point targetPosition)
+        {
+            overridingTarget = true;
+            BattleTargets.Clear();
+            CurrentState = BattlePuppetState.Walking;
+            Destination = targetPosition;
         }
 
     }

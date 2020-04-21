@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CrossPlatform.GameTop.Interfaces;
 using CrossPlatform.GameTop.Screens;
+using CrossPlatform.GameTop.Storage;
 using Microsoft.Xna.Framework;
 
 namespace CrossPlatform.GameTop
@@ -14,30 +15,36 @@ namespace CrossPlatform.GameTop
         private ScreenState previousScreen;
         private ScreenState currentScreen;
         private Dictionary <ScreenState,Screen> screens;
-        private Renderer renderer;
         private Rectangle ScreenSize { get; set; }
+        //potentially get rid of things that screencontroller doesn't need...
+        private Renderer renderer;
+        private SoundController soundController;
 
         public PlayerInfo playerInfo { get; set; }
+        public StorageManager storageManager { get; set; }
 
-        public void init(Renderer renderer, Rectangle screenSize)
+        public void init(Renderer renderer, PlayerInfo playerInfo,StorageManager storageManager, SoundController soundController,Rectangle screenSize)
         {
             //will eventually get this from save data
-            playerInfo = new PlayerInfo();
+            this.playerInfo = playerInfo;
+            this.storageManager = storageManager;
 
             ScreenSize = screenSize;
 
             this.renderer = renderer;
+            this.soundController = soundController;
+
             screens = new Dictionary<ScreenState, Screen>();
             //main screen
-            screens.Add(ScreenState.MainScreenState, new MainScreen(this,this.renderer,this.playerInfo));
+            screens.Add(ScreenState.MainScreenState, new MainScreen(this,this.renderer, this.soundController, this.playerInfo));
             //map screen
-            screens.Add(ScreenState.MapScreenState, new MapScreen(this,this.renderer,this.playerInfo));
+            screens.Add(ScreenState.MapScreenState, new MapScreen(this, this.renderer, this.soundController, this.playerInfo));
             //army screen
-            screens.Add(ScreenState.ArmyScreenState, new ArmyScreen(this,this.renderer,this.playerInfo));
+            screens.Add(ScreenState.ArmyScreenState, new ArmyScreen(this, this.renderer, this.soundController, this.playerInfo));
             //battle screen
-            screens.Add(ScreenState.BattleScreenState, new BattleScreen(this,this.renderer,this.playerInfo));
+            screens.Add(ScreenState.BattleScreenState, new BattleScreen(this, this.renderer, this.soundController, this.playerInfo));
             //setting screen
-            screens.Add(ScreenState.SettingScreenState, new SettingScreen(this,this.renderer,this.playerInfo));
+            screens.Add(ScreenState.SettingScreenState, new SettingScreen(this, this.renderer, this.soundController, this.playerInfo,this.storageManager));
 
 
             goToScreen(ScreenState.MainScreenState);

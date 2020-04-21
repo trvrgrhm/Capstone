@@ -8,11 +8,13 @@ namespace CrossPlatform.GameTop.ArmyInfo
 {
     class Army
     {
+        public String Owner { get; set; }
         public Squad[,] squads;
         public List<Unit> units;
 
-        public Army()
+        public Army(string owner)
         {
+            Owner = owner;
             squads = new Squad[4,4];
             for(int i = 0;i < 4; i++)
             {
@@ -23,40 +25,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
             }
             units = new List<Unit>();
         }
-
-        //public void addSquad(int row, int col, Squad squad)
-        //{
-        //    if (squads[row, col] == null)
-        //    {
-        //        squads[row, col] = squad;
-        //        squad.Row = row;
-        //        squad.Column = col;
-        //        Console.WriteLine("[Army] A squad was placed at " + row + "," + col + "!");
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("[Army] Squads must be removed from a spot before a new one can be placed!");
-        //        return;
-        //    }
-        //}
-
-        //public void removeSquad(int row, int col)
-        //{
-        //    if (squads[row, col] == null)
-        //    {
-        //        Console.WriteLine("[Army] There is no squad to remove!");
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        squads[row, col].removeAllUnits();
-        //        squads[row, col] = null;
-        //        Console.WriteLine("[Army] A squad was removed at "+row+","+col+"!");
-        //        return;
-        //    }
-        //}
-        
+                
         private void swapSquads(ref Squad squad1, ref Squad squad2)
         {
             //TODO check this...
@@ -97,7 +66,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
             //if unit is in army
             if(units.Contains(unit))
             {
-                //if squad doesn't exist, create one
+                //if squad doesn't exist, create one; this shouldn't happen though...
                 if(squad == null)
                 {
                     squad = new Squad(row,col);
@@ -147,14 +116,76 @@ namespace CrossPlatform.GameTop.ArmyInfo
             return false;
         }
 
-        public void addUnit(Unit unit)
+        public bool removeUnitFromSquad(Unit unit, Squad squad)
         {
-            units.Add(unit);
+            if (squad.containsUnit(unit))
+            {
+                return removeUnitFromSquad(unit.SquadPosition, squad);
+            }
+            return false;
         }
 
-        public void remove(Unit unit)
+
+        public Unit removeRandomUnitFromArmy()
         {
-            units.Remove(unit);
+            Random rnd = new Random();
+            Unit chosenUnit = units[rnd.Next(units.Count)];
+            if (removeUnitFromArmy(chosenUnit))
+            {
+                Console.WriteLine("successfully removed a random unit");
+                return chosenUnit;
+            }
+            chosenUnit = units[0];
+            if (removeUnitFromArmy(chosenUnit))
+            {
+                Console.WriteLine("successfully removed a random unit");
+                return chosenUnit;
+            }
+            Console.WriteLine("failed to remove a random unit");
+            return null;
+            
+
+        }
+
+
+        public void addUnit(Unit unit)
+        {
+            if (unit != null)
+            {
+                units.Add(unit);
+            }
+        }
+
+        private bool removeUnitFromArmy(Unit unit)
+        {
+            if (containsUnit(unit))
+            {
+                foreach (Squad squad in squads)
+                {
+                    if (squad.containsUnit(unit))
+                    {
+                        if (removeUnitFromSquad(unit, squad))
+                        {
+                            units.Remove(unit);
+                            return true;
+                        }
+                    }
+                }
+                units.Remove(unit);
+                return true;
+            }
+            return false;
+        }
+        public bool containsUnit(Unit unit)
+        {
+            foreach(Unit unitCheck in units)
+            {
+                if(unit == unitCheck)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
