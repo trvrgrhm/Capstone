@@ -22,6 +22,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
         public int MaxTargets { get; set; }
         public int Size { get; set; }
         public string Name { get; set; }
+        public int Level { get; set; }
 
         //custom unit; pretty much just for testing
         public Unit(UnitType type, TextureName picture, int health, int attack, int defense, int attackSpeed, int moveSpeed, int range, int maxTargets)
@@ -190,6 +191,7 @@ namespace CrossPlatform.GameTop.ArmyInfo
             Picture = picture;
             Size = 7;
             Name = type.ToString();
+            Level = 1;
         }
     }
 
