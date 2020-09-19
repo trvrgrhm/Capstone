@@ -59,6 +59,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GameTop\BattleLogic\BattlePuppetSquad.cs" />
+    <Compile Include="GameTop\AnimationController.cs" />
     <Compile Include="GenericStrategyGame.cs" />
     <Compile Include="GameTop\ArmyInfo\Army.cs" />
     <Compile Include="GameTop\ArmyInfo\Unit.cs" />
@@ -108,6 +109,15 @@
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="SpriterDotNet">
+      <HintPath>Lib\SpriterDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="SpriterDotNet.MonoGame">
+      <HintPath>Lib\SpriterDotNet.MonoGame.dll</HintPath>
+    </Reference>
+    <Reference Include="SpriterDotNet.MonoGame.Importer">
+      <HintPath>Lib\SpriterDotNet.MonoGame.Importer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
