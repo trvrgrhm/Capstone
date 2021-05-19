@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrossPlatform.GameTop
+namespace GenericStrategyGame.GameTop
 {
     class AnimationController
     {
@@ -30,11 +30,11 @@ namespace CrossPlatform.GameTop
         }
         public void loadContent()
         {
-            foreach (EnumType type in UnitType)
-            {
+            //foreach (EnumType type in UnitType)
+            //{
 
-            }
-            Enum.
+            //}
+            //Enum.
 
 
                 //for testing

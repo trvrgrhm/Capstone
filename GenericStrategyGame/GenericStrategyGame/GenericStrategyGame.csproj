@@ -26,5 +26,8 @@
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
+    <PackageReference Include="SpriterDotNet" Version="1.6.1" />
+    <PackageReference Include="SpriterDotNet.MonoGame" Version="1.6.1" />
+    <PackageReference Include="SpriterDotNet.MonoGame.Importer" Version="1.6.1" />
   </ItemGroup>
 </Project>
